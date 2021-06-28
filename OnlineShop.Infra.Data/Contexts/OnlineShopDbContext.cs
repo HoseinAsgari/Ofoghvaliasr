@@ -19,5 +19,6 @@ namespace OnlineShop.Infra.Data.Contexts
         public DbSet<User> Users { get; set; }
         public DbSet<CartItem> CartItems { get; set; }
         public DbSet<Product> Products { get; set; }
+        public DbSet<Category> Categories { get; set; }
     }
 }
