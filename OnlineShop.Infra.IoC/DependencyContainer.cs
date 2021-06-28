@@ -1,7 +1,8 @@
 ﻿using Microsoft.Extensions.DependencyInjection;
+using OnlineShop.Application.Interfaces;
+using OnlineShop.Application.Services;
 using OnlineShop.Domain.Interfaces;
 using OnlineShop.Infra.Data.Repositories;
-using System;
 
 namespace OnlineShop.Infra.IoC
 {
@@ -15,7 +16,7 @@ namespace OnlineShop.Infra.IoC
             services.AddScoped<IProductRepository, ProductRepository>();
             services.AddScoped<ICategoryRepository, CategoryRepository>();
 
-
+            services.AddScoped<IProductService, ProductService>();
         }
     }
 }

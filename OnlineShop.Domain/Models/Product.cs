@@ -13,6 +13,7 @@ namespace OnlineShop.Domain.Models
         [MaxLength(500)]
         [Required]
         public string UnitOfProduct { get; set; }
+        public uint BoughtCount { get; set; }
 
         public List<CartItem> CartItems { get; set; }
         public Category Category { get; set; }
