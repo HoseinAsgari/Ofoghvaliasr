@@ -1,9 +1,13 @@
+using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpsPolicy;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using OnlineShop.Infra.Data.Contexts;
+using OnlineShop.Infra.IoC;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -24,6 +28,9 @@ namespace OnlineShop
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddControllersWithViews();
+            DependencyContainer.RegisterServices(services);
+            RegisterContexts(services);
+            RegisterAuthentication(services);
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -44,6 +51,7 @@ namespace OnlineShop
 
             app.UseRouting();
 
+            app.UseAuthentication();
             app.UseAuthorization();
 
             app.UseEndpoints(endpoints =>
@@ -51,6 +59,29 @@ namespace OnlineShop
                 endpoints.MapControllerRoute(
                     name: "default",
                     pattern: "{controller=Home}/{action=Index}/{id?}");
+            });
+        }
+
+        private void RegisterContexts(IServiceCollection services)
+        {
+            services.AddDbContext<OnlineShopDbContext>(opts =>
+            {
+                opts.UseSqlServer(Configuration.GetConnectionString("OnlineShopDbConnection"));
+            });
+        }
+
+        private static void RegisterAuthentication(IServiceCollection services)
+        {
+            services.AddAuthentication(options =>
+            {
+                options.DefaultAuthenticateScheme = CookieAuthenticationDefaults.AuthenticationScheme;
+                options.DefaultChallengeScheme = CookieAuthenticationDefaults.AuthenticationScheme;
+                options.DefaultSignInScheme = CookieAuthenticationDefaults.AuthenticationScheme;
+            }).AddCookie(options =>
+            {
+                options.LoginPath = "/Account/LogIn";
+                options.LogoutPath = "/Account/LogOut";
+                options.ExpireTimeSpan = TimeSpan.FromDays(10);
             });
         }
     }
