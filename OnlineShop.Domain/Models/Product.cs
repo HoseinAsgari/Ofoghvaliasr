@@ -15,5 +15,6 @@ namespace OnlineShop.Domain.Models
         public string UnitOfProduct { get; set; }
 
         public List<CartItem> CartItems { get; set; }
+        public Category Category { get; set; }
     }
 }
