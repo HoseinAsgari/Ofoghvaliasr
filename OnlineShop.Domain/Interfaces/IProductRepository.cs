@@ -6,7 +6,7 @@ namespace OnlineShop.Domain.Interfaces
 {
     public interface IProductRepository
     {
-        IQueryable GetAllProducts();
+        IQueryable<Product> GetAllProducts();
         Task<bool> AddProduct(Product product);
         Task<bool> GetProduct(int id);
         void UpdateProduct(Product product);

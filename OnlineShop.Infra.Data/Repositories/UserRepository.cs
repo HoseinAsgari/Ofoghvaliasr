@@ -20,7 +20,7 @@ namespace OnlineShop.Infra.Data.Repositories
             return true;
         }
 
-        public IQueryable GetAllUsers()
+        public IQueryable<User> GetAllUsers()
         {
             return _dbContext.Users;
         }

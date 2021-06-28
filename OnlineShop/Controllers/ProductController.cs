@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using OnlineShop.Application.Interfaces;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -8,15 +9,12 @@ namespace OnlineShop.Controllers
 {
     public class ProductController : Controller
     {
-        IProductService _productService;
+        readonly IProductService _productService;
         public ProductController(IProductService productService)
         {
             _productService = productService;
         }
 
-        public async Task<IActionResult> ShowCategories()
-        {
-            return View();
-        }
+        
     }
 }

@@ -1,4 +1,5 @@
-﻿using OnlineShop.Domain.Interfaces;
+﻿using Microsoft.EntityFrameworkCore;
+using OnlineShop.Domain.Interfaces;
 using OnlineShop.Domain.Models;
 using OnlineShop.Infra.Data.Contexts;
 using System.Linq;
@@ -20,9 +21,9 @@ namespace OnlineShop.Infra.Data.Repositories
             return true;
         }
 
-        public IQueryable GetAllCategories()
+        public IQueryable<Category> GetAllCategories()
         {
-            return _dbContext.Categories;
+            return _dbContext.Categories.Include(n => n.Products).ThenInclude(n => n.Category);
         }
 
         public async Task<bool> GetCategory(int id)

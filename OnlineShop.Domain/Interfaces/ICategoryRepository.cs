@@ -6,7 +6,7 @@ namespace OnlineShop.Domain.Interfaces
 {
     public interface ICategoryRepository
     {
-        IQueryable GetAllCategories();
+        IQueryable<Category> GetAllCategories();
         Task<bool> AddCategory(Category category);
         Task<bool> GetCategory(int id);
         void UpdateCategory(Category category);

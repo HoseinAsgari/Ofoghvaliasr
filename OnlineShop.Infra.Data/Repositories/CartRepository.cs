@@ -20,7 +20,7 @@ namespace OnlineShop.Infra.Data.Repositories
             return true;
         }
 
-        public IQueryable GetAllCarts()
+        public IQueryable<Cart> GetAllCarts()
         {
             return _dbContext.Carts;
         }

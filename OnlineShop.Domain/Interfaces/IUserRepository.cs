@@ -6,7 +6,7 @@ namespace OnlineShop.Domain.Interfaces
 {
     public interface IUserRepository
     {
-        IQueryable GetAllUsers();
+        IQueryable<User> GetAllUsers();
         Task<bool> AddUser(User user);
         Task<bool> GetUser(int id);
         void UpdateUser(User user);

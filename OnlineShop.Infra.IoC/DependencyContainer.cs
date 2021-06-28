@@ -17,6 +17,7 @@ namespace OnlineShop.Infra.IoC
             services.AddScoped<ICategoryRepository, CategoryRepository>();
 
             services.AddScoped<IProductService, ProductService>();
+            services.AddScoped<ICategoryService, CategoryService>();
         }
     }
 }

@@ -20,7 +20,7 @@ namespace OnlineShop.Infra.Data.Repositories
             return true;
         }
 
-        public IQueryable GetAllProducts()
+        public IQueryable<Product> GetAllProducts()
         {
             return _dbContext.Products;
         }

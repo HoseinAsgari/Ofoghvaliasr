@@ -6,7 +6,7 @@ namespace OnlineShop.Domain.Interfaces
 {
     public interface ICartRepository
     {
-        IQueryable GetAllCarts();
+        IQueryable<Cart> GetAllCarts();
         Task<bool> AddCart(Cart cart);
         Task<bool> GetCart(int id);
         void UpdateCart(Cart cart);
