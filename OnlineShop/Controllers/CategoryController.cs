@@ -1,9 +1,11 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using OnlineShop.Application.Interfaces;
 using System.Threading.Tasks;
 
 namespace OnlineShop.Controllers
 {
+    [Authorize]
     public class CategoryController : Controller
     {
         readonly ICategoryService _categoryService;

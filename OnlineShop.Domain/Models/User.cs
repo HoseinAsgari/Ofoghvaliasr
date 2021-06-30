@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace OnlineShop.Domain.Models
 {
@@ -27,6 +28,7 @@ namespace OnlineShop.Domain.Models
         public bool Banned { get; set; }
         public DateTime DateSignedIn { get; set; }
 
-        public List<Cart> Carts { get; set; }
+        public Cart Cart { get; set; }
+        public int CartId { get; set; }
     }
 }

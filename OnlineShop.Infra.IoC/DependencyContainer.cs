@@ -1,4 +1,5 @@
 ﻿using Microsoft.Extensions.DependencyInjection;
+using OnlineShop.Application.Helpers.MessageHelper;
 using OnlineShop.Application.Interfaces;
 using OnlineShop.Application.Services;
 using OnlineShop.Domain.Interfaces;
@@ -18,6 +19,9 @@ namespace OnlineShop.Infra.IoC
 
             services.AddScoped<IProductService, ProductService>();
             services.AddScoped<ICategoryService, CategoryService>();
+            services.AddScoped<IAccountService, AccountService>();
+
+            services.AddScoped<IMailSender, GmailSMTPSender>();
         }
     }
 }
