@@ -21,7 +21,8 @@ namespace OnlineShop.Application.Services
         {
             return Task.FromResult(_categoryRepository.GetAllCategories().Select(n => new ShowCategories()
             {
-                CategoryName = n.CategoryName
+                CategoryName = n.CategoryName,
+                CategoryThumbnail = n.ThumbnailFileName
             }).ToList());
         }
 
@@ -31,7 +32,8 @@ namespace OnlineShop.Application.Services
             {
                 ProductName = n.ProductName,
                 ProductPrice = n.ProductPrice,
-                UnitOfProduct = n.UnitOfProduct
+                UnitOfProduct = n.UnitOfProduct,
+                ProductThumbnail = n.ThumbnailFileName
             }).ToList();
         }
     }

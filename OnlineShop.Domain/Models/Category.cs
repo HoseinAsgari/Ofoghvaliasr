@@ -10,6 +10,7 @@ namespace OnlineShop.Domain.Models
         [MaxLength(500)]
         [Required]
         public string CategoryName { get; set; }
+        public string ThumbnailFileName { get; set; }
 
         public List<Product> Products { get; set; }
     }

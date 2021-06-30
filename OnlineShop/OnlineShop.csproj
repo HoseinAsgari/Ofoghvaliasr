@@ -17,4 +17,9 @@
     <ProjectReference Include="..\OnlineShop.Infra.IoC\OnlineShop.Infra.IoC.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="wwwroot\Resources\Pics\CategoryThumbnail\" />
+    <Folder Include="wwwroot\Resources\Pics\ProductThumbnail\" />
+  </ItemGroup>
+
 </Project>

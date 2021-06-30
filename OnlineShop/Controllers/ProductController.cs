@@ -1,8 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using OnlineShop.Application.Interfaces;
-using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Threading.Tasks;
 
 namespace OnlineShop.Controllers
@@ -15,6 +12,11 @@ namespace OnlineShop.Controllers
             _productService = productService;
         }
 
-        
+        [HttpGet("/Product/{productNumber}")]
+        public async Task<IActionResult> ShowProduct(int productNumber)
+        {
+            var model = await _productService.GetProduct(productNumber);
+            return View(model);
+        }
     }
 }

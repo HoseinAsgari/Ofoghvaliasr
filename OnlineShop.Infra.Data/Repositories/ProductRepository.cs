@@ -25,10 +25,9 @@ namespace OnlineShop.Infra.Data.Repositories
             return _dbContext.Products;
         }
 
-        public async Task<bool> GetProduct(int id)
+        public async Task<Product> GetProduct(int id)
         {
-            await _dbContext.Products.FindAsync(id);
-            return true;
+            return await _dbContext.Products.FindAsync(id);;
         }
 
         public void RemoveProduct(Product product)

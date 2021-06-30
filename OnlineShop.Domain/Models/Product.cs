@@ -14,6 +14,7 @@ namespace OnlineShop.Domain.Models
         [Required]
         public string UnitOfProduct { get; set; }
         public uint BoughtCount { get; set; }
+        public string ThumbnailFileName { get; set; }
 
         public List<CartItem> CartItems { get; set; }
         public Category Category { get; set; }
