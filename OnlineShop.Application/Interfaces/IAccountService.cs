@@ -9,7 +9,7 @@ namespace OnlineShop.Application.Interfaces
 {
     public interface IAccountService
     {
-        Task<bool> SignIn(SignInViewModel signInViewModel);
+        Task<bool> SignIn(SignInViewModel signInViewModel, string domainName);
         Task<bool> LogIn(LogInViewModel logInViewModel);
         Task<bool> EmailExists(string email);
         Task<bool> IsAdminByEmail(string userEmail);

@@ -40,7 +40,7 @@ namespace OnlineShop.Controllers
                 });
             }
 
-            if (await _accountService.SignIn(model))
+            if (await _accountService.SignIn(model, HttpContext.Request.Host.Host))
             {
                 await SetUserAuthenticationCookies(model);
                 return Redirect("/");

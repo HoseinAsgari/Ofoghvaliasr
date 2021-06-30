@@ -1,4 +1,5 @@
 ﻿using OnlineShop.Application.ViewModels.Product;
+using OnlineShop.Application.ViewModels.Shared;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 
@@ -8,5 +9,6 @@ namespace OnlineShop.Application.Interfaces
     {
         Task<ShowProductViewModel> GetProduct(int productNumber, string userEmail);
         Task<bool> OrderProduct(int productNumber, string email);
+        Task<ShowIndexViewModel> GetIndexModel();
     }
 }

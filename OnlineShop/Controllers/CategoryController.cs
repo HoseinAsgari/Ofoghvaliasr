@@ -21,7 +21,7 @@ namespace OnlineShop.Controllers
         }
 
         [HttpGet("/Category/{categoryName}")]
-        public async Task<IActionResult> ShowCategory(string categoryName)
+        public async Task<IActionResult> ShowCategoryProducts(string categoryName)
         {
             var model = await _categoryService.GetAllCategoryProducts(categoryName);
             return View(model);

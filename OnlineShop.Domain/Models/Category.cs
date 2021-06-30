@@ -11,6 +11,7 @@ namespace OnlineShop.Domain.Models
         [Required]
         public string CategoryName { get; set; }
         public string ThumbnailFileName { get; set; }
+        public int Liked { get; set; }
 
         public List<Product> Products { get; set; }
     }

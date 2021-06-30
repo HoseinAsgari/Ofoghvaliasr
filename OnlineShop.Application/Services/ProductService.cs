@@ -6,6 +6,7 @@ using System.Linq;
 using OnlineShop.Application.ViewModels.Product;
 using Microsoft.EntityFrameworkCore;
 using OnlineShop.Domain.Models;
+using OnlineShop.Application.ViewModels.Shared;
 
 namespace OnlineShop.Application.Services
 {
@@ -21,6 +22,14 @@ namespace OnlineShop.Application.Services
             _cartItemRepository = cartItemRepository;
             _cartRepository = cartRepository;
             _userRepository = userRepository;
+        }
+
+        public async Task<ShowIndexViewModel> GetIndexModel()
+        {
+            return new ShowIndexViewModel()
+            {
+
+            };
         }
 
         public async Task<ShowProductViewModel> GetProduct(int productNumber, string userEmail)

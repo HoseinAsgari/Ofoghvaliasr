@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using OnlineShop.Application.Interfaces;
 using OnlineShop.Application.ViewModels.Shared;
 using System.Diagnostics;
 
@@ -6,12 +7,19 @@ namespace OnlineShop.Controllers
 {
     public class HomeController : Controller
     {
-        public IActionResult Index()
+        readonly IProductService _productService;
+        public HomeController(IProductService productService)
         {
-            return View();
+            _productService = productService;
         }
 
-        public IActionResult Privacy()
+        public IActionResult Index()
+        {
+            var model = _productService.GetIndexModel();
+            return View(model);
+        }
+
+        public IActionResult AboutUs()
         {
             return View();
         }

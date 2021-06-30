@@ -64,7 +64,7 @@ namespace OnlineShop.Application.Services
             }
         }
 
-        public async Task<bool> SignIn(SignInViewModel signInViewModel)
+        public async Task<bool> SignIn(SignInViewModel signInViewModel, string domainName)
         {
             try
             {
@@ -81,7 +81,7 @@ namespace OnlineShop.Application.Services
                 };
                 await _userRepository.AddUser(model);
                 await _userRepository.SaveChanges();
-                await new SendMail(_mailSender).SendActivationCode(activationCode, signInViewModel.Email);
+                await new SendMail(_mailSender).SendActivationCode(activationCode, signInViewModel.Email, domainName);
                 return true;
             }
             catch (Exception)
