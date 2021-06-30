@@ -18,7 +18,7 @@ namespace OnlineShop.Controllers
         [HttpGet("/Product/{productNumber}")]
         public async Task<IActionResult> ShowProduct(int productNumber)
         {
-            var model = await _productService.GetProduct(productNumber);
+            var model = await _productService.GetProduct(productNumber, User.FindFirstValue(ClaimTypes.Email));
             return View(model);
         }
 

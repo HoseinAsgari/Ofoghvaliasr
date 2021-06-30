@@ -13,5 +13,6 @@ namespace OnlineShop.Application.ViewModels.Product
         public uint ProductPrice { get; set; }
         public string UnitOfProduct { get; set; }
         public string ThumbnailFileName { get; set; }
+        public uint OrderedCount { get; set; }
     }
 }

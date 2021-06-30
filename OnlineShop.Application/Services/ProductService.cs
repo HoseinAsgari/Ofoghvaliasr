@@ -23,16 +23,23 @@ namespace OnlineShop.Application.Services
             _userRepository = userRepository;
         }
 
-        public async Task<ShowProductViewModel> GetProduct(int productNumber)
+        public async Task<ShowProductViewModel> GetProduct(int productNumber, string userEmail)
         {
             var product = await _productRepository.GetProduct(productNumber);
+            var userCart = await _cartRepository.GetAllCarts().SingleAsync(n => n.User.UserEmail == userEmail);
+            uint orderedCount = 0;
+            if (userCart.CartItems.Any(n => n.Product.ProductId == productNumber))
+            {
+                orderedCount = userCart.CartItems.Single(n => n.Product.ProductId == productNumber).Count;
+            }
             return new ShowProductViewModel()
             {
                 ProductId = product.ProductId,
                 ProductName = product.ProductName,
                 ProductPrice = product.ProductPrice,
                 ThumbnailFileName = product.ThumbnailFileName,
-                UnitOfProduct = product.UnitOfProduct
+                UnitOfProduct = product.UnitOfProduct,
+                OrderedCount = orderedCount
             };
         }
 
