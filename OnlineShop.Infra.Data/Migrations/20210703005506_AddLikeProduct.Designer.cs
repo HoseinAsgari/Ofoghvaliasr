@@ -3,15 +3,17 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using OnlineShop.Infra.Data.Contexts;
 
 namespace OnlineShop.Infra.Data.Migrations
 {
     [DbContext(typeof(OnlineShopDbContext))]
-    partial class OnlineShopDbContextModelSnapshot : ModelSnapshot
+    [Migration("20210703005506_AddLikeProduct")]
+    partial class AddLikeProduct
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -69,11 +71,6 @@ namespace OnlineShop.Infra.Data.Migrations
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<string>("CategoryEnglishName")
-                        .IsRequired()
-                        .HasMaxLength(500)
-                        .HasColumnType("nvarchar(500)");
-
                     b.Property<string>("CategoryName")
                         .IsRequired()
                         .HasMaxLength(500)
@@ -82,46 +79,12 @@ namespace OnlineShop.Infra.Data.Migrations
                     b.Property<int>("Liked")
                         .HasColumnType("int");
 
+                    b.Property<string>("ThumbnailFileName")
+                        .HasColumnType("nvarchar(max)");
+
                     b.HasKey("CategoryId");
 
                     b.ToTable("Categories");
-
-                    b.HasData(
-                        new
-                        {
-                            CategoryId = 1,
-                            CategoryEnglishName = "Dairy",
-                            CategoryName = "لبنیات",
-                            Liked = 0
-                        },
-                        new
-                        {
-                            CategoryId = 2,
-                            CategoryEnglishName = "Meat",
-                            CategoryName = "پروتئین",
-                            Liked = 0
-                        },
-                        new
-                        {
-                            CategoryId = 3,
-                            CategoryEnglishName = "Health",
-                            CategoryName = "بهداشتی",
-                            Liked = 0
-                        },
-                        new
-                        {
-                            CategoryId = 4,
-                            CategoryEnglishName = "JunkFood",
-                            CategoryName = "تنقلات",
-                            Liked = 0
-                        },
-                        new
-                        {
-                            CategoryId = 5,
-                            CategoryEnglishName = "Grocery",
-                            CategoryName = "خوار و بار",
-                            Liked = 0
-                        });
                 });
 
             modelBuilder.Entity("OnlineShop.Domain.Models.Product", b =>

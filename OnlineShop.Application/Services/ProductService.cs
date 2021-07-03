@@ -75,5 +75,10 @@ namespace OnlineShop.Application.Services
             await _cartItemRepository.SaveChanges();
             return true;
         }
+
+        public async Task<List<ShowSearchedProduct>> SearchProduct(string searchedPhrase)
+        {
+            return null;
+        }
     }
 }

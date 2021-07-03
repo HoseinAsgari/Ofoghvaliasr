@@ -27,5 +27,11 @@ namespace OnlineShop.Controllers
             var result = await _productService.OrderProduct(productNumber, User.FindFirstValue(ClaimTypes.Email));
             return Json(result);
         }
+
+        public async Task<IActionResult> Search(string search)
+        {
+            var model = await _productService.SearchProduct(search);
+            return View(model);
+        }
     }
 }

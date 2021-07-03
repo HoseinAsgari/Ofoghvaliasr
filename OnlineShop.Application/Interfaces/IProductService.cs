@@ -10,5 +10,6 @@ namespace OnlineShop.Application.Interfaces
         Task<ShowProductViewModel> GetProduct(int productNumber, string userEmail);
         Task<bool> OrderProduct(int productNumber, string email);
         Task<ShowIndexViewModel> GetIndexModel();
+        Task<List<ShowSearchedProduct>> SearchProduct(string searchedPhrase);
     }
 }

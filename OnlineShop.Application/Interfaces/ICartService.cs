@@ -1,0 +1,14 @@
+﻿using OnlineShop.Application.ViewModels.Cart;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+
+namespace OnlineShop.Application.Interfaces
+{
+    public interface ICartService
+    {
+        Task<ShowCartViewModel> GetCart(string email);
+    }
+}

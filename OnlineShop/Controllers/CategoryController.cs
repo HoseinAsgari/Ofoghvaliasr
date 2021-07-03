@@ -5,7 +5,6 @@ using System.Threading.Tasks;
 
 namespace OnlineShop.Controllers
 {
-    [Authorize]
     public class CategoryController : Controller
     {
         readonly ICategoryService _categoryService;
@@ -20,7 +19,6 @@ namespace OnlineShop.Controllers
             return View(model);
         }
 
-        [HttpGet("/Category/{categoryName}")]
         public async Task<IActionResult> ShowCategoryProducts(string categoryName)
         {
             var model = await _categoryService.GetAllCategoryProducts(categoryName);

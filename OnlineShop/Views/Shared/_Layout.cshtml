@@ -100,17 +100,17 @@
                             <nav class="navbar">
                                 <ul class="navbar_menu">
                                     <li><a href="/Home/Index">خانه</a></li>
-                                    <li><a href="/Category/">لبنیات</a></li>
-                                    <li><a href="/Category/">پروتئین</a></li>
-                                    <li><a href="/Category/">بهداشتی</a></li>
-                                    <li><a href="/Category/">تنقلات</a></li>
-                                    <li><a href="/Category/">خوار و بار</a></li>
+                                    <li><a href="/Category/Dairy">لبنیات</a></li>
+                                    <li><a href="/Category/Meat">پروتئین</a></li>
+                                    <li><a href="/Category/Health">بهداشتی</a></li>
+                                    <li><a href="/Category/JunkFood">تنقلات</a></li>
+                                    <li><a href="/Category/Grocery">خوار و بار</a></li>
                                 </ul>
                                 <ul class="navbar_user">
                                     <li><a href="" data-bs-toggle="modal" data-bs-target="#search-modal"><i class="fa fa-search" aria-hidden="true"></i></a></li>
                                     <li><a href="/Account/Panel"><i class="fa fa-user" aria-hidden="true"></i></a></li>
                                     <li class="checkout">
-                                        <a href="/Cart/">
+                                        <a href="/Cart/MyCart">
                                             <i class="fa fa-shopping-cart" aria-hidden="true"></i>
                                         </a>
                                     </li>
@@ -154,11 +154,11 @@
                         </ul>
                     </li>
                     <li class="menu_item"><a href="/Home/Index">خانه</a></li>
-                    <li class="menu_item"><a href="/Category/">لبنیات</a></li>
-                    <li class="menu_item"><a href="/Category/">پروتئین</a></li>
-                    <li class="menu_item"><a href="/Category/">بهداشتی</a></li>
-                    <li class="menu_item"><a href="/Category/">تنقلات</a></li>
-                    <li class="menu_item"><a href="/Category/">خوار و بار</a></li>
+                    <li class="menu_item"><a href="/Category/Dairy">لبنیات</a></li>
+                    <li class="menu_item"><a href="/Category/Meat">پروتئین</a></li>
+                    <li class="menu_item"><a href="/Category/Health">بهداشتی</a></li>
+                    <li class="menu_item"><a href="/Category/JunkFood">تنقلات</a></li>
+                    <li class="menu_item"><a href="/Category/Grocery">خوار و بار</a></li>
                 </ul>
             </div>
         </div>
@@ -200,11 +200,11 @@
         <div class="modal-dialog modal-dialog-centered">
             <div dir="rtl" class="modal-content">
                 <div class="modal-header">
-                    <h3>جستجو</h3>
+                    <h3>جستجو محصول</h3>
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body">
-                    <form action="/Home/Search" class="text-center" method="get">
+                    <form action="/Product/Search" class="text-center" method="get">
                         <input class="form-control" type="text" name="search" placeholder="متن جستجو..." />
                         <input class="btn btn-warning m-3" type="submit" value="جستجو" />
                     </form>

@@ -22,13 +22,13 @@ namespace OnlineShop.Application.Services
             return Task.FromResult(_categoryRepository.GetAllCategories().Select(n => new ShowCategories()
             {
                 CategoryName = n.CategoryName,
-                CategoryThumbnail = n.ThumbnailFileName
+                CategoryThumbnail = n.CategoryEnglishName + ".jpg"
             }).ToList());
         }
 
         public async Task<List<CategoryProducts>> GetAllCategoryProducts(string categoryName)
         {
-            return (await _categoryRepository.GetAllCategories().SingleAsync(n => n.CategoryName == categoryName)).Products.Select(n => new CategoryProducts()
+            return (await _categoryRepository.GetAllCategories().SingleAsync(n => n.CategoryEnglishName == categoryName)).Products.Select(n => new CategoryProducts()
             {
                 ProductName = n.ProductName,
                 ProductPrice = n.ProductPrice,
