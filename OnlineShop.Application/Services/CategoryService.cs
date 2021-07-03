@@ -2,6 +2,7 @@
 using OnlineShop.Application.Interfaces;
 using OnlineShop.Application.ViewModels.Categories;
 using OnlineShop.Domain.Interfaces;
+using OnlineShop.Domain.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -17,24 +18,35 @@ namespace OnlineShop.Application.Services
             _categoryRepository = categoryRepository;
         }
 
-        public Task<List<ShowCategories>> GetAllCategories()
+        public Task<List<ShowCategoriesViewModel>> GetAllCategories()
         {
-            return Task.FromResult(_categoryRepository.GetAllCategories().Select(n => new ShowCategories()
+            return Task.FromResult(_categoryRepository.GetAllCategories().Select(n => new ShowCategoriesViewModel()
             {
                 CategoryName = n.CategoryName,
-                CategoryThumbnail = n.CategoryEnglishName + ".jpg"
+                CategoryThumbnail = n.CategoryEnglishName + ".jpg",
+                EnglishName = n.CategoryEnglishName
             }).ToList());
         }
 
-        public async Task<List<CategoryProducts>> GetAllCategoryProducts(string categoryName)
+        public async Task<List<ShowCategoryProductsViewModel>> GetAllCategoryProducts(string categoryName)
         {
-            return (await _categoryRepository.GetAllCategories().SingleAsync(n => n.CategoryEnglishName == categoryName)).Products.Select(n => new CategoryProducts()
+            return (await _categoryRepository.GetAllCategories().SingleAsync(n => n.CategoryEnglishName == categoryName)).Products.Select(n => new ShowCategoryProductsViewModel()
             {
                 ProductName = n.ProductName,
                 ProductPrice = n.ProductPrice,
                 UnitOfProduct = n.UnitOfProduct,
                 ProductThumbnail = n.ThumbnailFileName
             }).ToList();
+        }
+
+        public async Task<string> GetPersianNameByEnglishName(string englishName)
+        {
+            return (await GetCategoryByEnglishName(englishName)).CategoryName;
+        }
+
+        private async Task<Category> GetCategoryByEnglishName(string englishName)
+        {
+            return await _categoryRepository.GetAllCategories().SingleAsync(n => n.CategoryEnglishName == englishName);
         }
     }
 }

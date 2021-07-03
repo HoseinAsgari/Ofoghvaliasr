@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace OnlineShop.Application.ViewModels.Categories
 {
-    public class CategoryProducts
+    public class ShowCategoryProductsViewModel
     {
         public string ProductName { get; set; }
         public uint ProductPrice { get; set; }

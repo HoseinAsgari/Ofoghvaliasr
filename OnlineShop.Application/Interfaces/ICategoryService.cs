@@ -6,7 +6,8 @@ namespace OnlineShop.Application.Interfaces
 {
     public interface ICategoryService
     {
-        Task<List<ShowCategories>> GetAllCategories();
-        Task<List<CategoryProducts>> GetAllCategoryProducts(string categoryName);
+        Task<List<ShowCategoriesViewModel>> GetAllCategories();
+        Task<List<ShowCategoryProductsViewModel>> GetAllCategoryProducts(string categoryName);
+        Task<string> GetPersianNameByEnglishName(string englishName);
     }
 }

@@ -1,3 +1,9 @@
 ﻿.mtop {
     margin-top: 150px;
 }
+
+.category-item-panel {
+    border: 2px solid rgb(124 124 124);
+    box-shadow: rgb(130 130 130) 5px 5px 5px 5px;
+    border-radius: 10%;
+}

@@ -1,0 +1,20 @@
+﻿@model List<ShowCategoriesViewModel>
+
+<div class="container mtop">
+    <h1 class="text-center">دسته بندی ها</h1>
+    <hr />
+    <div class="row">
+        @foreach (var item in Model)
+        {
+            <div class="col-md-4 col-sm-6 col-6 p-3">
+                <a href="/Category/ShowCategoryProducts/@item.EnglishName">
+                    <div class="category-item-panel text-center p-4">
+                        <img class="img-thumbnail" src="/Resources/Pics/CategoryThumbnail/@item.CategoryThumbnail" alt="تصویر دسته بندی" />
+                        <hr />
+                        <h3 class="my-2">@item.CategoryName</h3>
+                    </div>
+                </a>
+            </div>
+        }
+    </div>
+</div>
