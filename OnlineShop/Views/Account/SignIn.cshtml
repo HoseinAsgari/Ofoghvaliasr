@@ -1,0 +1,40 @@
+﻿@model SignInViewModel
+
+<div dir="rtl" class="mtop container">
+    <h1>ثبت نام</h1>
+    <hr />
+    <form class="col-6 my-3" asp-action="SignIn" asp-route-returnUrl="@Context.Request.Query["ReturnUrl"]" method="post">
+        <div class="text-danger" asp-validation-summary="All"></div>
+        <div class="form-group p-3">
+            <label class="control-label" asp-for="Name"></label>
+            <input class="form-control" asp-for="Name" />
+        </div>
+        <div class="form-group p-3">
+            <label class="control-label" asp-for="Email"></label>
+            <input class="form-control" asp-for="Email" />
+        </div>
+        <div class="form-group p-3">
+            <label class="control-label" asp-for="Password"></label>
+            <input class="form-control" asp-for="Password" />
+        </div>
+        <div class="form-group p-3">
+            <label class="control-label" asp-for="RePassword"></label>
+            <input class="form-control" asp-for="RePassword" />
+        </div>
+        <div class="form-group p-3">
+            <label class="control-label" asp-for="RememberMe"></label>
+            <input class="form-check-input" asp-for="RememberMe" />
+        </div>
+        <div class="form-group p-3">
+            <input class="btn btn-danger" type="submit" value="ثبت نام" />
+        </div>
+    </form>
+    <hr />
+    <div class="my-3 p-3">
+        <a href="/Account/SignIn" class="btn btn-primary">ورود</a>
+    </div>
+</div>
+
+@section Scripts{
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

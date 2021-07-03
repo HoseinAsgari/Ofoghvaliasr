@@ -2,6 +2,7 @@
 using OnlineShop.Application.Interfaces;
 using OnlineShop.Application.ViewModels.Shared;
 using System.Diagnostics;
+using System.Threading.Tasks;
 
 namespace OnlineShop.Controllers
 {
@@ -13,9 +14,9 @@ namespace OnlineShop.Controllers
             _productService = productService;
         }
 
-        public IActionResult Index()
+        public async Task<IActionResult> Index()
         {
-            var model = _productService.GetIndexModel();
+            var model = await _productService.GetIndexModel();
             return View(model);
         }
 

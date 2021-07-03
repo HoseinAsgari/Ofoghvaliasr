@@ -1,0 +1,49 @@
+﻿@model List<MostSoldArrivalsViewModel>
+<!-- New Arrivals -->
+
+<div class="new_arrivals">
+    <div class="container">
+        <div class="row">
+            <div class="col text-center">
+                <div class="section_title new_arrivals_title">
+                    <h2>کالاهای پرفروش</h2>
+                </div>
+            </div>
+        </div>
+        <div class="row align-items-center">
+            <div class="col text-center">
+                <div class="new_arrivals_sorting">
+                    <ul class="arrivals_grid_sorting clearfix button-group filters-button-group">
+                        <li class="grid_sorting_button button d-flex flex-column justify-content-center align-items-center" data-filter="*">همه</li>
+                        <li class="grid_sorting_button button d-flex flex-column justify-content-center align-items-center" data-filter=".accessories">تنقلات</li>
+                        <li class="grid_sorting_button button d-flex flex-column justify-content-center align-items-center" data-filter=".men">خوار و بار</li>
+                        <li class="grid_sorting_button button d-flex flex-column justify-content-center align-items-center" data-filter=".men">پروتئین</li>
+                        <li class="grid_sorting_button button d-flex flex-column justify-content-center align-items-center" data-filter=".men">بهداشتی</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col">
+                <div class="product-grid" data-isotope='{ "itemSelector": ".product-item", "layoutMode": "fitRows" }'>
+                    @foreach (var item in Model)
+                    {
+                        <div class="product-item @item.CategoryName">
+                            <div class="product discount product_filter">
+                                <div class="product_image">
+                                    <img src="/Resources/Pics/ProductThumbnail/@item.ThumbnailName" alt="تصویر کالا">
+                                </div>
+                                <div class="favorite"></div>
+                                <div class="product_info">
+                                    <h6 class="product_name"><a href="/Product/ShowProduct/@item.ProductId">@item.ProductName</a></h6>
+                                    <div class="product_price dir_rtl">@item.ProductPrice تومان</div>
+                                </div>
+                            </div>
+                            <div class="red_button add_to_cart_button"><a href="/Product/OrderProduct/@item.ProductId">اضافه کردن به سبد خرید</a></div>
+                        </div>
+                    }
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

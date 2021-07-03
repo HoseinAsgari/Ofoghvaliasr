@@ -1,5 +1,16 @@
-﻿@await Html.PartialAsync("Slider")
+﻿@model ShowIndexViewModel
+
+@await Html.PartialAsync("Slider")
 @await Html.PartialAsync("Banner")
-@await Html.PartialAsync("BestSoldArrivals")
-@await Html.PartialAsync("BestSellers")
+@if (Model != null)
+{
+    @if (Model.MostTenSoldProductsModel != null && Model.MostTenSoldProductsModel.Count == 10)
+    {
+        @await Html.PartialAsync("MostSoldArrivals")
+    }
+    @if (Model.BestTenProductsModel != null && Model.BestTenProductsModel.Count == 10)
+    {
+        @await Html.PartialAsync("BestProduct", Model.BestTenProductsModel)
+    }
+}
 @await Html.PartialAsync("Benefit")
