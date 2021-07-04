@@ -6,7 +6,6 @@ using System.Threading.Tasks;
 
 namespace OnlineShop.Controllers
 {
-    [Authorize]
     public class ProductController : Controller
     {
         readonly IProductService _productService;
@@ -15,23 +14,31 @@ namespace OnlineShop.Controllers
             _productService = productService;
         }
 
-        [HttpGet("/Product/{productNumber}")]
+        [HttpGet("/Product/ShowProduct/{productNumber}")]
         public async Task<IActionResult> ShowProduct(int productNumber)
         {
             var model = await _productService.GetProduct(productNumber, User.FindFirstValue(ClaimTypes.Email));
             return View(model);
         }
 
-        public async Task<IActionResult> OrderProduct(int productNumber)
+        [Authorize]
+        public async Task<IActionResult> AddToCart(int productNumber)
         {
-            var result = await _productService.OrderProduct(productNumber, User.FindFirstValue(ClaimTypes.Email));
-            return Json(result);
+            await _productService.OrderProduct(productNumber, User.FindFirstValue(ClaimTypes.Email));
+            return Redirect("/Product/ShowProduct/" + productNumber);
         }
 
         public async Task<IActionResult> Search(string search)
         {
             var model = await _productService.SearchProduct(search);
             return View(model);
+        }
+
+        [HttpGet("/{controller}/{action}/{productId}")]
+        public async Task<IActionResult> ProductLiked(int productId)
+        {
+            await _productService.ProductLiked(productId);
+            return null;
         }
     }
 }

@@ -34,7 +34,7 @@ namespace OnlineShop.Application.Services
             {
                 ProductName = n.ProductName,
                 ProductPrice = n.ProductPrice,
-                UnitOfProduct = n.UnitOfProduct,
+                ProductId = n.ProductId,
                 ProductThumbnail = n.ThumbnailFileName
             }).ToList();
         }

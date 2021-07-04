@@ -35,7 +35,8 @@ namespace OnlineShop.Application.Services
         public async Task<ShowProductViewModel> GetProduct(int productNumber, string userEmail)
         {
             var product = await _productRepository.GetProduct(productNumber);
-            var userCart = await _cartRepository.GetAllCarts().SingleAsync(n => n.User.UserEmail == userEmail);
+            var user = await _userRepository.GetAllUsers().SingleAsync(n => n.UserEmail == userEmail);
+            var userCart = user.Cart;
             uint orderedCount = 0;
             if (userCart.CartItems.Any(n => n.Product.ProductId == productNumber))
             {
@@ -48,7 +49,10 @@ namespace OnlineShop.Application.Services
                 ProductPrice = product.ProductPrice,
                 ThumbnailFileName = product.ThumbnailFileName,
                 UnitOfProduct = product.UnitOfProduct,
-                OrderedCount = orderedCount
+                OrderedCount = orderedCount,
+                CategoryName = product.Category.CategoryEnglishName,
+                CategoryPersianName = product.Category.CategoryName,
+                ProductRate = (product.UserLike.Count / product.SoldCount) * 5
             };
         }
 
@@ -76,9 +80,20 @@ namespace OnlineShop.Application.Services
             return true;
         }
 
+        public Task<bool> ProductLiked(int productId)
+        {
+            throw new System.NotImplementedException();
+        }
+
         public async Task<List<ShowSearchedProduct>> SearchProduct(string searchedPhrase)
         {
-            return null;
+            return await _productRepository.GetAllProducts().Where(n => searchedPhrase.Contains(n.ProductName)).Select(n => new ShowSearchedProduct()
+            {
+                ProductId = n.ProductId,
+                ProductName = n.ProductName,
+                ThumbnailName = n.ThumbnailFileName,
+                ProductPrice = n.ProductPrice
+            }).ToListAsync();
         }
     }
 }

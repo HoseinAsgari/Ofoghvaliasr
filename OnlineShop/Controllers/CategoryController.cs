@@ -26,7 +26,7 @@ namespace OnlineShop.Controllers
             var model = await _categoryService.GetAllCategoryProducts(categoryName);
             ViewBag.CategoryName = categoryName;
             ViewBag.PageCount = (model.Count > 12) ? Math.Ceiling((double)(model.Count / 12)) : 1;
-            ViewBag.PageNumber = pageNumber;
+            ViewBag.PageNumber = (pageNumber <= ViewBag.PageCount) ? pageNumber : ViewBag.PageCount;
             ViewBag.PersianName = await _categoryService.GetPersianNameByEnglishName(categoryName);
             return View(model);
         }

@@ -29,6 +29,8 @@ namespace OnlineShop.Domain.Models
         public DateTime DateSignedIn { get; set; }
 
         public Cart Cart { get; set; }
+        public List<UserProductLikes> LikedProducts { get; set; }
+        public List<UserProductViews> UserProductViews { get; set; }
         public int CartId { get; set; }
     }
 }

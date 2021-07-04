@@ -14,5 +14,8 @@ namespace OnlineShop.Application.ViewModels.Product
         public string UnitOfProduct { get; set; }
         public string ThumbnailFileName { get; set; }
         public uint OrderedCount { get; set; }
+        public float ProductRate { get; set; }
+        public string CategoryPersianName { get; set; }
+        public string CategoryName { get; set; }
     }
 }

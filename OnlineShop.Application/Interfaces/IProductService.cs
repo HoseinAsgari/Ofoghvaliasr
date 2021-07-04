@@ -11,5 +11,6 @@ namespace OnlineShop.Application.Interfaces
         Task<bool> OrderProduct(int productNumber, string email);
         Task<ShowIndexViewModel> GetIndexModel();
         Task<List<ShowSearchedProduct>> SearchProduct(string searchedPhrase);
+        Task<bool> ProductLiked(int productId);
     }
 }

@@ -1,0 +1,27 @@
+﻿@model List<ShowSearchedProduct>
+
+<div dir="rtl" class="container mtop">
+    @if (Model != null && Model.Count != 0)
+    {
+        <h1>نتایج جستجو</h1>
+        @foreach (var item in Model)
+        {
+            <hr />
+            <a href="/Product/ShowProduct/@item.ProductId">
+                <div class="row">
+                    <div class="col-4">
+                        <img class="img-thumbnail" src="/Resources/Pics/ProductThumbnail/@item.ThumbnailName" alt="تصویر کالا" />
+                    </div>
+                    <div class="col-8">
+                        <h2>@item.ProductName</h2>
+                        <h4 class="text-gray">@item.ProductPrice</h4>
+                    </div>
+                </div>
+            </a>
+        }
+    }
+    else
+    {
+        <h1 class="text-center my-5">نتیجه ای پیدا نشد!!!</h1>
+    }
+</div>

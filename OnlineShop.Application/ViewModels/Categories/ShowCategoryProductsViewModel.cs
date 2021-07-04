@@ -8,9 +8,9 @@ namespace OnlineShop.Application.ViewModels.Categories
 {
     public class ShowCategoryProductsViewModel
     {
+        public int ProductId { get; set; }
         public string ProductName { get; set; }
         public uint ProductPrice { get; set; }
-        public string UnitOfProduct { get; set; }
         public string ProductThumbnail { get; set; }
     }
 }
