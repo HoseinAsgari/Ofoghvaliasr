@@ -1,18 +1,26 @@
-﻿using OnlineShop.Application.Interfaces;
+﻿using Microsoft.EntityFrameworkCore;
+using OnlineShop.Application.Interfaces;
 using OnlineShop.Application.ViewModels.Cart;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
+using OnlineShop.Domain.Interfaces;
 using System.Threading.Tasks;
 
 namespace OnlineShop.Application.Services
 {
     public class CartService : ICartService
     {
+        ICartRepository _cartRepository;
+        public CartService(ICartRepository cartRepository)
+        {
+            _cartRepository = cartRepository;
+        }
+
         public async Task<ShowCartViewModel> GetCart(string email)
         {
-            return new ShowCartViewModel();
+            var cart = await _cartRepository.GetAllCarts().SingleAsync(n => n.User.UserEmail == email);
+            return new ShowCartViewModel()
+            {
+
+            };
         }
     }
 }

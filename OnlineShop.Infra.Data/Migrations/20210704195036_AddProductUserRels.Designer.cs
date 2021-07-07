@@ -3,15 +3,17 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using OnlineShop.Infra.Data.Contexts;
 
 namespace OnlineShop.Infra.Data.Migrations
 {
     [DbContext(typeof(OnlineShopDbContext))]
-    partial class OnlineShopDbContextModelSnapshot : ModelSnapshot
+    [Migration("20210704195036_AddProductUserRels")]
+    partial class AddProductUserRels
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -131,7 +133,7 @@ namespace OnlineShop.Infra.Data.Migrations
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<int>("CategoryId")
+                    b.Property<int?>("CategoryId")
                         .HasColumnType("int");
 
                     b.Property<string>("ProductName")
@@ -141,6 +143,9 @@ namespace OnlineShop.Infra.Data.Migrations
 
                     b.Property<long>("ProductPrice")
                         .HasColumnType("bigint");
+
+                    b.Property<string>("ThumbnailFileName")
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("UnitOfProduct")
                         .IsRequired()
@@ -152,184 +157,6 @@ namespace OnlineShop.Infra.Data.Migrations
                     b.HasIndex("CategoryId");
 
                     b.ToTable("Products");
-
-                    b.HasData(
-                        new
-                        {
-                            ProductId = 1,
-                            CategoryId = 1,
-                            ProductName = "شیر دامداران",
-                            ProductPrice = 7000L,
-                            UnitOfProduct = "بطری"
-                        },
-                        new
-                        {
-                            ProductId = 2,
-                            CategoryId = 1,
-                            ProductName = "ماست میهن",
-                            ProductPrice = 40000L,
-                            UnitOfProduct = "دبه ای"
-                        },
-                        new
-                        {
-                            ProductId = 3,
-                            CategoryId = 1,
-                            ProductName = "کشک سمیه",
-                            ProductPrice = 15000L,
-                            UnitOfProduct = "شیشه"
-                        },
-                        new
-                        {
-                            ProductId = 4,
-                            CategoryId = 1,
-                            ProductName = "دوغ آبعلی",
-                            ProductPrice = 5000L,
-                            UnitOfProduct = "شیشه"
-                        },
-                        new
-                        {
-                            ProductId = 5,
-                            CategoryId = 1,
-                            ProductName = "دوغ عالیس",
-                            ProductPrice = 10000L,
-                            UnitOfProduct = "بطری"
-                        },
-                        new
-                        {
-                            ProductId = 6,
-                            CategoryId = 1,
-                            ProductName = "دوغ سنتی دامداران",
-                            ProductPrice = 10000L,
-                            UnitOfProduct = "بطری"
-                        },
-                        new
-                        {
-                            ProductId = 7,
-                            CategoryId = 1,
-                            ProductName = "خامه میهن",
-                            ProductPrice = 10000L,
-                            UnitOfProduct = "بسته"
-                        },
-                        new
-                        {
-                            ProductId = 8,
-                            CategoryId = 1,
-                            ProductName = "خامه دامداران",
-                            ProductPrice = 10000L,
-                            UnitOfProduct = "بسته"
-                        },
-                        new
-                        {
-                            ProductId = 9,
-                            CategoryId = 1,
-                            ProductName = "کره کوچک دامداران",
-                            ProductPrice = 7000L,
-                            UnitOfProduct = "بسته"
-                        },
-                        new
-                        {
-                            ProductId = 10,
-                            CategoryId = 1,
-                            ProductName = "کره متوسط دامداران",
-                            ProductPrice = 1000L,
-                            UnitOfProduct = "بسته"
-                        },
-                        new
-                        {
-                            ProductId = 11,
-                            CategoryId = 1,
-                            ProductName = "کره بزرگ دامداران",
-                            ProductPrice = 12000L,
-                            UnitOfProduct = "بسته"
-                        },
-                        new
-                        {
-                            ProductId = 12,
-                            CategoryId = 1,
-                            ProductName = "کشک کامبیز",
-                            ProductPrice = 10000L,
-                            UnitOfProduct = "شیشه"
-                        },
-                        new
-                        {
-                            ProductId = 13,
-                            CategoryId = 3,
-                            ProductName = "مایع ظرفشویی پریل",
-                            ProductPrice = 20000L,
-                            UnitOfProduct = "ظرف"
-                        },
-                        new
-                        {
-                            ProductId = 14,
-                            CategoryId = 3,
-                            ProductName = "پودر لباسشویی پرسیل",
-                            ProductPrice = 20000L,
-                            UnitOfProduct = "بسته"
-                        },
-                        new
-                        {
-                            ProductId = 15,
-                            CategoryId = 3,
-                            ProductName = "پودر لباسشویی سافتلن",
-                            ProductPrice = 20000L,
-                            UnitOfProduct = "بسته"
-                        },
-                        new
-                        {
-                            ProductId = 16,
-                            CategoryId = 3,
-                            ProductName = "پودر لباسشویی نگین",
-                            ProductPrice = 20000L,
-                            UnitOfProduct = "بسته"
-                        },
-                        new
-                        {
-                            ProductId = 17,
-                            CategoryId = 3,
-                            ProductName = "شامپو صحت",
-                            ProductPrice = 20000L,
-                            UnitOfProduct = ""
-                        },
-                        new
-                        {
-                            ProductId = 18,
-                            CategoryId = 3,
-                            ProductName = "شامپو گلرنگ",
-                            ProductPrice = 20000L,
-                            UnitOfProduct = "بطری"
-                        },
-                        new
-                        {
-                            ProductId = 19,
-                            CategoryId = 3,
-                            ProductName = "صابون داو",
-                            ProductPrice = 5000L,
-                            UnitOfProduct = "قالب"
-                        },
-                        new
-                        {
-                            ProductId = 20,
-                            CategoryId = 3,
-                            ProductName = "صابون گلنار",
-                            ProductPrice = 5000L,
-                            UnitOfProduct = "قالب"
-                        },
-                        new
-                        {
-                            ProductId = 21,
-                            CategoryId = 3,
-                            ProductName = "مایع دستشویی داو",
-                            ProductPrice = 20000L,
-                            UnitOfProduct = "بطری"
-                        },
-                        new
-                        {
-                            ProductId = 22,
-                            CategoryId = 3,
-                            ProductName = "مایع دستشویی اوه",
-                            ProductPrice = 20000L,
-                            UnitOfProduct = "بطری"
-                        });
                 });
 
             modelBuilder.Entity("OnlineShop.Domain.Models.User", b =>
@@ -471,9 +298,7 @@ namespace OnlineShop.Infra.Data.Migrations
                 {
                     b.HasOne("OnlineShop.Domain.Models.Category", "Category")
                         .WithMany("Products")
-                        .HasForeignKey("CategoryId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .HasForeignKey("CategoryId");
 
                     b.Navigation("Category");
                 });

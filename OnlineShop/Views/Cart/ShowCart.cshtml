@@ -1,0 +1,19 @@
+@model List<ShowCartViewModel>
+
+<div class="mtop">
+    <h1>سبد خرید من</h1>
+    <hr>
+    <div class="my-3">
+        @foreach (var item in Model)
+        {
+            <a href="/Product/ShowProduct/@item.ProductId">
+                <div class="col-4 col-md-3 text-center p-2">
+                    <img src="/Resources/Pics/ProductThumbnail/@item.ThumbnailName" class="img-thumbnail" alt="تصویر کالا">
+                    <h2 class="text-start">@item.ProductName</h2>
+                    <h3 class="text-gray text-start">@item.ProductPrice تومان</h3>
+                    <h3 class="text-gray text-start">@item.Amount @item.UnitOfProduct</h3>
+                </div>
+            </a>
+        }
+    </div>
+</div>

@@ -31,6 +31,7 @@ namespace OnlineShop.Domain.Models
         public Cart Cart { get; set; }
         public List<UserProductLikes> LikedProducts { get; set; }
         public List<UserProductViews> UserProductViews { get; set; }
+        public List<UserProductSold> UserProductSolds { get; set; }
         public int CartId { get; set; }
     }
 }

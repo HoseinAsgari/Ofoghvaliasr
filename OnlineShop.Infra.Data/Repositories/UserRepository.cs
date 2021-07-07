@@ -28,10 +28,9 @@ namespace OnlineShop.Infra.Data.Repositories
                 .Include(n => n.Cart).ThenInclude(n => n.User);
         }
 
-        public async Task<bool> GetUser(int id)
+        public async Task<User> GetUser(int id)
         {
-            await _dbContext.Users.FindAsync(id);
-            return true;
+            return await _dbContext.Users.FindAsync(id);
         }
 
         public void RemoveUser(User user)

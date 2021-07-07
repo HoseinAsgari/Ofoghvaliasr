@@ -8,7 +8,7 @@ namespace OnlineShop.Domain.Interfaces
     {
         IQueryable<User> GetAllUsers();
         Task<bool> AddUser(User user);
-        Task<bool> GetUser(int id);
+        Task<User> GetUser(int id);
         void UpdateUser(User user);
         void RemoveUser(User user);
         Task<bool> SaveChanges();

@@ -47,12 +47,12 @@ namespace OnlineShop.Application.Services
                 ProductId = product.ProductId,
                 ProductName = product.ProductName,
                 ProductPrice = product.ProductPrice,
-                ThumbnailFileName = product.ThumbnailFileName,
+                ThumbnailFileName = product.ProductName + product.ProductId + ".jpg",
                 UnitOfProduct = product.UnitOfProduct,
                 OrderedCount = orderedCount,
                 CategoryName = product.Category.CategoryEnglishName,
                 CategoryPersianName = product.Category.CategoryName,
-                ProductRate = (product.UserLike.Count / product.SoldCount) * 5
+                ProductRate = (product.UserProductLikes.Count / product.UserProductSolds.Count) * 5
             };
         }
 
@@ -91,7 +91,7 @@ namespace OnlineShop.Application.Services
             {
                 ProductId = n.ProductId,
                 ProductName = n.ProductName,
-                ThumbnailName = n.ThumbnailFileName,
+                ThumbnailName = n.ProductName + n.ProductId + ".jpg",
                 ProductPrice = n.ProductPrice
             }).ToListAsync();
         }

@@ -21,7 +21,7 @@ namespace OnlineShop.Controllers
         public async Task<IActionResult> MyCart()
         {
             var model = await _cartRepository.GetCart(User.FindFirstValue(ClaimTypes.Email));
-            return View(model);
+            return View("ShowCart", model);
         }
     }
 }

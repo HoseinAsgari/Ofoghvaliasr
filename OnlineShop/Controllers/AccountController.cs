@@ -127,7 +127,7 @@ namespace OnlineShop.Controllers
         public async Task<IActionResult> Panel()
         {
             var model = await _accountService.GetPanelModel(User.FindFirstValue(ClaimTypes.Email));
-            return View(model);
+            return View("AccountPanel", model);
         }
 
         [Authorize]
