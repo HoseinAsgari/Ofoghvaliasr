@@ -1,6 +1,6 @@
-namespace OnlineShop.Application.ViewModels.Admin
+namespace OnlineShop.Application.ViewModels.Admin.User
 {
-    public class ShowUserDetailViewModel
+    public class ShowUserDetailsViewModel
     {
         public string UserName { get; set; }
         public int BoughtCount { get; set; }

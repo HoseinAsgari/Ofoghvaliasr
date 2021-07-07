@@ -1,4 +1,4 @@
-namespace OnlineShop.Application.ViewModels.Admin
+namespace OnlineShop.Application.ViewModels.Admin.Product
 {
     public class ShowProductsAdminViewModel
     {

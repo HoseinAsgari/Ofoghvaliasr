@@ -1,6 +1,8 @@
 using System.Collections.Generic;
 using System.Threading.Tasks;
-using OnlineShop.Application.ViewModels.Admin;
+using OnlineShop.Application.ViewModels.Admin.Product;
+using OnlineShop.Application.ViewModels.Admin.User;
+using OnlineShop.Application.ViewModels.Admin.Category;
 
 namespace OnlineShop.Application.Interfaces
 {
@@ -8,7 +10,7 @@ namespace OnlineShop.Application.Interfaces
     {
         Task<List<ShowUsersViewModel>> GetUsers();
         Task<bool> SetUserToAdmin(int userId);
-        Task<ShowUserDetailViewModel> GetUserDetails(int userId);
+        Task<ShowUserDetailsViewModel> GetUserDetails(int userId);
 
 
         Task<List<ShowProductsAdminViewModel>> GetProductsModel();

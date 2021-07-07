@@ -1,6 +1,6 @@
 using Microsoft.AspNetCore.Http;
 
-namespace OnlineShop.Application.ViewModels.Admin
+namespace OnlineShop.Application.ViewModels.Admin.Product
 {
     public class AddProductViewModel
     {

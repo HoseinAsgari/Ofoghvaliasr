@@ -1,6 +1,6 @@
 ﻿namespace OnlineShop.Application.ViewModels.Cart
 {
-    public class ShowCartViewModel
+    public class ShowCartProductViewModel
     {
         public int ProductId { get; set; }
         public string ProductName { get; set; }

@@ -1,6 +1,6 @@
 using Microsoft.AspNetCore.Mvc;
 using OnlineShop.Application.Interfaces;
-using OnlineShop.Application.ViewModels.Admin;
+using OnlineShop.Application.ViewModels.Admin.Category;
 using OnlineShop.FilterAttributes;
 using System.Threading.Tasks;
 

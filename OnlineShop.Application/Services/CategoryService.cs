@@ -3,7 +3,6 @@ using OnlineShop.Application.Interfaces;
 using OnlineShop.Application.ViewModels.Categories;
 using OnlineShop.Domain.Interfaces;
 using OnlineShop.Domain.Models;
-using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -23,7 +22,7 @@ namespace OnlineShop.Application.Services
             return Task.FromResult(_categoryRepository.GetAllCategories().Select(n => new ShowCategoriesViewModel()
             {
                 CategoryName = n.CategoryName,
-                CategoryThumbnail = n.CategoryEnglishName + ".jpg",
+                CategoryThumbnail = n.CategoryName + ".jpg",
                 EnglishName = n.CategoryEnglishName
             }).ToList());
         }
@@ -35,7 +34,7 @@ namespace OnlineShop.Application.Services
                 ProductName = n.ProductName,
                 ProductPrice = n.ProductPrice,
                 ProductId = n.ProductId,
-                ProductThumbnail = n.ProductName + n.ProductId + ".jpg"
+                ProductThumbnail = n.ProductName + ".jpg"
             }).ToList();
         }
 

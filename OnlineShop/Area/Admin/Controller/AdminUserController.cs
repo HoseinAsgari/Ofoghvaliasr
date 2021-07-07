@@ -1,4 +1,4 @@
-using OnlineShop.Application.ViewModels.Admin;
+using OnlineShop.Application.ViewModels.Admin.User;
 using OnlineShop.Application.Interfaces;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
@@ -22,7 +22,7 @@ namespace OnlineShop.Area.Admin.Controllers
             return View(model);
         }
 
-        public async Task<IActionResult> GetUserInfo(int userId)
+        public async Task<IActionResult> GetUserDetails(int userId)
         {
             var model = await _adminService.GetUserDetails(userId);
             return View(model);

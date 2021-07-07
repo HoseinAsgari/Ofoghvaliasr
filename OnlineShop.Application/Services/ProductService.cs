@@ -16,12 +16,16 @@ namespace OnlineShop.Application.Services
         readonly ICartItemRepository _cartItemRepository;
         readonly ICartRepository _cartRepository;
         readonly IUserRepository _userRepository;
-        public ProductService(IProductRepository productRepository, ICartItemRepository cartItemRepository, ICartRepository cartRepository, IUserRepository userRepository)
+        readonly IUserProductLikesRepository _userProductLikesRepository;
+        readonly IUserProductViewsRepository _userProductViewsRepository;
+        public ProductService(IUserProductViewsRepository userProductViewsRepository, IUserProductLikesRepository userProductLikesRepository, IProductRepository productRepository, ICartItemRepository cartItemRepository, ICartRepository cartRepository, IUserRepository userRepository)
         {
             _productRepository = productRepository;
             _cartItemRepository = cartItemRepository;
             _cartRepository = cartRepository;
             _userRepository = userRepository;
+            _userProductLikesRepository = userProductLikesRepository;
+            _userProductViewsRepository = userProductViewsRepository;
         }
 
         public async Task<ShowIndexViewModel> GetIndexModel()
@@ -36,7 +40,7 @@ namespace OnlineShop.Application.Services
                         ProductId = n.ProductId,
                         ProductName = n.ProductName,
                         ProductPrice = n.ProductPrice,
-                        ThumbnailName = n.ProductName + n.ProductId + ".jpg"
+                        ThumbnailName = n.ProductName + ".jpg"
                     }).ToListAsync(),
                     MostTenSoldProductsModel = await _productRepository.GetAllProducts().OrderByDescending(n => n.UserProductLikes.Count).Select(n => new MostSoldArrivalsViewModel()
                     {
@@ -44,7 +48,7 @@ namespace OnlineShop.Application.Services
                         CategoryName = n.Category.CategoryEnglishName,
                         ProductName = n.ProductName,
                         ProductPrice = n.ProductPrice,
-                        ThumbnailName = n.ProductName + n.ProductId + ".jpg"
+                        ThumbnailName = n.ProductName + ".jpg"
                     }).ToListAsync()
                 };
             }
@@ -57,6 +61,17 @@ namespace OnlineShop.Application.Services
             var user = await _userRepository.GetAllUsers().SingleAsync(n => n.UserEmail == userEmail);
             var userCart = user.Cart;
             uint orderedCount = 0;
+
+            await _userProductViewsRepository.AddUserProductView(new UserProductViews()
+            {
+                Product = product,
+                ProductId = productNumber,
+                User = user,
+                UserId = user.UserId
+            });
+            await _userProductViewsRepository.SaveChanges();
+
+
             if (userCart.CartItems.Any(n => n.Product.ProductId == productNumber))
             {
                 orderedCount = userCart.CartItems.Single(n => n.Product.ProductId == productNumber).Count;
@@ -66,7 +81,7 @@ namespace OnlineShop.Application.Services
                 ProductId = product.ProductId,
                 ProductName = product.ProductName,
                 ProductPrice = product.ProductPrice,
-                ThumbnailFileName = product.ProductName + product.ProductId + ".jpg",
+                ThumbnailFileName = product.ProductName + ".jpg",
                 UnitOfProduct = product.UnitOfProduct,
                 OrderedCount = orderedCount,
                 CategoryName = product.Category.CategoryEnglishName,
@@ -99,9 +114,19 @@ namespace OnlineShop.Application.Services
             return true;
         }
 
-        public Task<bool> ProductLiked(int productId)
+        public async Task<bool> ProductLiked(int productId, string userEmail)
         {
-            throw new System.NotImplementedException();
+            var product = await _productRepository.GetProduct(productId);
+            var user = await _userRepository.GetAllUsers().SingleAsync(n => n.UserEmail == userEmail);
+            await _userProductLikesRepository.AddUserProductLikes(new UserProductLikes()
+            {
+                Product = product,
+                UserId = user.UserId,
+                ProductId = product.ProductId,
+                User = user
+            });
+            await _userProductLikesRepository.SaveChanges();
+            return true;
         }
 
         public async Task<List<ShowSearchedProduct>> SearchProduct(string searchedPhrase)

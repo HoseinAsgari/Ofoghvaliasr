@@ -1,7 +1,9 @@
 using OnlineShop.Application.Interfaces;
 using System.Threading.Tasks;
 using System.Collections.Generic;
-using OnlineShop.Application.ViewModels.Admin;
+using OnlineShop.Application.ViewModels.Admin.Category;
+using OnlineShop.Application.ViewModels.Admin.Product;
+using OnlineShop.Application.ViewModels.Admin.User;
 using OnlineShop.Domain.Interfaces;
 using Microsoft.AspNetCore.Hosting;
 using System.Linq;
@@ -126,10 +128,10 @@ namespace OnlineShop.Application.Services
             }).ToListAsync();
         }
 
-        public async Task<ShowUserDetailViewModel> GetUserDetails(int userId)
+        public async Task<ShowUserDetailsViewModel> GetUserDetails(int userId)
         {
             var user = await _userRepository.GetUser(userId);
-            return new ShowUserDetailViewModel()
+            return new ShowUserDetailsViewModel()
             {
                 BoughtCount = user.UserProductSolds.Count,
                 IsActive = user.IsAccountActive,

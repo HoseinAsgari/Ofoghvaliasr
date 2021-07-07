@@ -1,7 +1,7 @@
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using OnlineShop.Application.Interfaces;
-using OnlineShop.Application.ViewModels.Admin;
+using OnlineShop.Application.ViewModels.Admin.Product;
 
 namespace OnlineShop.Area.Admin.Controllers
 {
