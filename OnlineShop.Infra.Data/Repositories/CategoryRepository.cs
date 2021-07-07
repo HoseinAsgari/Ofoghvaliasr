@@ -26,10 +26,9 @@ namespace OnlineShop.Infra.Data.Repositories
             return _dbContext.Categories.Include(n => n.Products).ThenInclude(n => n.Category);
         }
 
-        public async Task<bool> GetCategory(int id)
+        public async Task<Category> GetCategory(int id)
         {
-            await _dbContext.Categories.FindAsync(id);
-            return true;
+            return await _dbContext.Categories.FindAsync(id);
         }
 
         public void RemoveCategory(Category category)

@@ -8,7 +8,7 @@ namespace OnlineShop.Domain.Interfaces
     {
         IQueryable<Category> GetAllCategories();
         Task<bool> AddCategory(Category category);
-        Task<bool> GetCategory(int id);
+        Task<Category> GetCategory(int id);
         void UpdateCategory(Category category);
         void RemoveCategory(Category category);
         Task<bool> SaveChanges();

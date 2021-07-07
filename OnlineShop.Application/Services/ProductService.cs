@@ -26,10 +26,29 @@ namespace OnlineShop.Application.Services
 
         public async Task<ShowIndexViewModel> GetIndexModel()
         {
-            return new ShowIndexViewModel()
+            var products = _productRepository.GetAllProducts();
+            if (products != null && products.Count() != 0)
             {
-
-            };
+                return new ShowIndexViewModel()
+                {
+                    BestTenProductsModel = await products.OrderByDescending(n => n.UserProductLikes.Count).Select(n => new BestTenProductsViewModel()
+                    {
+                        ProductId = n.ProductId,
+                        ProductName = n.ProductName,
+                        ProductPrice = n.ProductPrice,
+                        ThumbnailName = n.ProductName + n.ProductId + ".jpg"
+                    }).ToListAsync(),
+                    MostTenSoldProductsModel = await _productRepository.GetAllProducts().OrderByDescending(n => n.UserProductLikes.Count).Select(n => new MostSoldArrivalsViewModel()
+                    {
+                        ProductId = n.ProductId,
+                        CategoryName = n.Category.CategoryEnglishName,
+                        ProductName = n.ProductName,
+                        ProductPrice = n.ProductPrice,
+                        ThumbnailName = n.ProductName + n.ProductId + ".jpg"
+                    }).ToListAsync()
+                };
+            }
+            return null;
         }
 
         public async Task<ShowProductViewModel> GetProduct(int productNumber, string userEmail)

@@ -26,7 +26,7 @@ namespace OnlineShop.Area.Admin.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> AddProduct(AddOrEditProductViewModel addProductViewModel)
+        public async Task<IActionResult> AddProduct(AddProductViewModel addProductViewModel)
         {
             if (ModelState.IsValid)
             {
@@ -48,7 +48,7 @@ namespace OnlineShop.Area.Admin.Controllers
             return View(model);
         }
 
-        public async Task<IActionResult> EditProduct(AddOrEditProductViewModel editProductViewModel)
+        public async Task<IActionResult> EditProduct(EditProductViewModel editProductViewModel)
         {
             if (ModelState.IsValid)
             {

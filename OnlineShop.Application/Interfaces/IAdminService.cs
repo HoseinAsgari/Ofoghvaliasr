@@ -12,16 +12,16 @@ namespace OnlineShop.Application.Interfaces
 
 
         Task<List<ShowProductsAdminViewModel>> GetProductsModel();
-        Task<AddOrEditProductViewModel> GetEditProductModel(int productId);
-        Task<bool> EditProduct(AddOrEditProductViewModel editProductViewModel);
-        Task<bool> AddProduct(AddOrEditProductViewModel addProductViewModel);
+        Task<ShowEditProductViewModel> GetEditProductModel(int productId);
+        Task<bool> EditProduct(EditProductViewModel editProductViewModel);
+        Task<bool> AddProduct(AddProductViewModel addProductViewModel);
         Task<bool> RemoveProduct(int productId);
 
 
-        Task<AddOrEditCategoryViewModel> GetEditCategoryModel(int categoryId);
+        Task<ShowEditCategoryViewModel> GetEditCategoryModel(int categoryId);
         Task<List<ShowCategoriesAdminViewModel>> GetCategories();
-        Task<bool> EditCategory(AddOrEditCategoryViewModel addCategoryViewModel);
+        Task<bool> EditCategory(EditCategoryViewModel addCategoryViewModel);
         Task<bool> RemoveCategory(int categoryId);
-        Task<bool> AddCategory(AddOrEditCategoryViewModel addCategoryViewModel);
+        Task<bool> AddCategory(AddCategoryViewModel addCategoryViewModel);
     }
 }

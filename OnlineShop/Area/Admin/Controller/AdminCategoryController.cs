@@ -27,7 +27,7 @@ namespace OnlineShop.Area.Admin.Controllers
             return View();
         }
 
-        public async Task<IActionResult> AddCategory(AddOrEditCategoryViewModel addCategoryViewModel)
+        public async Task<IActionResult> AddCategory(AddCategoryViewModel addCategoryViewModel)
         {
             if (ModelState.IsValid)
             {
@@ -49,7 +49,7 @@ namespace OnlineShop.Area.Admin.Controllers
             return View(model);
         }
 
-        public async Task<IActionResult> EditCategory(AddOrEditCategoryViewModel editCategoryViewModel)
+        public async Task<IActionResult> EditCategory(EditCategoryViewModel editCategoryViewModel)
         {
             if (ModelState.IsValid)
             {
