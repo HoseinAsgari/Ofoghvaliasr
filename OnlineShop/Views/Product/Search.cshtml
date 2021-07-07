@@ -8,13 +8,15 @@
         {
             <hr />
             <a href="/Product/ShowProduct/@item.ProductId">
-                <div class="row">
-                    <div class="col-4">
-                        <img class="img-thumbnail" src="/Resources/Pics/ProductThumbnail/@item.ThumbnailName" alt="تصویر کالا" />
+                <div class="row text-sm-center text-md-start">
+                    <div class="col-md-4 col-sm-12">
+                        <img class="img-thumbnail" src="/Resources/Pics/ProductThumbnail/@item.ThumbnailName"
+                    alt="تصویر کالا" />
                     </div>
-                    <div class="col-8">
+                    <div class="col-md-8 col-sm-12 mt-2">
                         <h2>@item.ProductName</h2>
-                        <h4 class="text-gray">@item.ProductPrice</h4>
+                        <hr>
+                        <h5 class="text-gray">@item.ProductPrice تومان</h5>
                     </div>
                 </div>
             </a>

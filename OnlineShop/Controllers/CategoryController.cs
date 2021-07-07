@@ -2,6 +2,7 @@
 using Microsoft.AspNetCore.Mvc;
 using OnlineShop.Application.Interfaces;
 using System;
+using System.Linq;
 using System.Threading.Tasks;
 
 namespace OnlineShop.Controllers
@@ -25,10 +26,10 @@ namespace OnlineShop.Controllers
         {
             var model = await _categoryService.GetAllCategoryProducts(categoryName);
             ViewBag.CategoryName = categoryName;
-            ViewBag.PageCount = (model.Count > 12) ? Math.Ceiling((double)(model.Count / 12)) : 1;
+            ViewBag.PageCount = (model.Count > 12) ? Math.Ceiling(Convert.ToDouble(model.Count) / 12) : 1;
             ViewBag.PageNumber = (pageNumber <= ViewBag.PageCount) ? pageNumber : ViewBag.PageCount;
             ViewBag.PersianName = await _categoryService.GetPersianNameByEnglishName(categoryName);
-            return View(model);
+            return View(model.Skip(--pageNumber * 12).Take(12).ToList());
         }
     }
 }

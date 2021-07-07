@@ -35,20 +35,20 @@ namespace OnlineShop.Application.Services
             {
                 return new ShowIndexViewModel()
                 {
-                    BestTenProductsModel = await products.OrderByDescending(n => n.UserProductLikes.Count).Select(n => new BestTenProductsViewModel()
+                    BestTenProductsModel = await products.OrderByDescending(n => n.UserProductLikes.Count).Take(10).Select(n => new BestTenProductsViewModel()
                     {
                         ProductId = n.ProductId,
                         ProductName = n.ProductName,
                         ProductPrice = n.ProductPrice,
-                        ThumbnailName = n.ProductName + ".jpg"
+                        ThumbnailName = n.ProductName + ".png"
                     }).ToListAsync(),
-                    MostTenSoldProductsModel = await _productRepository.GetAllProducts().OrderByDescending(n => n.UserProductLikes.Count).Select(n => new MostSoldArrivalsViewModel()
+                    MostTenSoldProductsModel = await _productRepository.GetAllProducts().OrderByDescending(n => n.UserProductLikes.Count).Take(10).Select(n => new MostSoldArrivalsViewModel()
                     {
                         ProductId = n.ProductId,
                         CategoryName = n.Category.CategoryEnglishName,
                         ProductName = n.ProductName,
                         ProductPrice = n.ProductPrice,
-                        ThumbnailName = n.ProductName + ".jpg"
+                        ThumbnailName = n.ProductName + ".png"
                     }).ToListAsync()
                 };
             }
@@ -81,7 +81,7 @@ namespace OnlineShop.Application.Services
                 ProductId = product.ProductId,
                 ProductName = product.ProductName,
                 ProductPrice = product.ProductPrice,
-                ThumbnailFileName = product.ProductName + ".jpg",
+                ThumbnailFileName = product.ProductName + ".png",
                 UnitOfProduct = product.UnitOfProduct,
                 OrderedCount = orderedCount,
                 CategoryName = product.Category.CategoryEnglishName,
@@ -131,11 +131,11 @@ namespace OnlineShop.Application.Services
 
         public async Task<List<ShowSearchedProduct>> SearchProduct(string searchedPhrase)
         {
-            return await _productRepository.GetAllProducts().Where(n => searchedPhrase.Contains(n.ProductName)).Select(n => new ShowSearchedProduct()
+            return await _productRepository.GetAllProducts().Where(n => n.ProductName.Contains(searchedPhrase)).Select(n => new ShowSearchedProduct()
             {
                 ProductId = n.ProductId,
                 ProductName = n.ProductName,
-                ThumbnailName = n.ProductName + n.ProductId + ".jpg",
+                ThumbnailName = n.ProductName + ".png",
                 ProductPrice = n.ProductPrice
             }).ToListAsync();
         }

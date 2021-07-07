@@ -25,7 +25,7 @@ namespace OnlineShop.Application.Services
                 Amount = n.Count.ToString() + " " + n.Product.UnitOfProduct,
                 ProductName = n.Product.ProductName,
                 ProductPrice = n.Product.ProductPrice,
-                ThumbnailName = n.Product.ProductName + ".jpg",
+                ThumbnailName = n.Product.ProductName + ".png",
                 UnitOfProduct = n.Product.UnitOfProduct
             }).ToList();
         }

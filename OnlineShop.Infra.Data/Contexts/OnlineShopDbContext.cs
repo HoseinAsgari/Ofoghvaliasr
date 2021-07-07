@@ -65,7 +65,7 @@ namespace OnlineShop.Infra.Data.Contexts
                     CategoryId = 1,
                     ProductName = "ماست میهن",
                     ProductPrice = 40000,
-                    UnitOfProduct = "دبه ای"
+                    UnitOfProduct = "دبه"
                 },new Product()
                 {
                     ProductId = 3,
@@ -170,7 +170,7 @@ namespace OnlineShop.Infra.Data.Contexts
                     CategoryId = 3,
                     ProductName = "شامپو صحت",
                     ProductPrice = 20000,
-                    UnitOfProduct = ""
+                    UnitOfProduct = "بطری"
                 },new Product()
                 {
                     ProductId = 18,

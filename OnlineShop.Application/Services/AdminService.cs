@@ -29,7 +29,7 @@ namespace OnlineShop.Application.Services
 
         public async Task<bool> AddCategory(AddCategoryViewModel addCategoryViewModel)
         {
-            string picturePath = $@"{_environment.WebRootPath}\\Resources\\Pics\\Category\\{addCategoryViewModel.CategoryPersianName}.jpg";
+            string picturePath = $@"{_environment.WebRootPath}\\Resources\\Pics\\CategoryThumbnail\\{addCategoryViewModel.CategoryPersianName}.png";
             using (var stream = File.Create(picturePath))
             {
                 await addCategoryViewModel.CategoryThumbnailFile.CopyToAsync(stream);
@@ -45,7 +45,7 @@ namespace OnlineShop.Application.Services
 
         public async Task<bool> AddProduct(AddProductViewModel addProductViewModel)
         {
-            string picturePath = $@"{_environment.WebRootPath}\\Resources\\Pics\\Category\\{addProductViewModel.ProductPersianName}.jpg";
+            string picturePath = $@"{_environment.WebRootPath}\\Resources\\Pics\\ProductThumbnail\\{addProductViewModel.ProductPersianName}.png";
             using (var stream = File.Create(picturePath))
             {
                 await addProductViewModel.ProductThumbnail.CopyToAsync(stream);
@@ -100,7 +100,7 @@ namespace OnlineShop.Application.Services
                 CategoryId = categoryId,
                 CategoryEnglishName = category.CategoryEnglishName,
                 CategoryPersianName = category.CategoryName,
-                CategoryThumbnail = category.CategoryName + ".jpg"
+                CategoryThumbnail = category.CategoryName + ".png"
             };
         }
 
@@ -112,7 +112,7 @@ namespace OnlineShop.Application.Services
                 ProductId = productId,
                 ProductPersianName = product.ProductName,
                 ProductPrice = product.ProductPrice,
-                ProductThumbnail = product.ProductName + ".jpg",
+                ProductThumbnail = product.ProductName + ".png",
                 UnitOfProduct = product.UnitOfProduct
             };
         }
@@ -123,7 +123,7 @@ namespace OnlineShop.Application.Services
             {
                 ProductName = n.ProductName,
                 ProductPrice = n.ProductPrice,
-                ProductThumbanil = n.ProductName + ".jpg",
+                ProductThumbanil = n.ProductName + ".png",
                 UnitOfProduct = n.UnitOfProduct
             }).ToListAsync();
         }

@@ -6,11 +6,11 @@
 {
     @if (Model.MostTenSoldProductsModel != null && Model.MostTenSoldProductsModel.Count == 10)
     {
-        @await Html.PartialAsync("MostSoldArrivals")
+        @await Html.PartialAsync("MostSoldArrivals", Model.MostTenSoldProductsModel)
     }
     @if (Model.BestTenProductsModel != null && Model.BestTenProductsModel.Count == 10)
     {
-        @await Html.PartialAsync("BestProduct", Model.BestTenProductsModel)
+        @await Html.PartialAsync("BestProducts", Model.BestTenProductsModel)
     }
 }
 @await Html.PartialAsync("Benefit")

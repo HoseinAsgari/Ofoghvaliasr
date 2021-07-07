@@ -22,7 +22,7 @@ namespace OnlineShop.Application.Services
             return Task.FromResult(_categoryRepository.GetAllCategories().Select(n => new ShowCategoriesViewModel()
             {
                 CategoryName = n.CategoryName,
-                CategoryThumbnail = n.CategoryName + ".jpg",
+                CategoryThumbnail = n.CategoryName + ".png",
                 EnglishName = n.CategoryEnglishName
             }).ToList());
         }
@@ -34,7 +34,7 @@ namespace OnlineShop.Application.Services
                 ProductName = n.ProductName,
                 ProductPrice = n.ProductPrice,
                 ProductId = n.ProductId,
-                ProductThumbnail = n.ProductName + ".jpg"
+                ProductThumbnail = n.ProductName + ".png"
             }).ToList();
         }
 

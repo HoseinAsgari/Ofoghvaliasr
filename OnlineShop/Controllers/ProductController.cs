@@ -14,6 +14,7 @@ namespace OnlineShop.Controllers
             _productService = productService;
         }
 
+        [Authorize]
         public async Task<IActionResult> ShowProduct(int productNumber)
         {
             var model = await _productService.GetProduct(productNumber, User.FindFirstValue(ClaimTypes.Email));
@@ -33,6 +34,7 @@ namespace OnlineShop.Controllers
             return View(model);
         }
 
+        [Authorize]
         public async Task<IActionResult> ProductLiked(int productId)
         {
             await _productService.ProductLiked(productId, User.FindFirstValue(ClaimTypes.Email));
