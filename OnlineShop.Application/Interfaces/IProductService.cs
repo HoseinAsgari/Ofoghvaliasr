@@ -9,7 +9,7 @@ namespace OnlineShop.Application.Interfaces
     {
         Task<ShowProductViewModel> GetProduct(int productNumber, string userEmail);
         Task<bool> OrderProduct(int productNumber, string email);
-        Task<ShowIndexViewModel> GetIndexModel();
+        Task<ShowIndexViewModel> GetIndexModel(string email);
         Task<List<ShowSearchedProduct>> SearchProduct(string searchedPhrase);
         Task<bool> ProductLiked(int productId, string userEmail);
     }

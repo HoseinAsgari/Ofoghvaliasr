@@ -39,13 +39,13 @@
                                 @if (bool.Parse(User.FindFirstValue("IsAdmin")))
                                 {
                                     <div class="top_nav_left">
-                                        مدیر @User.FindFirstValue(ClaimTypes.Name) خوش آمدید!! برای خارج شدن روی<a href="/Account/LogOut">این</a> کلیک کنید.
+                                        مدیر @User.FindFirstValue(ClaimTypes.Name) خوش آمدید!! برای خارج شدن روی <a href="/Account/LogOut">این</a> کلیک کنید.
                                     </div>
                                 }
                                 else
                                 {
                                     <div class="top_nav_left">
-                                        کاربر @User.FindFirstValue(ClaimTypes.Name) خوش آمدید!! برای خارج شدن روی<a href="/Account/LogOut">این</a> کلیک کنید.
+                                        کاربر @User.FindFirstValue(ClaimTypes.Name) خوش آمدید!! برای خارج شدن روی <a href="/Account/LogOut">این</a> کلیک کنید.
                                     </div>
                                 }
                             }

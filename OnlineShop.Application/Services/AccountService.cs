@@ -19,10 +19,12 @@ namespace OnlineShop.Application.Services
     {
         readonly IUserRepository _userRepository;
         readonly IMailSender _mailSender;
-        public AccountService(IUserRepository userRepository, IMailSender mailSender)
+        readonly ICartRepository _cartRepository;
+        public AccountService(ICartRepository cartRepository, IUserRepository userRepository, IMailSender mailSender)
         {
             _userRepository = userRepository;
             _mailSender = mailSender;
+            _cartRepository = cartRepository;
         }
 
         public async Task<bool> EmailExists(string email)
@@ -66,28 +68,27 @@ namespace OnlineShop.Application.Services
 
         public async Task<bool> SignIn(SignInViewModel signInViewModel, string domainName)
         {
-            try
+            var activationCode = EmailActivationLinkGenerator.CodeGenerator();
+            User user = new()
             {
-                var activationCode = EmailActivationLinkGenerator.CodeGenerator();
-                User model = new()
-                {
-                    UserEmail = signInViewModel.Email.Trim().ToLower(),
-                    UserActivationLink = await PasswordHelper.EncodePasswordMd5(activationCode),//@"/Account/Active?password=""" + Guid.NewGuid().ToString() + @""""
-                    IsAccountActive = false,
-                    IsAdmin = false,
-                    UserPassword = await PasswordHelper.EncodePasswordMd5(signInViewModel.Password),
-                    DateSignedIn = DateTime.Now,
-                    UserName = signInViewModel.Name
-                };
-                await _userRepository.AddUser(model);
-                await _userRepository.SaveChanges();
-                await new SendMail(_mailSender).SendActivationCode(activationCode, signInViewModel.Email, domainName);
-                return true;
-            }
-            catch (Exception)
+                UserEmail = signInViewModel.Email.Trim().ToLower(),
+                UserActivationLink = await PasswordHelper.EncodePasswordMd5(activationCode),//@"/Account/Active?password=""" + Guid.NewGuid().ToString() + @""""
+                IsAccountActive = false,
+                IsAdmin = false,
+                UserPassword = await PasswordHelper.EncodePasswordMd5(signInViewModel.Password),
+                DateSignedIn = DateTime.Now,
+                UserName = signInViewModel.Name,
+                UserPhoneNumber = signInViewModel.PhoneNumber
+            };
+            Cart userCart = new Cart()
             {
-                throw;
-            }
+                User = user
+            };
+            await _cartRepository.AddCart(userCart);
+            await _userRepository.AddUser(user);
+            await new SendMail(_mailSender).SendActivationCode(activationCode, signInViewModel.Email, domainName);
+            await _userRepository.SaveChanges();
+            return true;
         }
 
         private async Task<User> GetUserByEmail(string userEmail)

@@ -1,4 +1,5 @@
-﻿using OnlineShop.Domain.Interfaces;
+﻿using Microsoft.EntityFrameworkCore;
+using OnlineShop.Domain.Interfaces;
 using OnlineShop.Domain.Models;
 using OnlineShop.Infra.Data.Contexts;
 using System.Linq;
@@ -22,12 +23,18 @@ namespace OnlineShop.Infra.Data.Repositories
 
         public IQueryable<Product> GetAllProducts()
         {
-            return _dbContext.Products;
+            return _dbContext.Products.
+            Include(n => n.UserProductLikes).ThenInclude(n => n.User).
+            Include(n => n.UserProductViews).ThenInclude(n => n.User).
+            Include(n => n.UserProductSolds).ThenInclude(n => n.User).
+            Include(n => n.CartItems).ThenInclude(n => n.Cart).
+            Include(n => n.Category).ThenInclude(n => n.Products)
+            ;
         }
 
         public async Task<Product> GetProduct(int id)
         {
-            return await _dbContext.Products.FindAsync(id);;
+            return await _dbContext.Products.FindAsync(id); ;
         }
 
         public void RemoveProduct(Product product)

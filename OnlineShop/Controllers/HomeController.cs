@@ -2,6 +2,7 @@
 using OnlineShop.Application.Interfaces;
 using OnlineShop.Application.ViewModels.Shared;
 using System.Diagnostics;
+using System.Security.Claims;
 using System.Threading.Tasks;
 
 namespace OnlineShop.Controllers
@@ -16,7 +17,7 @@ namespace OnlineShop.Controllers
 
         public async Task<IActionResult> Index()
         {
-            var model = await _productService.GetIndexModel();
+            var model = await _productService.GetIndexModel(User.FindFirstValue(ClaimTypes.Email));
             return View(model);
         }
 

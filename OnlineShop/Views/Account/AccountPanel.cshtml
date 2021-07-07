@@ -1,29 +1,19 @@
 @model UserPanelViewModel
-<div class="mtop">
-    <h1 class="text-center mt-3">پنل حساب کاربری</h1>
-    <hr>
-    <div class="my-3">
-        <div class="col-12 col-md-3">
-            <div class="my-2">
-                <b>ایمیل:</b>
-            </div>
-            <div class="my-2">
-                <b>تاریخ ثبت نام:</b>
-            </div>
-            <div class="my-2">
-                <b>حساب فعال:</b>
-            </div>
-        </div>
-        <div class="col-12 col-md-9">
-            <div class="my-2">
-                <span>@Model.Email</span>
-            </div>
-            <div class="my-2">
-                <span>@Model.SignInDate</span>
-            </div>
-            <div class="my-2">
-                <span><input @(Model.ActiveEmail?"checked":"") type="checkbox" class="form-check-input" onclick="return false;">@Model.ActiveEmail</span>
-            </div>
-        </div>
+
+<div class="mtop account-panel">
+    <div class="container py-5" dir="rtl">
+        <h1 class="text-center mt-3">پنل حساب کاربری</h1>
+        <hr>
+        <dl class="m-5">
+            <dd><b>ایمیل:</b></dd>
+            <dt>@Model.Email</dt>
+            <hr>
+            <dd><b>تاریخ ثبت نام:</b></dd>
+            <dl>@Model.SignInDate</dl>
+            <hr>
+            <dd><b>حساب فعال:</b></dd>
+            <dl><input @(Model.ActiveEmail?"checked":"") type="checkbox" class="form-check-input"
+                    onclick="return false;"> @(Model.ActiveEmail?"ندارید":"دارید")</dl>
+        </dl>
     </div>
 </div>

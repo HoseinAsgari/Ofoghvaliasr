@@ -13,5 +13,6 @@ namespace OnlineShop.Application.ViewModels.Shared
         public uint ProductPrice { get; set; }
         public string CategoryName { get; set; }
         public int ProductId { get; set; }
+        public bool ProductLiked { get; set; }
     }
 }

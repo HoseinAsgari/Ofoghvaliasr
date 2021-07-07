@@ -12,5 +12,6 @@ namespace OnlineShop.Application.ViewModels.Shared
         public string ThumbnailName { get; set; }
         public string ProductName { get; set; }
         public uint ProductPrice { get; set; }
+        public bool ProductLiked { get; set; }
     }
 }

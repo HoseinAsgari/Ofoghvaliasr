@@ -63,7 +63,7 @@ namespace OnlineShop.Controllers
         [HttpPost]
         public async Task<IActionResult> LogIn(LogInViewModel model, string ReturnUrl)
         {
-            if (ModelState.IsValid && !await _accountService.LogIn(model))
+            if (ModelState.IsValid && await _accountService.LogIn(model))
             {
                 var userName = await _accountService.GetUserNameByEmail(model.Email);
                 await SetUserAuthenticationCookies(model, userName);
@@ -106,7 +106,8 @@ namespace OnlineShop.Controllers
                 {
                     new Claim(ClaimTypes.Email, user.Email.ToLower()),
                     new Claim(ClaimTypes.Name, user.Name),
-                    new Claim("IsAdmin", "false")
+                    new Claim("IsAdmin", "false"),
+                    new Claim("PhoneNumber", user.PhoneNumber),
                 };
                 var identity = new ClaimsIdentity(claims, CookieAuthenticationDefaults.AuthenticationScheme);
                 var principal = new ClaimsPrincipal(identity);

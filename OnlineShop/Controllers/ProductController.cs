@@ -15,17 +15,17 @@ namespace OnlineShop.Controllers
         }
 
         [Authorize]
-        public async Task<IActionResult> ShowProduct(int productNumber)
+        public async Task<IActionResult> ShowProduct(int id)
         {
-            var model = await _productService.GetProduct(productNumber, User.FindFirstValue(ClaimTypes.Email));
+            var model = await _productService.GetProduct(id, User.FindFirstValue(ClaimTypes.Email));
             return View(model);
         }
 
         [Authorize]
-        public async Task<IActionResult> AddToCart(int productNumber)
+        public async Task<IActionResult> AddToCart(int id)
         {
-            await _productService.OrderProduct(productNumber, User.FindFirstValue(ClaimTypes.Email));
-            return Redirect("/Product/ShowProduct/" + productNumber);
+            await _productService.OrderProduct(id, User.FindFirstValue(ClaimTypes.Email));
+            return Redirect("/Product/ShowProduct/" + id);
         }
 
         public async Task<IActionResult> Search(string search)
@@ -35,9 +35,9 @@ namespace OnlineShop.Controllers
         }
 
         [Authorize]
-        public async Task<IActionResult> ProductLiked(int productId)
+        public async Task<IActionResult> ProductLiked(int id)
         {
-            await _productService.ProductLiked(productId, User.FindFirstValue(ClaimTypes.Email));
+            await _productService.ProductLiked(id, User.FindFirstValue(ClaimTypes.Email));
             return null;
         }
     }

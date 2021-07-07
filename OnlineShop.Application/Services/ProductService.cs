@@ -28,7 +28,7 @@ namespace OnlineShop.Application.Services
             _userProductViewsRepository = userProductViewsRepository;
         }
 
-        public async Task<ShowIndexViewModel> GetIndexModel()
+        public async Task<ShowIndexViewModel> GetIndexModel(string email)
         {
             var products = _productRepository.GetAllProducts();
             if (products != null && products.Count() != 0)
@@ -40,7 +40,8 @@ namespace OnlineShop.Application.Services
                         ProductId = n.ProductId,
                         ProductName = n.ProductName,
                         ProductPrice = n.ProductPrice,
-                        ThumbnailName = n.ProductName + ".png"
+                        ThumbnailName = n.ProductName + ".png",
+                        ProductLiked = (email != null && email != "" && n.UserProductLikes != null) ? n.UserProductLikes.Any(p => p.User.UserEmail == email) : false
                     }).ToListAsync(),
                     MostTenSoldProductsModel = await _productRepository.GetAllProducts().OrderByDescending(n => n.UserProductLikes.Count).Take(10).Select(n => new MostSoldArrivalsViewModel()
                     {
@@ -48,7 +49,8 @@ namespace OnlineShop.Application.Services
                         CategoryName = n.Category.CategoryEnglishName,
                         ProductName = n.ProductName,
                         ProductPrice = n.ProductPrice,
-                        ThumbnailName = n.ProductName + ".png"
+                        ThumbnailName = n.ProductName + ".png",
+                        ProductLiked = (email != null && email != "" && n.UserProductLikes != null) ? n.UserProductLikes.Any(p => p.User.UserEmail == email) : false
                     }).ToListAsync()
                 };
             }
@@ -118,13 +120,20 @@ namespace OnlineShop.Application.Services
         {
             var product = await _productRepository.GetProduct(productId);
             var user = await _userRepository.GetAllUsers().SingleAsync(n => n.UserEmail == userEmail);
-            await _userProductLikesRepository.AddUserProductLikes(new UserProductLikes()
+            if (await _userProductLikesRepository.GetAllUserProductLikes().AnyAsync(n => n.ProductId == productId && n.UserId == user.UserId))
             {
-                Product = product,
-                UserId = user.UserId,
-                ProductId = product.ProductId,
-                User = user
-            });
+                _userProductLikesRepository.RemoveUserProductLikes(await _userProductLikesRepository.GetAllUserProductLikes().SingleAsync(n => n.ProductId == productId && n.UserId == user.UserId));
+            }
+            else
+            {
+                await _userProductLikesRepository.AddUserProductLikes(new UserProductLikes()
+                {
+                    Product = product,
+                    UserId = user.UserId,
+                    ProductId = product.ProductId,
+                    User = user
+                });
+            }
             await _userProductLikesRepository.SaveChanges();
             return true;
         }
