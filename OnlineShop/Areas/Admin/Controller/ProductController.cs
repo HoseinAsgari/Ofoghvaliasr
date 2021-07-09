@@ -3,13 +3,13 @@ using Microsoft.AspNetCore.Mvc;
 using OnlineShop.Application.Interfaces;
 using OnlineShop.Application.ViewModels.Admin.Product;
 
-namespace OnlineShop.Area.Admin.Controllers
+namespace OnlineShop.Areas.Admin.Controllers
 {
     [Area("Admin")]
-    public class AdminProductController : Controller
+    public class ProductController : Controller
     {
         readonly IAdminService _adminService;
-        public AdminProductController(IAdminService adminService)
+        public ProductController(IAdminService adminService)
         {
             _adminService = adminService;
         }
@@ -20,8 +20,9 @@ namespace OnlineShop.Area.Admin.Controllers
             return View(model);
         }
 
-        public IActionResult AddProduct()
+        public async Task<IActionResult> AddProduct()
         {
+            ViewBag.Categories = await _adminService.GetAllCategoriesName();
             return View();
         }
 

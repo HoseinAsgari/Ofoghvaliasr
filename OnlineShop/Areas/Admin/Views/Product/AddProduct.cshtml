@@ -1,0 +1,48 @@
+@model AddProductViewModel
+
+<div dir="rtl" class="mtop container">
+    @if (@ViewBag.Categories != null)
+    {
+        <h1>اضافه کردن کالا</h1>
+        <hr>
+        <div class="row">
+            <form class="col-md-6 col-sm-8 col-12" enctype="multipart/form-data" action="/Admin/Product/AddProduct"
+            method="POST">
+                <div asp-validation-summary="All" class="text-danger"></div>
+                <div class="form-group m-3">
+                    <label class="form-label" asp-for="ProductPersianName"></label>
+                    <input class="form-control" asp-for="ProductPersianName">
+                </div>
+                <label class="my-1 mr-2" for="inlineFormCustomSelectPref">Preference</label>
+                <select class="custom-select my-1 mr-sm-2">
+                    @foreach (var item in ViewBag.Categories)
+                    {
+                        <option>@item</option>
+                    }
+                </select>
+                <div class="form-group m-3">
+                    <label class="form-label" asp-for="ProductPrice"></label>
+                    <input class="form-control" asp-for="ProductPrice">
+                </div>
+                <div class="form-group m-3">
+                    <label class="form-label" asp-for="UnitOfProduct"></label>
+                    <input class="form-control" asp-for="UnitOfProduct">
+                </div>
+                <div class="form-group m-3">
+                    <label class="form-label" asp-for="ProductThumbnail"></label>
+                    <input onchange="pictureUploaded(this)" class="form-control" asp-for="ProductThumbnail">
+                    <img alt="تصویر بارگذاری شده" id="show-image">
+                </div>
+                <div class="form-group m-3">
+                    <input class="btn btn-success" type="submit" value="اضافه کردن محصول">
+                </div>
+            </form>
+        </div>
+    }
+    else
+    {
+        <h2 class="text-danger">شما دسته بندی ای ندارید!!!</h2>
+        <br>
+        <h4>برای اضافه کردن دسته بندی به <a href="/Admin/Category/AddCategory">این</a> صفحه مراجعه کنید.</h4>
+    }
+</div>

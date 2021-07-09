@@ -14,7 +14,7 @@ namespace OnlineShop.Application.Interfaces
 
 
         Task<List<ShowProductsAdminViewModel>> GetProductsModel();
-        Task<ShowEditProductViewModel> GetEditProductModel(int productId);
+        Task<EditProductViewModel> GetEditProductModel(int productId);
         Task<bool> EditProduct(EditProductViewModel editProductViewModel);
         Task<bool> AddProduct(AddProductViewModel addProductViewModel);
         Task<bool> RemoveProduct(int productId);
@@ -25,5 +25,7 @@ namespace OnlineShop.Application.Interfaces
         Task<bool> EditCategory(EditCategoryViewModel addCategoryViewModel);
         Task<bool> RemoveCategory(int categoryId);
         Task<bool> AddCategory(AddCategoryViewModel addCategoryViewModel);
+
+        Task<List<string>> GetAllCategoriesName();
     }
 }

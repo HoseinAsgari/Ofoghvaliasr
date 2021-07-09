@@ -5,6 +5,7 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using OnlineShop.FilterAttributes;
 using OnlineShop.Infra.Data.Contexts;
 using OnlineShop.Infra.IoC;
 using System;
@@ -27,6 +28,7 @@ namespace OnlineShop
             DependencyContainer.RegisterServices(services);
             RegisterContexts(services);
             RegisterAuthentication(services);
+            services.AddScoped<AdminFilter>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -52,6 +54,9 @@ namespace OnlineShop
 
             app.UseEndpoints(endpoints =>
             {
+                endpoints.MapControllerRoute(
+                    name: "Area",
+                    pattern: "{area=exists}/{controller=AdminHome}/{action=Index}/{id?}");
                 endpoints.MapControllerRoute(
                     name: "default",
                     pattern: "{controller=Home}/{action=Index}/{id?}");

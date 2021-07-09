@@ -4,14 +4,14 @@ using OnlineShop.Application.ViewModels.Admin.Category;
 using OnlineShop.FilterAttributes;
 using System.Threading.Tasks;
 
-namespace OnlineShop.Area.Admin.Controllers
+namespace OnlineShop.Areas.Admin.Controllers
 {
     [Area("Admin")]
     [ServiceFilter(typeof(AdminFilter))]
-    public class AdminCategoryController : Controller
+    public class CategoryController : Controller
     {
         readonly IAdminService _adminService;
-        public AdminCategoryController(IAdminService adminService)
+        public CategoryController(IAdminService adminService)
         {
             _adminService = adminService;
         }
@@ -27,6 +27,7 @@ namespace OnlineShop.Area.Admin.Controllers
             return View();
         }
 
+        [HttpPost]
         public async Task<IActionResult> AddCategory(AddCategoryViewModel addCategoryViewModel)
         {
             if (ModelState.IsValid)
@@ -49,6 +50,7 @@ namespace OnlineShop.Area.Admin.Controllers
             return View(model);
         }
 
+        [HttpPost]
         public async Task<IActionResult> EditCategory(EditCategoryViewModel editCategoryViewModel)
         {
             if (ModelState.IsValid)

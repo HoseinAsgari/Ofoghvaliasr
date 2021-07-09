@@ -33,25 +33,29 @@ namespace OnlineShop.Application.Services
             var products = _productRepository.GetAllProducts();
             if (products != null && products.Count() != 0)
             {
+                List<BestTenProductsViewModel> bestTenProductsViewModels = await products.OrderByDescending(n => n.UserProductLikes.Count).Take(10).Select(n => new BestTenProductsViewModel()
+                {
+                    ProductId = n.ProductId,
+                    ProductName = n.ProductName,
+                    ProductPrice = n.ProductPrice,
+                    ThumbnailName = n.ProductName + ".png",
+                    ProductLiked = (email != null && email != "" && n.UserProductLikes != null) ? n.UserProductLikes.Any(p => p.User.UserEmail == email) : false
+                }).ToListAsync();
+
+                List<MostSoldArrivalsViewModel> mostSoldArrivalsViewModels = await _productRepository.GetAllProducts().OrderByDescending(n => n.UserProductLikes.Count).Take(10).Select(n => new MostSoldArrivalsViewModel()
+                {
+                    ProductId = n.ProductId,
+                    CategoryName = n.Category.CategoryEnglishName,
+                    ProductName = n.ProductName,
+                    ProductPrice = n.ProductPrice,
+                    ThumbnailName = n.ProductName + ".png",
+                    ProductLiked = (email != null && email != "" && n.UserProductLikes != null) ? n.UserProductLikes.Any(p => p.User.UserEmail == email) : false
+                }).ToListAsync();
+
                 return new ShowIndexViewModel()
                 {
-                    BestTenProductsModel = await products.OrderByDescending(n => n.UserProductLikes.Count).Take(10).Select(n => new BestTenProductsViewModel()
-                    {
-                        ProductId = n.ProductId,
-                        ProductName = n.ProductName,
-                        ProductPrice = n.ProductPrice,
-                        ThumbnailName = n.ProductName + ".png",
-                        ProductLiked = (email != null && email != "" && n.UserProductLikes != null) ? n.UserProductLikes.Any(p => p.User.UserEmail == email) : false
-                    }).ToListAsync(),
-                    MostTenSoldProductsModel = await _productRepository.GetAllProducts().OrderByDescending(n => n.UserProductLikes.Count).Take(10).Select(n => new MostSoldArrivalsViewModel()
-                    {
-                        ProductId = n.ProductId,
-                        CategoryName = n.Category.CategoryEnglishName,
-                        ProductName = n.ProductName,
-                        ProductPrice = n.ProductPrice,
-                        ThumbnailName = n.ProductName + ".png",
-                        ProductLiked = (email != null && email != "" && n.UserProductLikes != null) ? n.UserProductLikes.Any(p => p.User.UserEmail == email) : false
-                    }).ToListAsync()
+                    BestTenProductsModel = bestTenProductsViewModels,
+                    MostTenSoldProductsModel = mostSoldArrivalsViewModels
                 };
             }
             return null;
@@ -78,6 +82,9 @@ namespace OnlineShop.Application.Services
             {
                 orderedCount = userCart.CartItems.Single(n => n.Product.ProductId == productNumber).Count;
             }
+
+            float? productRate = product.UserProductSolds?.Count != 0 && product.UserProductLikes?.Count != 0 ? (product.UserProductLikes?.Count / product.UserProductSolds?.Count) * 5 : null;
+
             return new ShowProductViewModel()
             {
                 ProductId = product.ProductId,
@@ -88,32 +95,9 @@ namespace OnlineShop.Application.Services
                 OrderedCount = orderedCount,
                 CategoryName = product.Category.CategoryEnglishName,
                 CategoryPersianName = product.Category.CategoryName,
-                ProductRate = (product.UserProductLikes.Count / product.UserProductSolds.Count) * 5
+                ProductRate = productRate,
+                ProductLiked = await _userProductLikesRepository.GetAllUserProductLikes().AnyAsync(n => n.UserId == user.UserId && n.ProductId == product.ProductId)
             };
-        }
-
-        public async Task<bool> OrderProduct(int productNumber, string email)
-        {
-            var product = await _productRepository.GetProduct(productNumber);
-            var user = await _userRepository.GetAllUsers().SingleAsync(n => n.UserEmail == email);
-            if (user.Cart.CartItems.Any(n => n.Product.ProductId == productNumber))
-            {
-                var cartItem = user.Cart.CartItems.Single(n => n.Product.ProductId == productNumber);
-                cartItem.Count++;
-                _cartItemRepository.UpdateCartItem(cartItem);
-            }
-            else
-            {
-                var cartItem = new CartItem()
-                {
-                    Cart = user.Cart,
-                    Count = 1,
-                    Product = product
-                };
-                await _cartItemRepository.AddCartItem(cartItem);
-            }
-            await _cartItemRepository.SaveChanges();
-            return true;
         }
 
         public async Task<bool> ProductLiked(int productId, string userEmail)

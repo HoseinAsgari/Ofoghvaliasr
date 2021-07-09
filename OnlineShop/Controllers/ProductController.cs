@@ -21,13 +21,6 @@ namespace OnlineShop.Controllers
             return View(model);
         }
 
-        [Authorize]
-        public async Task<IActionResult> AddToCart(int id)
-        {
-            await _productService.OrderProduct(id, User.FindFirstValue(ClaimTypes.Email));
-            return Redirect("/Product/ShowProduct/" + id);
-        }
-
         public async Task<IActionResult> Search(string search)
         {
             var model = await _productService.SearchProduct(search);

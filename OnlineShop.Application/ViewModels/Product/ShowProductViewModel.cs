@@ -1,10 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace OnlineShop.Application.ViewModels.Product
+﻿namespace OnlineShop.Application.ViewModels.Product
 {
     public class ShowProductViewModel
     {
@@ -14,8 +8,9 @@ namespace OnlineShop.Application.ViewModels.Product
         public string UnitOfProduct { get; set; }
         public string ThumbnailFileName { get; set; }
         public uint OrderedCount { get; set; }
-        public float ProductRate { get; set; }
+        public float? ProductRate { get; set; }
         public string CategoryPersianName { get; set; }
         public string CategoryName { get; set; }
+        public bool ProductLiked { get; set; }
     }
 }

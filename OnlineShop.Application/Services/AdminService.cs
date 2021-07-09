@@ -10,6 +10,8 @@ using System.Linq;
 using Microsoft.EntityFrameworkCore;
 using System.IO;
 using OnlineShop.Application.Helpers.CalendarHelper;
+using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Http.Internal;
 
 namespace OnlineShop.Application.Services
 {
@@ -81,6 +83,11 @@ namespace OnlineShop.Application.Services
             return true;
         }
 
+        public Task<List<string>> GetAllCategoriesName()
+        {
+            throw new System.NotImplementedException();
+        }
+
         public async Task<List<ShowCategoriesAdminViewModel>> GetCategories()
         {
             return await _categoryRepository.GetAllCategories().Select(n => new ShowCategoriesAdminViewModel()
@@ -104,15 +111,15 @@ namespace OnlineShop.Application.Services
             };
         }
 
-        public async Task<ShowEditProductViewModel> GetEditProductModel(int productId)
+        public async Task<EditProductViewModel> GetEditProductModel(int productId)
         {
             var product = await _productRepository.GetProduct(productId);
-            return new ShowEditProductViewModel()
+            return new EditProductViewModel()
             {
                 ProductId = productId,
                 ProductPersianName = product.ProductName,
                 ProductPrice = product.ProductPrice,
-                ProductThumbnail = product.ProductName + ".png",
+                ProductThumbnail = new FormFile(null, 0, 0, null, product.ProductName + ".png"),
                 UnitOfProduct = product.UnitOfProduct
             };
         }
@@ -175,6 +182,11 @@ namespace OnlineShop.Application.Services
             _userRepository.UpdateUser(user);
             await _userRepository.SaveChanges();
             return true;
+        }
+
+        Task<EditProductViewModel> IAdminService.GetEditProductModel(int productId)
+        {
+            throw new System.NotImplementedException();
         }
     }
 }

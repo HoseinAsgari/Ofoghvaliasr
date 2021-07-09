@@ -1,0 +1,35 @@
+@model List<ShowProductsAdminViewModel>
+
+<div class="mtop mx-2">
+    @if (Model != null)
+    {    
+        <table class="table table-bordered table-striped table-primary">
+            <thead>
+                <tr>
+                    <th>تصویر محصول</th>
+                    <th>نام محصول</th>
+                    <th>قیمت محصول</th>
+                    <th>واحد شمارش محصول</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var item in Model)
+                {
+                    <tr>
+                        <th><img class="image-thumbnail" src="/Resources/Pics/ProductThumbnail/@item.ProductThumbanil"
+                        alt="تصویر محصول"></th>
+                        <th>@item.ProductName</th>
+                        <th>@item.ProductPrice تومان</th>
+                        <th>@item.UnitOfProduct</th>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    }
+    else
+    {
+        <h2>کالایی یافت نشد!!!</h2>
+        <hr>
+        <h4>برای اضافه کردن کالا روی <a href="/Admin/Product/AddProduct">این</a> کلیک کنید.</h4>
+    }
+</div>

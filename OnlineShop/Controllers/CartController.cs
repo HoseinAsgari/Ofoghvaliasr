@@ -12,16 +12,23 @@ namespace OnlineShop.Controllers
     [Authorize]
     public class CartController : Controller
     {
-        readonly ICartService _cartRepository;
-        public CartController(ICartService cartRepository)
+        readonly ICartService _cartService;
+        public CartController(ICartService cartService)
         {
-            _cartRepository = cartRepository;
+            _cartService = cartService;
         }
 
         public async Task<IActionResult> MyCart()
         {
-            var model = await _cartRepository.GetCart(User.FindFirstValue(ClaimTypes.Email));
+            var model = await _cartService.GetCart(User.FindFirstValue(ClaimTypes.Email));
+            ViewBag.SumOfPrice = model.Sum(n => n.ProductPrice * n.Amount);
             return View("ShowCart", model);
+        }
+
+        public async Task<IActionResult> AddToCart(int id, int? count)
+        {
+            await _cartService.OrderProduct(id, User.FindFirstValue(ClaimTypes.Email), count.HasValue ? count.Value : 1);
+            return Redirect("/Product/ShowProduct/" + id);
         }
     }
 }

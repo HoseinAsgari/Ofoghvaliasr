@@ -8,7 +8,7 @@ namespace OnlineShop.Domain.Interfaces
     {
         IQueryable<Cart> GetAllCarts();
         Task<bool> AddCart(Cart cart);
-        Task<bool> GetCart(int id);
+        Task<Cart> GetCart(int id);
         void UpdateCart(Cart cart);
         void RemoveCart(Cart cart);
         Task<bool> SaveChanges();

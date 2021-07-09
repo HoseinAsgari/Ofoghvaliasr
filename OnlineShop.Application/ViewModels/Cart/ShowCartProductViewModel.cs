@@ -6,7 +6,7 @@
         public string ProductName { get; set; }
         public string ThumbnailName { get; set; }
         public uint ProductPrice { get; set; }
+        public uint Amount { get; set; }
         public string UnitOfProduct { get; set; }
-        public string Amount { get; set; }
     }
 }

@@ -34,7 +34,12 @@ namespace OnlineShop.Infra.Data.Repositories
 
         public async Task<Product> GetProduct(int id)
         {
-            return await _dbContext.Products.FindAsync(id); ;
+            return await _dbContext.Products.
+            Include(n => n.UserProductLikes).ThenInclude(n => n.User).
+            Include(n => n.UserProductViews).ThenInclude(n => n.User).
+            Include(n => n.UserProductSolds).ThenInclude(n => n.User).
+            Include(n => n.CartItems).ThenInclude(n => n.Cart).
+            Include(n => n.Category).ThenInclude(n => n.Products).SingleAsync(n => n.ProductId == id);
         }
 
         public void RemoveProduct(Product product)

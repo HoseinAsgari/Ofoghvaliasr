@@ -4,14 +4,14 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using OnlineShop.FilterAttributes;
 
-namespace OnlineShop.Area.Admin.Controllers
+namespace OnlineShop.Areas.Admin.Controllers
 {
     [Area("Admin")]
     [ServiceFilter(typeof(AdminFilter))]
-    public class AdminUserController : Controller
+    public class UserController : Controller
     {
         readonly IAdminService _adminService;
-        public AdminUserController(IAdminService adminService)
+        public UserController(IAdminService adminService)
         {
             _adminService = adminService;
         }
