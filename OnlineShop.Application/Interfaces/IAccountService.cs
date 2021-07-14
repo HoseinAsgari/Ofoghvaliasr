@@ -1,8 +1,4 @@
 ﻿using OnlineShop.Application.ViewModels.Account;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
 
 namespace OnlineShop.Application.Interfaces
@@ -17,5 +13,6 @@ namespace OnlineShop.Application.Interfaces
         Task<bool> IsActivateByEmail(string email);
         Task<bool> ActiveAccount(string email, string activationCode);
         Task<string> GetUserNameByEmail(string email);
+        Task<bool> ChangeAddress(string address, string email);
     }
 }

@@ -1,2 +1,35 @@
 @model List<ShowUsersViewModel>
 
+<div dir="rtl" class="mtop">
+    <table class="table table-striped table-primary">
+        <thead>
+            <tr>
+                <th>نام کاربر</th>
+                <th>فعال بودن اکانت</th>
+                <th>ادمین بودن</th>
+                <th>گزینه ها</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td>@item.UserName</td>
+                    <td><input class="form-control-check" onclick="return false" type="checkbox"
+                        @(item.IsActive?"checked":"")></td>
+                    <td><input class="form-control-check" onclick="return false" type="checkbox"
+                        @(item.IsActive?"checked":"")></td>
+                    <td class="w-auto row">
+                        <a class="btn btn-primary text-center w-auto m-1"
+                        href="/Admin/User/Details/@item.UserId">اطلاعات</a>
+                        <a class="btn btn-success text-center w-auto m-1 pt-2"
+                        href="/Admin/User/SetUserToAdmin/@item.UserId"><h6 class="text-light">ارتقا به
+                            ادمین</h6></a>
+                        <a class="btn btn-danger text-center w-auto m-1 pt-2" href="/Admin/User/removeUser/@item.UserId"><h6 class="text-light"><span
+                            class="fa fa-times"></span> حذف</h6></a>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>

@@ -1,4 +1,8 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using System;
+using System.Collections.Generic;
+using System.Security.Cryptography;
+using System.Text;
+using Microsoft.EntityFrameworkCore;
 using OnlineShop.Domain.Models;
 
 namespace OnlineShop.Infra.Data.Contexts
@@ -59,147 +63,147 @@ namespace OnlineShop.Infra.Data.Contexts
                     ProductName = "شیر دامداران",
                     ProductPrice = 7000,
                     UnitOfProduct = "بطری"
-                },new Product()
+                }, new Product()
                 {
                     ProductId = 2,
                     CategoryId = 1,
                     ProductName = "ماست میهن",
                     ProductPrice = 40000,
                     UnitOfProduct = "دبه"
-                },new Product()
+                }, new Product()
                 {
                     ProductId = 3,
                     CategoryId = 1,
                     ProductName = "کشک سمیه",
                     ProductPrice = 15000,
                     UnitOfProduct = "شیشه"
-                },new Product()
+                }, new Product()
                 {
                     ProductId = 4,
                     CategoryId = 1,
                     ProductName = "دوغ آبعلی",
                     ProductPrice = 5000,
                     UnitOfProduct = "شیشه"
-                },new Product()
+                }, new Product()
                 {
                     ProductId = 5,
                     CategoryId = 1,
                     ProductName = "دوغ عالیس",
                     ProductPrice = 10000,
                     UnitOfProduct = "بطری"
-                },new Product()
+                }, new Product()
                 {
                     ProductId = 6,
                     CategoryId = 1,
                     ProductName = "دوغ سنتی دامداران",
                     ProductPrice = 10000,
                     UnitOfProduct = "بطری"
-                },new Product()
+                }, new Product()
                 {
                     ProductId = 7,
                     CategoryId = 1,
                     ProductName = "خامه میهن",
                     ProductPrice = 10000,
                     UnitOfProduct = "بسته"
-                },new Product()
+                }, new Product()
                 {
                     ProductId = 8,
                     CategoryId = 1,
                     ProductName = "خامه دامداران",
                     ProductPrice = 10000,
                     UnitOfProduct = "بسته"
-                },new Product()
+                }, new Product()
                 {
                     ProductId = 9,
                     CategoryId = 1,
                     ProductName = "کره کوچک دامداران",
                     ProductPrice = 7000,
                     UnitOfProduct = "بسته"
-                },new Product()
+                }, new Product()
                 {
                     ProductId = 10,
                     CategoryId = 1,
                     ProductName = "کره متوسط دامداران",
                     ProductPrice = 1000,
                     UnitOfProduct = "بسته"
-                },new Product()
+                }, new Product()
                 {
                     ProductId = 11,
                     CategoryId = 1,
                     ProductName = "کره بزرگ دامداران",
                     ProductPrice = 12000,
                     UnitOfProduct = "بسته"
-                },new Product()
+                }, new Product()
                 {
                     ProductId = 12,
                     CategoryId = 1,
                     ProductName = "کشک کامبیز",
                     ProductPrice = 10000,
                     UnitOfProduct = "شیشه"
-                },new Product()
+                }, new Product()
                 {
                     ProductId = 13,
                     CategoryId = 3,
                     ProductName = "مایع ظرفشویی پریل",
                     ProductPrice = 20000,
                     UnitOfProduct = "ظرف"
-                },new Product()
+                }, new Product()
                 {
                     ProductId = 14,
                     CategoryId = 3,
                     ProductName = "پودر لباسشویی پرسیل",
                     ProductPrice = 20000,
                     UnitOfProduct = "بسته"
-                },new Product()
+                }, new Product()
                 {
                     ProductId = 15,
                     CategoryId = 3,
                     ProductName = "پودر لباسشویی سافتلن",
                     ProductPrice = 20000,
                     UnitOfProduct = "بسته"
-                },new Product()
+                }, new Product()
                 {
                     ProductId = 16,
                     CategoryId = 3,
                     ProductName = "پودر لباسشویی نگین",
                     ProductPrice = 20000,
                     UnitOfProduct = "بسته"
-                },new Product()
+                }, new Product()
                 {
                     ProductId = 17,
                     CategoryId = 3,
                     ProductName = "شامپو صحت",
                     ProductPrice = 20000,
                     UnitOfProduct = "بطری"
-                },new Product()
+                }, new Product()
                 {
                     ProductId = 18,
                     CategoryId = 3,
                     ProductName = "شامپو گلرنگ",
                     ProductPrice = 20000,
                     UnitOfProduct = "بطری"
-                },new Product()
+                }, new Product()
                 {
                     ProductId = 19,
                     CategoryId = 3,
                     ProductName = "صابون داو",
                     ProductPrice = 5000,
                     UnitOfProduct = "قالب"
-                },new Product()
+                }, new Product()
                 {
                     ProductId = 20,
                     CategoryId = 3,
                     ProductName = "صابون گلنار",
                     ProductPrice = 5000,
                     UnitOfProduct = "قالب"
-                },new Product()
+                }, new Product()
                 {
                     ProductId = 21,
                     CategoryId = 3,
                     ProductName = "مایع دستشویی داو",
                     ProductPrice = 20000,
                     UnitOfProduct = "بطری"
-                },new Product()
+                }, new Product()
                 {
                     ProductId = 22,
                     CategoryId = 3,
@@ -208,6 +212,34 @@ namespace OnlineShop.Infra.Data.Contexts
                     UnitOfProduct = "بطری"
                 }
     );
+            #endregion
+
+            #region SeedUserData
+            modelBuilder.Entity<User>().HasData(
+                new User()
+                {
+                    UserAddress = "کرج، بلوار دانش آموز، کوی ولیعصر ،پشت بانک ملی ،کوچه دوازدهم، ساختمان یاس، پلاک ۱۵،طبقه اول ،واحد 2.",
+                    DateSignedIn = DateTime.Now,
+                    IsAccountActive = true,
+                    IsAdmin = true,
+                    UserEmail = "hosein.asgari.00@gmail.com",
+                    UserId = 1,
+                    UserName = "حسین عسگری",
+                    UserPassword = BitConverter.ToString(new MD5CryptoServiceProvider().ComputeHash(Encoding.Default.GetBytes("@Sanasana2"))),
+                    UserPhoneNumber = "09199908681"
+                }
+            );
+            #endregion
+
+            #region SeedCartData
+            modelBuilder.Entity<Cart>().HasData(
+            new Cart()
+            {
+                CartId = 1,
+                UserId = 1,
+                DateOrdered = null
+            }
+            );
             #endregion
 
             base.OnModelCreating(modelBuilder);

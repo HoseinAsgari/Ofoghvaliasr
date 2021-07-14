@@ -23,14 +23,21 @@ namespace OnlineShop.Infra.Data.Repositories
 
         public IQueryable<User> GetAllUsers()
         {
-            return _dbContext.Users
-                .Include(n => n.Cart).ThenInclude(n => n.CartItems).ThenInclude(n => n.Product)
-                .Include(n => n.Cart).ThenInclude(n => n.User);
+            return _dbContext.Users.
+            Include(n => n.UserProductSolds).ThenInclude(n => n.Product).
+            Include(n => n.UserProductViews).ThenInclude(n => n.Product).
+            Include(n => n.LikedProducts).ThenInclude(n => n.Product).
+            Include(n => n.Carts).ThenInclude(n => n.CartItems).ThenInclude(n => n.Product);
         }
 
         public async Task<User> GetUser(int id)
         {
-            return await _dbContext.Users.FindAsync(id);
+            return await _dbContext.Users.
+            Include(n => n.UserProductSolds).ThenInclude(n => n.Product).
+            Include(n => n.UserProductViews).ThenInclude(n => n.Product).
+            Include(n => n.LikedProducts).ThenInclude(n => n.Product).
+            Include(n => n.Carts).ThenInclude(n => n.CartItems).ThenInclude(n => n.Product)
+            .SingleAsync(n => n.UserId == id);
         }
 
         public void RemoveUser(User user)

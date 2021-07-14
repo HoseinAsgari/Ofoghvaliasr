@@ -21,14 +21,23 @@ namespace OnlineShop.Controllers
         public async Task<IActionResult> MyCart()
         {
             var model = await _cartService.GetCart(User.FindFirstValue(ClaimTypes.Email));
-            ViewBag.SumOfPrice = model.Sum(n => n.ProductPrice * n.Amount);
+            if (model != null)
+            {
+                ViewBag.SumOfPrice = model.Sum(n => n.ProductPrice * n.Amount);
+            }
             return View("ShowCart", model);
         }
 
-        public async Task<IActionResult> AddToCart(int id, int? count)
+        public async Task<IActionResult> AddToCart(int id, uint? count)
         {
             await _cartService.OrderProduct(id, User.FindFirstValue(ClaimTypes.Email), count.HasValue ? count.Value : 1);
             return Redirect("/Product/ShowProduct/" + id);
+        }
+
+        public async Task<IActionResult> Finlize()
+        {
+            await _cartService.FinlizeCart(User.FindFirstValue(ClaimTypes.Email));
+            return Redirect("/Home/Index");
         }
     }
 }

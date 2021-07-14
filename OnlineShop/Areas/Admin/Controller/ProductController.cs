@@ -20,6 +20,7 @@ namespace OnlineShop.Areas.Admin.Controllers
             return View(model);
         }
 
+        [HttpGet]
         public async Task<IActionResult> AddProduct()
         {
             ViewBag.Categories = await _adminService.GetAllCategoriesName();
@@ -34,6 +35,7 @@ namespace OnlineShop.Areas.Admin.Controllers
                 await _adminService.AddProduct(addProductViewModel);
                 return Redirect("/Admin/AdminProduct/ShowProducts");
             }
+            ViewBag.Categories = await _adminService.GetAllCategoriesName();
             return View();
         }
 
@@ -43,19 +45,23 @@ namespace OnlineShop.Areas.Admin.Controllers
             return Redirect("/Admin/AdminProduct/ShowProducts");
         }
 
-        public async Task<IActionResult> EditProduct(int productId)
+        [HttpGet]
+        public async Task<IActionResult> EditProduct(int id)
         {
-            var model = await _adminService.GetEditProductModel(productId);
+            ViewBag.Categories = await _adminService.GetAllCategoriesName();
+            var model = await _adminService.GetEditProductModel(id);
             return View(model);
         }
 
+        [HttpPost]
         public async Task<IActionResult> EditProduct(EditProductViewModel editProductViewModel)
         {
             if (ModelState.IsValid)
             {
                 await _adminService.EditProduct(editProductViewModel);
-                return Redirect("/Admin/AdminProduct/ShowProducts");
+                return Redirect("/Admin/Product/ShowProducts");
             }
+            ViewBag.Categories = await _adminService.GetAllCategoriesName();
             return View();
         }
     }

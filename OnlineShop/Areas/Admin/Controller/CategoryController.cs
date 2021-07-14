@@ -44,9 +44,10 @@ namespace OnlineShop.Areas.Admin.Controllers
             return Redirect("/Admin/AdminCategory/ShowCategories");
         }
 
-        public async Task<IActionResult> EditCategory(int categoryId)
+        [HttpGet]
+        public async Task<IActionResult> EditCategory(int id)
         {
-            var model = await _adminService.GetEditCategoryModel(categoryId);
+            var model = await _adminService.GetEditCategoryModel(id);
             return View(model);
         }
 
@@ -56,7 +57,7 @@ namespace OnlineShop.Areas.Admin.Controllers
             if (ModelState.IsValid)
             {
                 await _adminService.EditCategory(editCategoryViewModel);
-                return Redirect("/Admin/AdminCategory/ShowCategories");
+                return Redirect("/Admin/Category/ShowCategories");
             }
             return View();
         }

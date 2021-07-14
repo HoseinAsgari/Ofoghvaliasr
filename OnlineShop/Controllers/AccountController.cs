@@ -139,5 +139,12 @@ namespace OnlineShop.Controllers
             var model = await _accountService.GetPanelModel(User.FindFirstValue(ClaimTypes.Email));
             return View("Panel", model);
         }
+
+        [HttpPost]
+        public async Task<IActionResult> ChangeAddress(string address)
+        {
+            await _accountService.ChangeAddress(address, User.FindFirstValue(ClaimTypes.Email));
+            return Redirect("/Account/Panel");
+        }
     }
 }

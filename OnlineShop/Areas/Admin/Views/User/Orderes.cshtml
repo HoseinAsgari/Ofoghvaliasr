@@ -1,0 +1,50 @@
+@model List<ShowOrderesViewModel>
+
+<div dir="rtl" class="mtop">
+    @if (Model != null && Model.Count != 0)
+    {
+
+        <h1></h1>
+        <hr>
+        <table class="table table-striped table-light">
+            <thead>
+                <th>شماره سفارش</th>
+                <th>نام کاربر</th>
+                <th>زمان سفارش</th>
+                <th>گزینه ها</th>
+            </thead>
+            <tbody>
+                @foreach (var item in Model)
+                {
+                    <tr>
+                        <td>@item.CartId</td>
+                        <td>@item.UserName</td>
+                        <td>@item.DateOrdered</td>
+                        <td>
+                            <a href="/Admin/User/ShowUserCartProducts/@item.CartId" class="btn btn-primary">نمایش کالاها</a>
+                            <button data-bs-target="#callNumber-Modal" onclick="showUserNumber('@item.UserPhoneNumber')" data-bs-toggle="modal" class="btn btn-warning">نمایش شماره کاربر</button>
+                            <a href="/Admin/User/Delivered/@item.CartId" class="btn btn-success">تحویل داده شد</a>
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    }
+    else
+    {
+        <h1 class="text-center my-5">سفارشی موجود نیست!!!</h1>
+    }
+</div>
+<div dir="rtl" class="modal fade" id="callNumber-Modal" tabindex="-1" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+        <div dir="rtl" class="modal-content">
+            <div class="modal-header">
+                <h3>شماره کاربر</h3>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <h3 id="callNumber"></h3>
+            </div>
+        </div>
+    </div>
+</div>

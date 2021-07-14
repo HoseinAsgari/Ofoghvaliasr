@@ -3,7 +3,7 @@
 <div dir="rtl" class="container mtop">
     @if (Model != null && Model.Count != 0)
     {
-        <h1>نتایج جستجو</h1>
+        <h1><b>نتایج جستجو</b></h1>
         @foreach (var item in Model)
         {
             <hr />
@@ -15,8 +15,8 @@
                     </div>
                     <div class="col-md-8 col-sm-12 mt-2">
                         <h2>@item.ProductName</h2>
-                        <hr>
-                        <h5 class="text-gray">@item.ProductPrice تومان</h5>
+                        <br>
+                        <h4 class="text-gray">@item.ProductPrice تومان</h4>
                     </div>
                 </div>
             </a>

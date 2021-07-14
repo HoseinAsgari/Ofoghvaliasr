@@ -113,7 +113,8 @@ namespace OnlineShop.Application.Services
                 {
                     Email = email,
                     SignInDate = await ShamsiCalendarHelper.ToShamsi(user.DateSignedIn),
-                    ActiveEmail = user.IsAccountActive
+                    ActiveEmail = user.IsAccountActive,
+                    UserAddress = user.UserAddress
                 };
                 return model;
             }
@@ -157,6 +158,15 @@ namespace OnlineShop.Application.Services
         public async Task<string> GetUserNameByEmail(string email)
         {
             return (await GetUserByEmail(email)).UserName;
+        }
+
+        public async Task<bool> ChangeAddress(string address, string email)
+        {
+            var user = await GetUserByEmail(email);
+            user.UserAddress = address;
+            _userRepository.UpdateUser(user);
+            await _userRepository.SaveChanges();
+            return true;
         }
     }
 }

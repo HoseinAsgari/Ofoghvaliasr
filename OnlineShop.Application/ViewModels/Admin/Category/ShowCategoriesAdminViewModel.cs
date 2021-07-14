@@ -6,5 +6,6 @@ namespace OnlineShop.Application.ViewModels.Admin.Category
         public string CategoryName { get; set; }
         public int CategoryLikedCount { get; set; }
         public string CategoryEnglishName { get; set; }
+        public string CategoryThumbnailName { get; set; }
     }
 }

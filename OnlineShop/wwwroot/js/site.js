@@ -25,9 +25,20 @@ function pictureUploaded(input) {
         var reader = new FileReader();
 
         reader.onload = function (e) {
-            document.getElementById("show-image").attributes.item('src').value = e.target.result;
+            document.getElementById("show-image").setAttribute('src', e.target.result);
         };
 
         reader.readAsDataURL(input.files[0]);
     }
+}
+
+function changeAddress(lastAddress) {
+    var changeAddressBtn = document.getElementById('changeAddressBtn');
+    changeAddressBtn.remove();
+    var changeAddressDiv = document.getElementById('changeAddressDiv');
+    changeAddressDiv.innerHTML = '<form class="text-center" method="POST" action="/Account/ChangeAddress"><textarea name="address" class="text-dark form-control">' + lastAddress +'</textarea><br><button type="submit" class="btn btn-success">ذخیره آدرس</button></form>';
+}
+
+function showUserNumber(phoneNumber) {
+    document.getElementById('callNumber').innerHTML = phoneNumber;
 }

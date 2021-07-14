@@ -1,2 +1,32 @@
 @model AddCategoryViewModel
 
+<div class="mtop container" dir="rtl">
+    <h1>اضافه کردن دسته بندی</h1>
+    <hr>
+    <div class="row">
+        <form class="col-md-6 col-sm-8 col-12" enctype="multipart/form-data" action="/Admin/Category/AddCategory"
+            method="POST">
+            <div asp-validation-summary="All" class="text-danger"></div>
+            <div class="form-group m-3">
+                <label class="form-label" asp-for="CategoryPersianName"></label>
+                <input class="form-control" asp-for="CategoryPersianName">
+            </div>
+            <div class="form-group m-3">
+                <label class="form-label" asp-for="CategoryEnglishName"></label>
+                <input class="form-control" asp-for="CategoryEnglishName">
+            </div>
+            <div class="form-group m-3">
+                <label class="form-label" asp-for="CategoryThumbnailFile"></label>
+                <input onchange="pictureUploaded(this)" class="form-control" asp-for="CategoryThumbnailFile">
+                <img class="img-thumbnail my-2" height="250" alt="تصویر بارگذاری شده" id="show-image">
+            </div>
+            <div class="form-group m-3">
+                <input class="btn btn-success" type="submit" value="اضافه کردن دسته بندی">
+            </div>
+        </form>
+    </div>
+</div>
+
+@section Scripts{
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

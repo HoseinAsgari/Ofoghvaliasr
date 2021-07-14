@@ -14,11 +14,16 @@
             <div class="col text-center">
                 <div class="new_arrivals_sorting">
                     <ul class="arrivals_grid_sorting clearfix button-group filters-button-group">
-                        <li class="grid_sorting_button button d-flex flex-column justify-content-center align-items-center" data-filter="*">همه</li>
-                        <li class="grid_sorting_button button d-flex flex-column justify-content-center align-items-center" data-filter=".JunkFood">تنقلات</li>
-                        <li class="grid_sorting_button button d-flex flex-column justify-content-center align-items-center" data-filter=".Grocery">خوار و بار</li>
-                        <li class="grid_sorting_button button d-flex flex-column justify-content-center align-items-center" data-filter=".Meat">پروتئین</li>
-                        <li class="grid_sorting_button button d-flex flex-column justify-content-center align-items-center" data-filter=".Health">بهداشتی</li>
+                        <li class="grid_sorting_button button d-flex flex-column justify-content-center align-items-center"
+                            data-filter="*">همه</li>
+                        <li class="grid_sorting_button button d-flex flex-column justify-content-center align-items-center"
+                            data-filter=".JunkFood">تنقلات</li>
+                        <li class="grid_sorting_button button d-flex flex-column justify-content-center align-items-center"
+                            data-filter=".Grocery">خوار و بار</li>
+                        <li class="grid_sorting_button button d-flex flex-column justify-content-center align-items-center"
+                            data-filter=".Meat">پروتئین</li>
+                        <li class="grid_sorting_button button d-flex flex-column justify-content-center align-items-center"
+                            data-filter=".Health">بهداشتی</li>
                     </ul>
                 </div>
             </div>
@@ -30,16 +35,24 @@
                     {
                         <div class="product-item @item.CategoryName">
                             <div class="product discount product_filter">
-                                <div class="product_image">
-                                    <img src="/Resources/Pics/ProductThumbnail/@item.ThumbnailName" height="250" alt="تصویر کالا">
-                                </div>
-                                <div class="favorite @(item.ProductLiked?"active":"")" onclick="productLiked(@item.ProductId)"></div>
-                                <div class="product_info">
-                                    <h6 class="product_name"><a href="/Product/ShowProduct/@item.ProductId">@item.ProductName</a></h6>
-                                    <div class="product_price dir_rtl">@item.ProductPrice تومان</div>
-                                </div>
+                                <a href="/Product/ShowProduct/@item.ProductId">
+                                    <div class="product_image text-center mt-3">
+                                        <img class="w-auto" src="/Resources/Pics/ProductThumbnail/@item.ThumbnailName"
+                                        alt="تصویر کالا">
+                                    </div>
+                                </a>
+                                <div class="favorite @(item.ProductLiked?"active":"")"
+                                onclick="productLiked(@item.ProductId)"></div>
+                                <a href="/Product/ShowProduct/@item.ProductId">
+                                    <div class="product_info">
+                                        <h6 class="product_name"><a
+                                            href="/Product/ShowProduct/@item.ProductId">@item.ProductName</a></h6>
+                                        <div class="product_price dir_rtl">@item.ProductPrice تومان</div>
+                                    </div>
+                                </a>
+                                <div class="red_button add_to_cart_button w-100"><a
+                                    href="/Cart/AddToCart/@item.ProductId">اضافه کردن به سبد خرید</a></div>
                             </div>
-                            <div class="red_button add_to_cart_button"><a href="/Cart/AddToCart/@item.ProductId">اضافه کردن به سبد خرید</a></div>
                         </div>
                     }
                 </div>

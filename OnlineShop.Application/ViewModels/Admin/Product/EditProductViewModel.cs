@@ -12,7 +12,10 @@ namespace OnlineShop.Application.ViewModels.Admin.Product
         public uint ProductPrice { get; set; }
         [Display(Name = "واحد اندازه گیری کالا"), MaxLength(200, ErrorMessage = "{0} نباید از {1} کاراکتر بیشتر باشد"), Required(ErrorMessage = "{0} را وارد کنید")]
         public string UnitOfProduct { get; set; }
-        [Display(Name = "تصویر کالا"), Required(ErrorMessage = "{0} را وارد کنید"), FileExtensions(Extensions = "png", ErrorMessage = "فرمت {0} باید {1} باشد")]
+        [Display(Name = "نام دسته بندی"), MaxLength(200, ErrorMessage = "{0} نباید از {1} کاراکتر بیشتر باشد"), Required(ErrorMessage = "{0} را وارد کنید")]
+        public string CategoryName { get; set; }
+        [Display(Name = "تصویر کالا"), FileExtensions(Extensions = "png", ErrorMessage = "فرمت {0} باید {1} باشد")]
         public IFormFile ProductThumbnail { get; set; }
+        public string ProductCurrentThumbnail { get; set; }
     }
 }

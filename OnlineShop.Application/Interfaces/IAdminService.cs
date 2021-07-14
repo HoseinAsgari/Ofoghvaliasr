@@ -11,6 +11,8 @@ namespace OnlineShop.Application.Interfaces
         Task<List<ShowUsersViewModel>> GetUsers();
         Task<bool> SetUserToAdmin(int userId);
         Task<ShowUserDetailsViewModel> GetUserDetails(int userId);
+        Task CartDelivered(int cartId);
+        Task<List<ShowUserCartProductsViewModel>> GetUserCartProducts(int cartId);
 
 
         Task<List<ShowProductsAdminViewModel>> GetProductsModel();
@@ -20,12 +22,13 @@ namespace OnlineShop.Application.Interfaces
         Task<bool> RemoveProduct(int productId);
 
 
-        Task<ShowEditCategoryViewModel> GetEditCategoryModel(int categoryId);
+        Task<EditCategoryViewModel> GetEditCategoryModel(int categoryId);
         Task<List<ShowCategoriesAdminViewModel>> GetCategories();
         Task<bool> EditCategory(EditCategoryViewModel addCategoryViewModel);
         Task<bool> RemoveCategory(int categoryId);
         Task<bool> AddCategory(AddCategoryViewModel addCategoryViewModel);
 
         Task<List<string>> GetAllCategoriesName();
+        Task<List<ShowOrderesViewModel>> GetOrderes();
     }
 }

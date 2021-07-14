@@ -26,15 +26,36 @@ namespace OnlineShop.Infra.Data.Migrations
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<DateTime>("DateCreated")
+                    b.Property<DateTime?>("DateOrdered")
                         .HasColumnType("datetime2");
+
+                    b.Property<bool>("Delivered")
+                        .HasColumnType("bit");
+
+                    b.Property<bool>("IsOrdered")
+                        .HasColumnType("bit");
 
                     b.Property<long>("Price")
                         .HasColumnType("bigint");
 
+                    b.Property<int>("UserId")
+                        .HasColumnType("int");
+
                     b.HasKey("CartId");
 
+                    b.HasIndex("UserId");
+
                     b.ToTable("Carts");
+
+                    b.HasData(
+                        new
+                        {
+                            CartId = 1,
+                            Delivered = false,
+                            IsOrdered = false,
+                            Price = 0L,
+                            UserId = 1
+                        });
                 });
 
             modelBuilder.Entity("OnlineShop.Domain.Models.CartItem", b =>
@@ -168,7 +189,7 @@ namespace OnlineShop.Infra.Data.Migrations
                             CategoryId = 1,
                             ProductName = "ماست میهن",
                             ProductPrice = 40000L,
-                            UnitOfProduct = "دبه ای"
+                            UnitOfProduct = "دبه"
                         },
                         new
                         {
@@ -288,7 +309,7 @@ namespace OnlineShop.Infra.Data.Migrations
                             CategoryId = 3,
                             ProductName = "شامپو صحت",
                             ProductPrice = 20000L,
-                            UnitOfProduct = ""
+                            UnitOfProduct = "بطری"
                         },
                         new
                         {
@@ -342,9 +363,6 @@ namespace OnlineShop.Infra.Data.Migrations
                     b.Property<bool>("Banned")
                         .HasColumnType("bit");
 
-                    b.Property<int>("CartId")
-                        .HasColumnType("int");
-
                     b.Property<DateTime>("DateSignedIn")
                         .HasColumnType("datetime2");
 
@@ -356,6 +374,11 @@ namespace OnlineShop.Infra.Data.Migrations
 
                     b.Property<string>("UserActivationLink")
                         .HasMaxLength(10000)
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("UserAddress")
+                        .IsRequired()
+                        .HasMaxLength(100000)
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("UserEmail")
@@ -380,10 +403,22 @@ namespace OnlineShop.Infra.Data.Migrations
 
                     b.HasKey("UserId");
 
-                    b.HasIndex("CartId")
-                        .IsUnique();
-
                     b.ToTable("Users");
+
+                    b.HasData(
+                        new
+                        {
+                            UserId = 1,
+                            Banned = false,
+                            DateSignedIn = new DateTime(2021, 7, 14, 19, 43, 28, 219, DateTimeKind.Local).AddTicks(5778),
+                            IsAccountActive = true,
+                            IsAdmin = true,
+                            UserAddress = "کرج، بلوار دانش آموز، کوی ولیعصر ،پشت بانک ملی ،کوچه دوازدهم، ساختمان یاس، پلاک ۱۵،طبقه اول ،واحد 2.",
+                            UserEmail = "hosein.asgari.00@gmail.com",
+                            UserName = "حسین عسگری",
+                            UserPassword = "F0-99-2F-88-E6-1F-2D-B7-A7-03-F9-29-6C-A2-FA-69",
+                            UserPhoneNumber = "09199908681"
+                        });
                 });
 
             modelBuilder.Entity("OnlineShop.Domain.Models.UserProductLikes", b =>
@@ -452,6 +487,17 @@ namespace OnlineShop.Infra.Data.Migrations
                     b.ToTable("UserProductViews");
                 });
 
+            modelBuilder.Entity("OnlineShop.Domain.Models.Cart", b =>
+                {
+                    b.HasOne("OnlineShop.Domain.Models.User", "User")
+                        .WithMany("Carts")
+                        .HasForeignKey("UserId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("User");
+                });
+
             modelBuilder.Entity("OnlineShop.Domain.Models.CartItem", b =>
                 {
                     b.HasOne("OnlineShop.Domain.Models.Cart", "Cart")
@@ -476,17 +522,6 @@ namespace OnlineShop.Infra.Data.Migrations
                         .IsRequired();
 
                     b.Navigation("Category");
-                });
-
-            modelBuilder.Entity("OnlineShop.Domain.Models.User", b =>
-                {
-                    b.HasOne("OnlineShop.Domain.Models.Cart", "Cart")
-                        .WithOne("User")
-                        .HasForeignKey("OnlineShop.Domain.Models.User", "CartId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("Cart");
                 });
 
             modelBuilder.Entity("OnlineShop.Domain.Models.UserProductLikes", b =>
@@ -549,8 +584,6 @@ namespace OnlineShop.Infra.Data.Migrations
             modelBuilder.Entity("OnlineShop.Domain.Models.Cart", b =>
                 {
                     b.Navigation("CartItems");
-
-                    b.Navigation("User");
                 });
 
             modelBuilder.Entity("OnlineShop.Domain.Models.Category", b =>
@@ -571,6 +604,8 @@ namespace OnlineShop.Infra.Data.Migrations
 
             modelBuilder.Entity("OnlineShop.Domain.Models.User", b =>
                 {
+                    b.Navigation("Carts");
+
                     b.Navigation("LikedProducts");
 
                     b.Navigation("UserProductSolds");

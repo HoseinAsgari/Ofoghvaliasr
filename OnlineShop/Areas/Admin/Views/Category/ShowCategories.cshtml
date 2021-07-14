@@ -1,2 +1,40 @@
 @model List<ShowCategoriesAdminViewModel>
 
+<div dir="rtl" class="mtop mx-2">
+    @if (Model != null)
+    {
+        <table class="table table-bordered table-striped table-light">
+            <thead>
+                <tr>
+                    <th>تصویر دسته بندی</th>
+                    <th>نام دسته بندی</th>
+                    <th>نام انگلیسی</th>
+                    <th>تعداد لایک ها</th>
+                    <th>گزینه ها</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var item in Model)
+                {
+                    <tr>
+                        <th class="text-center"><img class="img-thumbnail img-responsive" style="max-height: 250px;" src="/Resources/Pics/CategoryThumbnail/@item.CategoryThumbnailName"
+                        alt="تصویر دسته بندی"></th>
+                        <th>@item.CategoryName</th>
+                        <th>@item.CategoryEnglishName</th>
+                        <th>@item.CategoryLikedCount</th>
+                        <th>
+                            <a class="btn btn-danger" href="/Admin/Category/RemoveCategory/@item.CategoryId">حذف دسته بندی</a>
+                            <a class="btn btn-warning" href="/Admin/Category/EditCategory/@item.CategoryId">ویرایش دسته بندی</a>
+                        </th>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    }
+    else
+    {
+        <h2>دسته بندی ای یافت نشد!!!</h2>
+        <hr>
+        <h4>برای اضافه کردن دسته بندی روی <a href="/Admin/Category/AddCategory">این</a> کلیک کنید.</h4>
+    }
+</div>

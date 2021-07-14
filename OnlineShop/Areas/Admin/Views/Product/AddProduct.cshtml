@@ -13,7 +13,7 @@
                     <label class="form-label" asp-for="ProductPersianName"></label>
                     <input class="form-control" asp-for="ProductPersianName">
                 </div>
-                <label class="my-1 mr-2" for="inlineFormCustomSelectPref">Preference</label>
+                <label class="my-1 mr-2" asp-for="CategoryName"></label>
                 <select class="custom-select my-1 mr-sm-2">
                     @foreach (var item in ViewBag.Categories)
                     {
@@ -46,3 +46,7 @@
         <h4>برای اضافه کردن دسته بندی به <a href="/Admin/Category/AddCategory">این</a> صفحه مراجعه کنید.</h4>
     }
 </div>
+
+@section Scripts{
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

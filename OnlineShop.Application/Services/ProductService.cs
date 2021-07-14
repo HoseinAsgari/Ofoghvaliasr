@@ -42,7 +42,7 @@ namespace OnlineShop.Application.Services
                     ProductLiked = (email != null && email != "" && n.UserProductLikes != null) ? n.UserProductLikes.Any(p => p.User.UserEmail == email) : false
                 }).ToListAsync();
 
-                List<MostSoldArrivalsViewModel> mostSoldArrivalsViewModels = await _productRepository.GetAllProducts().OrderByDescending(n => n.UserProductLikes.Count).Take(10).Select(n => new MostSoldArrivalsViewModel()
+                List<MostSoldArrivalsViewModel> mostSoldArrivalsViewModels = await products.OrderByDescending(n => n.UserProductLikes.Count).Take(10).Select(n => new MostSoldArrivalsViewModel()
                 {
                     ProductId = n.ProductId,
                     CategoryName = n.Category.CategoryEnglishName,
@@ -65,7 +65,7 @@ namespace OnlineShop.Application.Services
         {
             var product = await _productRepository.GetProduct(productNumber);
             var user = await _userRepository.GetAllUsers().SingleAsync(n => n.UserEmail == userEmail);
-            var userCart = user.Cart;
+            var userCart = user.Carts;
             uint orderedCount = 0;
 
             await _userProductViewsRepository.AddUserProductView(new UserProductViews()
@@ -78,9 +78,9 @@ namespace OnlineShop.Application.Services
             await _userProductViewsRepository.SaveChanges();
 
 
-            if (userCart.CartItems.Any(n => n.Product.ProductId == productNumber))
+            if (userCart.Single(n => !n.IsOrdered).CartItems.Any(n => n.Product.ProductId == productNumber))
             {
-                orderedCount = userCart.CartItems.Single(n => n.Product.ProductId == productNumber).Count;
+                orderedCount = userCart.Single(n => !n.IsOrdered).CartItems.Single(n => n.Product.ProductId == productNumber).Count;
             }
 
             float? productRate = product.UserProductSolds?.Count != 0 && product.UserProductLikes?.Count != 0 ? (product.UserProductLikes?.Count / product.UserProductSolds?.Count) * 5 : null;

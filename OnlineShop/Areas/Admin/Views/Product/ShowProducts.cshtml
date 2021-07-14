@@ -1,26 +1,31 @@
 @model List<ShowProductsAdminViewModel>
 
-<div class="mtop mx-2">
+<div dir="rtl" class="mtop mx-2">
     @if (Model != null)
-    {    
+    {
         <table class="table table-bordered table-striped table-primary">
             <thead>
                 <tr>
-                    <th>تصویر محصول</th>
-                    <th>نام محصول</th>
-                    <th>قیمت محصول</th>
-                    <th>واحد شمارش محصول</th>
+                    <th>تصویر کالا</th>
+                    <th>نام کالا</th>
+                    <th>قیمت کالا</th>
+                    <th>واحد شمارش کالا</th>
+                    <th>گزینه ها</th>
                 </tr>
             </thead>
             <tbody>
                 @foreach (var item in Model)
                 {
                     <tr>
-                        <th><img class="image-thumbnail" src="/Resources/Pics/ProductThumbnail/@item.ProductThumbanil"
-                        alt="تصویر محصول"></th>
+                        <th class="text-center"><img class="img-thumbnail img-responsive" style="max-height: 250px;" src="/Resources/Pics/ProductThumbnail/@item.ProductThumbanil"
+                        alt="تصویر کالا"></th>
                         <th>@item.ProductName</th>
                         <th>@item.ProductPrice تومان</th>
                         <th>@item.UnitOfProduct</th>
+                        <th>
+                            <a class="btn btn-danger" href="/Admin/Product/RemoveProduct/@item.ProductId">حذف کالا</a>
+                            <a class="btn btn-warning" href="/Admin/Product/EditProduct/@item.ProductId">ویرایش کالا</a>
+                        </th>
                     </tr>
                 }
             </tbody>

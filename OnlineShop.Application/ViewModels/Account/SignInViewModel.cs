@@ -16,6 +16,9 @@ namespace OnlineShop.Application.ViewModels.Account
         [Display(Name = "شماره تلفن"), Required(ErrorMessage = "{0} را پر کنید"), MaxLength(11, ErrorMessage = "{0} باید {1} کاراکتر داشته باشد"), MinLength(11, ErrorMessage = "{0} باید {1} کاراکتر داشته باشد"), DataType(DataType.PhoneNumber, ErrorMessage = "{0}ی معتبر وارد کنید")]
         public string PhoneNumber { get; set; }
 
+        [Display(Name = "آدرس"), Required(ErrorMessage = "{0} را پر کنید"), MaxLength(100000, ErrorMessage = "{0} باید {1} کاراکتر داشته باشد"), MinLength(5, ErrorMessage = "{0} باید حداقل {1} کاراکتر داشته باشد")]
+        public string UserAddress { get; set; }
+
         [Display(Name = "تکرار رمز عبور"), Compare(nameof(Password), ErrorMessage = "{0} با {1} همخوانی ندارد"), DataType(DataType.Password)]
         public string RePassword { get; set; }
 

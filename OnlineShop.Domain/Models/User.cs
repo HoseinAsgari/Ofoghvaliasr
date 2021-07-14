@@ -26,12 +26,14 @@ namespace OnlineShop.Domain.Models
         public string UserPhoneNumber { get; set; }
         public bool IsAdmin { get; set; }
         public bool Banned { get; set; }
-        public DateTime DateSignedIn { get; set; }
+        public DateTime DateSignedIn { get; set; }        
+        [MaxLength(100000)]
+        [Required]
+        public string UserAddress { get; set; }
 
-        public Cart Cart { get; set; }
+        public List<Cart> Carts { get; set; }
         public List<UserProductLikes> LikedProducts { get; set; }
         public List<UserProductViews> UserProductViews { get; set; }
         public List<UserProductSold> UserProductSolds { get; set; }
-        public int CartId { get; set; }
     }
 }

@@ -1,0 +1,25 @@
+@model List<ShowUserCartProductsViewModel>
+
+<div class="mtop" dir="rtl">
+    <table class="table table-striped table-light">
+        <thead>
+            <tr>
+                <th>تصویر کالا</th>
+                <th>نام کالا</th>
+                <th>مقدار</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td class="text-center"><a href="/Product/ShowProduct/@item.ProductId"><img
+                        src="/Resources/Pics/ProductThumbnail/@item.ThumbnailName" style="max-height: 150px;" height="100" alt="تصویر کالا"
+                        class="img-thumbnail"></a></td>
+                    <td>@item.ProductName</td>
+                    <td>@item.Amount @item.UnitOfProduct</td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>

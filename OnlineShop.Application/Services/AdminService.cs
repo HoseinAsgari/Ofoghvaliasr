@@ -10,8 +10,6 @@ using System.Linq;
 using Microsoft.EntityFrameworkCore;
 using System.IO;
 using OnlineShop.Application.Helpers.CalendarHelper;
-using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.Http.Internal;
 
 namespace OnlineShop.Application.Services
 {
@@ -20,13 +18,15 @@ namespace OnlineShop.Application.Services
         readonly IUserRepository _userRepository;
         readonly IHostingEnvironment _environment;
         readonly ICategoryRepository _categoryRepository;
+        readonly ICartRepository _cartRepository;
         readonly IProductRepository _productRepository;
-        public AdminService(IUserRepository userRepository, ICategoryRepository categoryRepository, IHostingEnvironment environment, IProductRepository productRepository)
+        public AdminService(ICartRepository cartRepository, IUserRepository userRepository, ICategoryRepository categoryRepository, IHostingEnvironment environment, IProductRepository productRepository)
         {
             _userRepository = userRepository;
             _categoryRepository = categoryRepository;
             _environment = environment;
             _productRepository = productRepository;
+            _cartRepository = cartRepository;
         }
 
         public async Task<bool> AddCategory(AddCategoryViewModel addCategoryViewModel)
@@ -65,27 +65,56 @@ namespace OnlineShop.Application.Services
         public async Task<bool> EditCategory(EditCategoryViewModel editCategoryViewModel)
         {
             var category = await _categoryRepository.GetCategory(editCategoryViewModel.CategoryId);
-            category.CategoryEnglishName = category.CategoryEnglishName;
-            category.CategoryName = category.CategoryName;
-            _categoryRepository.UpdateCategory(category);
-            await _categoryRepository.SaveChanges();
-            return true;
+            string picturePath = $@"{_environment.WebRootPath}\\Resources\\Pics\\CategoryThumbnail\\";
+            try
+            {
+                System.IO.File.Move(picturePath + category.CategoryName + ".png", picturePath + editCategoryViewModel.CategoryPersianName + ".png");
+                category.CategoryEnglishName = editCategoryViewModel.CategoryEnglishName;
+                category.CategoryName = editCategoryViewModel.CategoryPersianName;
+                _categoryRepository.UpdateCategory(category);
+                await _categoryRepository.SaveChanges();
+                return true;
+            }
+            catch
+            {
+                category.CategoryEnglishName = editCategoryViewModel.CategoryEnglishName;
+                category.CategoryName = editCategoryViewModel.CategoryPersianName;
+                _categoryRepository.UpdateCategory(category);
+                await _categoryRepository.SaveChanges();
+                return true;
+            }
+
         }
 
         public async Task<bool> EditProduct(EditProductViewModel editProductViewModel)
         {
             var product = await _productRepository.GetProduct(editProductViewModel.ProductId);
-            product.ProductName = editProductViewModel.ProductPersianName;
-            product.ProductPrice = editProductViewModel.ProductPrice;
-            product.UnitOfProduct = editProductViewModel.UnitOfProduct;
-            _productRepository.UpdateProduct(product);
-            await _productRepository.SaveChanges();
-            return true;
+            string picturePath = $@"{_environment.WebRootPath}\\Resources\\Pics\\ProductThumbnail\\";
+            try
+            {
+                System.IO.File.Move(picturePath + product.ProductName + ".png", picturePath + editProductViewModel.ProductPersianName + ".png");
+                product.ProductName = editProductViewModel.ProductPersianName;
+                product.ProductPrice = editProductViewModel.ProductPrice;
+                product.UnitOfProduct = editProductViewModel.UnitOfProduct;
+                _productRepository.UpdateProduct(product);
+                await _productRepository.SaveChanges();
+                return true;
+            }
+            catch
+            {
+                product.ProductName = editProductViewModel.ProductPersianName;
+                product.ProductPrice = editProductViewModel.ProductPrice;
+                product.UnitOfProduct = editProductViewModel.UnitOfProduct;
+                _productRepository.UpdateProduct(product);
+                await _productRepository.SaveChanges();
+                return true;
+            }
+
         }
 
-        public Task<List<string>> GetAllCategoriesName()
+        public async Task<List<string>> GetAllCategoriesName()
         {
-            throw new System.NotImplementedException();
+            return await _categoryRepository.GetAllCategories().Select(n => n.CategoryName).ToListAsync();
         }
 
         public async Task<List<ShowCategoriesAdminViewModel>> GetCategories()
@@ -95,19 +124,20 @@ namespace OnlineShop.Application.Services
                 CategoryEnglishName = n.CategoryEnglishName,
                 CategoryId = n.CategoryId,
                 CategoryLikedCount = n.Liked,
-                CategoryName = n.CategoryName
+                CategoryName = n.CategoryName,
+                CategoryThumbnailName = n.CategoryName + ".png"
             }).ToListAsync();
         }
 
-        public async Task<ShowEditCategoryViewModel> GetEditCategoryModel(int categoryId)
+        public async Task<EditCategoryViewModel> GetEditCategoryModel(int categoryId)
         {
             var category = await _categoryRepository.GetCategory(categoryId);
-            return new ShowEditCategoryViewModel()
+            return new EditCategoryViewModel()
             {
                 CategoryId = categoryId,
                 CategoryEnglishName = category.CategoryEnglishName,
                 CategoryPersianName = category.CategoryName,
-                CategoryThumbnail = category.CategoryName + ".png"
+                CategoryThumbnailName = category.CategoryName + ".png"
             };
         }
 
@@ -119,15 +149,27 @@ namespace OnlineShop.Application.Services
                 ProductId = productId,
                 ProductPersianName = product.ProductName,
                 ProductPrice = product.ProductPrice,
-                ProductThumbnail = new FormFile(null, 0, 0, null, product.ProductName + ".png"),
+                ProductCurrentThumbnail = product.ProductName + ".png",
                 UnitOfProduct = product.UnitOfProduct
             };
+        }
+
+        public async Task<List<ShowOrderesViewModel>> GetOrderes()
+        {
+            return await _cartRepository.GetAllCarts().Where(n => n.IsOrdered && !n.Delivered).Select(n => new ShowOrderesViewModel()
+            {
+                CartId = n.CartId,
+                DateOrdered = ShamsiCalendarHelper.ToShamsiWithTime(n.DateOrdered.Value).Result,
+                UserName = n.User.UserName,
+                UserPhoneNumber = n.User.UserPhoneNumber
+            }).ToListAsync();
         }
 
         public async Task<List<ShowProductsAdminViewModel>> GetProductsModel()
         {
             return await _productRepository.GetAllProducts().OrderByDescending(n => n.UserProductLikes.Count).Select(n => new ShowProductsAdminViewModel()
             {
+                ProductId = n.ProductId,
                 ProductName = n.ProductName,
                 ProductPrice = n.ProductPrice,
                 ProductThumbanil = n.ProductName + ".png",
@@ -135,11 +177,24 @@ namespace OnlineShop.Application.Services
             }).ToListAsync();
         }
 
+        public async Task<List<ShowUserCartProductsViewModel>> GetUserCartProducts(int cartId)
+        {
+            return (await _cartRepository.GetCart(cartId)).CartItems.Select(n => new ShowUserCartProductsViewModel()
+            {
+                Amount = n.Count,
+                ProductId = n.Product.ProductId,
+                ProductName = n.Product.ProductName,
+                ThumbnailName = n.Product.ProductName + ".png",
+                UnitOfProduct = n.Product.UnitOfProduct
+            }).ToList();
+        }
+
         public async Task<ShowUserDetailsViewModel> GetUserDetails(int userId)
         {
             var user = await _userRepository.GetUser(userId);
             return new ShowUserDetailsViewModel()
             {
+                UserId = userId,
                 BoughtCount = user.UserProductSolds.Count,
                 IsActive = user.IsAccountActive,
                 IsAdmin = user.IsAdmin,
@@ -184,9 +239,12 @@ namespace OnlineShop.Application.Services
             return true;
         }
 
-        Task<EditProductViewModel> IAdminService.GetEditProductModel(int productId)
+        public async Task CartDelivered(int cartId)
         {
-            throw new System.NotImplementedException();
+            var cart = await _cartRepository.GetCart(cartId);
+            cart.Delivered = true;
+            _cartRepository.UpdateCart(cart);
+            await _cartRepository.SaveChanges();
         }
     }
 }

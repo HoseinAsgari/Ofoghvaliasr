@@ -1,0 +1,31 @@
+@model ShowUserDetailsViewModel
+
+<div dir="rtl" class="container mtop">
+    <h1 class="text-center">اطلاعات کاربر</h1>
+    <hr>
+    <dl>
+        <dt>شماره کاربر</dt>
+        <dd>@Model.UserId</dd>
+        <hr>
+        <dt>نام کاربر</dt>
+        <dd>@Model.UserName</dd>
+        <hr>
+        <dt>تاریخ ثبت نام کاربر</dt>
+        <dd>@Model.SignedInDateTime</dd>
+        <hr>
+        <dt>تعداد محصولات دیده شده توسط کاربر</dt>
+        <dd>@Model.ViewsCount</dd>
+        <hr>
+        <dt>تعداد محصولات خریده شده توسط کاربر</dt>
+        <dd>@Model.BoughtCount</dd>
+        <hr>
+        <dt>تعداد محصولات لایک شده توسط کاربر</dt>
+        <dd>@Model.LikedCount</dd>
+        <hr>
+        <dt>فعال بودن حساب کاربر</dt>
+        <dd>@(Model.IsActive?"فعال":"غیر فعال")</dd>
+        <hr>
+        <dt>وضعیت ادمین</dt>
+        <dd>@(Model.IsAdmin?"ادمین":"کاربر عادی")</dd>
+    </dl>
+</div>

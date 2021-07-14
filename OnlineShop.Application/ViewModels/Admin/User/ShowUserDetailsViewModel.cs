@@ -2,6 +2,7 @@ namespace OnlineShop.Application.ViewModels.Admin.User
 {
     public class ShowUserDetailsViewModel
     {
+        public int UserId { get; set; }
         public string UserName { get; set; }
         public int BoughtCount { get; set; }
         public string UserEmail { get; set; }
