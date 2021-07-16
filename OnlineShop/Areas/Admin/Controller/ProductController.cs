@@ -33,7 +33,7 @@ namespace OnlineShop.Areas.Admin.Controllers
             if (ModelState.IsValid)
             {
                 await _adminService.AddProduct(addProductViewModel);
-                return Redirect("/Admin/AdminProduct/ShowProducts");
+                return Redirect("/Admin/Product/ShowProducts");
             }
             ViewBag.Categories = await _adminService.GetAllCategoriesName();
             return View();
@@ -42,7 +42,7 @@ namespace OnlineShop.Areas.Admin.Controllers
         public async Task<IActionResult> RemoveProduct(int id)
         {
             await _adminService.RemoveProduct(id);
-            return Redirect("/Admin/AdminProduct/ShowProducts");
+            return Redirect("/Admin/Product/ShowProducts");
         }
 
         [HttpGet]

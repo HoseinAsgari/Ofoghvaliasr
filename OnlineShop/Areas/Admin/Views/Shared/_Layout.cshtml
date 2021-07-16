@@ -1,5 +1,6 @@
 ﻿<!DOCTYPE html>
 <html lang="fa">
+
 <head>
     <title>افق ولیعصر</title>
     <meta charset="utf-8">
@@ -7,16 +8,23 @@
     <meta name="description" content="Colo Shop Template">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="stylesheet" type="text/css" href="/Resources/LayoutReferences/styles/bootstrap5/bootstrap.min.css">
-    <link rel="stylesheet" type="text/css" href="/Resources/LayoutReferences/plugins/font-awesome-4.7.0/css/font-awesome.min.css">
-    <link rel="stylesheet" type="text/css" href="/Resources/LayoutReferences/plugins/OwlCarousel2-2.2.1/owl.carousel.css">
-    <link rel="stylesheet" type="text/css" href="/Resources/LayoutReferences/plugins/OwlCarousel2-2.2.1/owl.theme.default.css">
+    <link rel="stylesheet" type="text/css"
+        href="/Resources/LayoutReferences/plugins/font-awesome-4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet" type="text/css"
+        href="/Resources/LayoutReferences/plugins/OwlCarousel2-2.2.1/owl.carousel.css">
+    <link rel="stylesheet" type="text/css"
+        href="/Resources/LayoutReferences/plugins/OwlCarousel2-2.2.1/owl.theme.default.css">
     <link rel="stylesheet" type="text/css" href="/Resources/LayoutReferences/plugins/OwlCarousel2-2.2.1/animate.css">
     <link rel="stylesheet" type="text/css" href="/Resources/LayoutReferences/styles/main_styles.css">
     <link rel="stylesheet" type="text/css" href="/Resources/LayoutReferences/styles/responsive.css">
     <link rel="stylesheet" type="text/css" href="/Resources/LayoutReferences/styles/custom.css">
     <link rel="stylesheet" type="text/css" href="/Resources/LayoutReferences/styles/categories_styles.css">
     <link rel="stylesheet" type="text/css" href="/Resources/LayoutReferences/styles/categories_responsive.css">
-    <link rel="stylesheet" type="text/css" href="/Resources/LayoutReferences/plugins/jquery-ui-1.12.1.custom/jquery-ui.css">
+    <link rel="stylesheet" type="text/css" href="/Resources/LayoutReferences/styles/single_styles.css">
+    <link rel="stylesheet" type="text/css" href="/Resources/LayoutReferences/styles/single_responsive.css">
+    <link rel="stylesheet" href="/Resources/LayoutReferences/plugins/themify-icons/themify-icons.css">
+    <link rel="stylesheet" type="text/css"
+        href="/Resources/LayoutReferences/plugins/jquery-ui-1.12.1.custom/jquery-ui.css">
     <link rel="stylesheet" type="text/css" href="/css/site.css">
 </head>
 
@@ -34,27 +42,10 @@
                 <div class="container">
                     <div class="row dir_rtl">
                         <div class="col-md-6">
-                            @if (User.Identity.IsAuthenticated)
-                            {
-                                @if (bool.Parse(User.FindFirstValue("IsAdmin")))
-                                {
-                                    <div class="top_nav_left">
-                                        مدیر @User.FindFirstValue(ClaimTypes.Name) خوش آمدید!! برای خارج شدن روی <a href="/Account/LogOut">این</a> کلیک کنید.
-                                    </div>
-                                }
-                                else
-                                {
-                                    <div class="top_nav_left">
-                                        کاربر @User.FindFirstValue(ClaimTypes.Name) خوش آمدید!! برای خارج شدن روی <a href="/Account/LogOut">این</a> کلیک کنید.
-                                    </div>
-                                }
-                            }
-                            else
-                            {
-                                <div class="top_nav_left">
-                                    برای استفاده از امکانات سایت ما لطفاً <a href="/Account/LogIn">وارد</a> شوید یا <a href="/Account/SignIn">ثبت نام</a> کنید.
-                                </div>
-                            }
+                            <div class="top_nav_left">
+                                مدیر @User.FindFirstValue(ClaimTypes.Name) خوش آمدید!! برای خارج شدن روی <a
+                                    href="/Account/LogOut">این</a> کلیک کنید.
+                            </div>
                         </div>
                         <div class="col-md-6 text-right">
                             <div class="top_nav_right">
@@ -70,17 +61,21 @@
                                         <ul class="account_selection p-0">
                                             @if (User.Identity.IsAuthenticated)
                                             {
-                                                <li><a href="/Account/Panel"><i class="fa fa-user-circle"></i>پنل کاربر</a></li>
+                                                <li><a href="/Account/Panel"><i class="fa fa-user-circle"></i>پنل کاربر</a>
+                                                </li>
                                                 @if (bool.Parse(User.FindFirstValue("IsAdmin")))
                                                 {
-                                                    <li><a href="/Admin/Index"><i class="fa fa-user-secret"></i>پنل مدیر</a></li>
+                                                    <li><a href="/Admin/Index"><i class="fa fa-user-secret"></i>پنل مدیر</a>
+                                                    </li>
                                                 }
                                                 <li><a href="/Account/LogOut"><i class="fa fa-user-times"></i>خروج</a></li>
                                             }
                                             else
                                             {
-                                                <li><a href="/Account/LogIn"><i class="fa fa-sign-in" aria-hidden="true"></i>ورود</a></li>
-                                                <li><a href="/Account/SignIn"><i class="fa fa-user-plus" aria-hidden="true"></i>ثبت نام</a></li>
+                                                <li><a href="/Account/LogIn"><i class="fa fa-sign-in"
+                                                        aria-hidden="true"></i>ورود</a></li>
+                                                <li><a href="/Account/SignIn"><i class="fa fa-user-plus"
+                                                        aria-hidden="true"></i>ثبت نام</a></li>
                                             }
                                         </ul>
                                     </li>
@@ -110,7 +105,8 @@
                                     <li><a href="/Category/ShowCategoryProducts/Grocery">خوار و بار</a></li>
                                 </ul>
                                 <ul class="navbar_user">
-                                    <li><a href="" data-bs-toggle="modal" data-bs-target="#search-modal"><i class="fa fa-search" aria-hidden="true"></i></a></li>
+                                    <li><a href="" data-bs-toggle="modal" data-bs-target="#search-modal"><i
+                                                class="fa fa-search" aria-hidden="true"></i></a></li>
                                     <li><a href="/Account/Panel"><i class="fa fa-user" aria-hidden="true"></i></a></li>
                                     <li class="checkout">
                                         <a href="/Cart/MyCart">
@@ -152,7 +148,8 @@
                             else
                             {
                                 <li><a href="/Account/LogIn"><i class="fa fa-sign-in" aria-hidden="true"></i>ورود</a></li>
-                                <li><a href="/Account/SignIn"><i class="fa fa-user-plus" aria-hidden="true"></i>ثبت نام</a></li>
+                                <li><a href="/Account/SignIn"><i class="fa fa-user-plus" aria-hidden="true"></i>ثبت نام</a>
+                                </li>
                             }
                         </ul>
                     </li>
@@ -175,20 +172,11 @@
             <div class="container">
                 <div class="row dir_rtl">
                     <div class="col-lg-6">
-                        <div class="footer_nav_container d-flex flex-sm-row flex-column align-items-center justify-content-lg-start justify-content-center text-center">
+                        <div
+                            class="footer_nav_container d-flex flex-sm-row flex-column align-items-center justify-content-lg-start justify-content-center text-center">
                             <ul class="footer_nav">
                                 <li><a href="/Home/AboutUs">درباره ما</a></li>
-                            </ul>
-                        </div>
-                    </div>
-                    <div class="col-lg-6">
-                        <div class="footer_social d-flex flex-row align-items-center justify-content-lg-end justify-content-center">
-                            <ul>
-                                <li><a href="#"><i class="fa fa-facebook" aria-hidden="true"></i></a></li>
-                                <li><a href="#"><i class="fa fa-twitter" aria-hidden="true"></i></a></li>
-                                <li><a href="#"><i class="fa fa-instagram" aria-hidden="true"></i></a></li>
-                                <li><a href="#"><i class="fa fa-skype" aria-hidden="true"></i></a></li>
-                                <li><a href="#"><i class="fa fa-pinterest" aria-hidden="true"></i></a></li>
+                                <li><a href="/Home/ContactUs">ارتباط با ما</a></li>
                             </ul>
                         </div>
                     </div>

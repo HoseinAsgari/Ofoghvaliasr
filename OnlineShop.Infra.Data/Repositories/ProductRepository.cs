@@ -47,6 +47,11 @@ namespace OnlineShop.Infra.Data.Repositories
             _dbContext.Remove(product);
         }
 
+        public void RemoveRangeProduct(IQueryable<Product> products)
+        {
+            _dbContext.RemoveRange(products);
+        }
+
         public async Task<bool> SaveChanges()
         {
             await _dbContext.SaveChangesAsync();

@@ -185,7 +185,8 @@ namespace OnlineShop.Application.Services
                 ProductId = n.Product.ProductId,
                 ProductName = n.Product.ProductName,
                 ThumbnailName = n.Product.ProductName + ".png",
-                UnitOfProduct = n.Product.UnitOfProduct
+                UnitOfProduct = n.Product.UnitOfProduct,
+                Price = n.Product.ProductPrice
             }).ToList();
         }
 
@@ -219,8 +220,24 @@ namespace OnlineShop.Application.Services
         public async Task<bool> RemoveCategory(int categoryId)
         {
             _categoryRepository.RemoveCategory(await _categoryRepository.GetCategory(categoryId));
+            var categoryProducts = _productRepository.GetAllProducts().Where(n => n.CategoryId == categoryId);
+            _productRepository.RemoveRangeProduct(categoryProducts);
+            RemoveProductPicsCategory(categoryId);
             await _categoryRepository.SaveChanges();
             return true;
+        }
+
+        public void RemoveProductPicsCategory(int categoryId)
+        {
+            var productsName = _productRepository.GetAllProducts().Where(n => n.CategoryId == categoryId).Select(n => n.ProductName);
+            foreach (var item in productsName)
+            {
+                string picturePath = $@"{_environment.WebRootPath}\\Resources\\Pics\\ProductThumbnail\\{item}.png";
+                if (File.Exists(picturePath))
+                {
+                    File.Delete(picturePath);
+                }
+            }
         }
 
         public async Task<bool> RemoveProduct(int productId)

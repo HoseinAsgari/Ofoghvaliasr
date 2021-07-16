@@ -33,7 +33,7 @@ namespace OnlineShop.Infra.Data.Repositories
 
         public void RemoveCategory(Category category)
         {
-            _dbContext.Remove(category);
+            _dbContext.Categories.Remove(category);
         }
 
         public async Task<bool> SaveChanges()
@@ -44,7 +44,7 @@ namespace OnlineShop.Infra.Data.Repositories
 
         public void UpdateCategory(Category category)
         {
-            _dbContext.Update(category);
+            _dbContext.Categories.Update(category);
         }
     }
 }

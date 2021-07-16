@@ -21,6 +21,11 @@ namespace OnlineShop.Controllers
             return View(model);
         }
 
+        public IActionResult ContactUs()
+        {
+            return View();
+        }
+
         public IActionResult AboutUs()
         {
             return View();

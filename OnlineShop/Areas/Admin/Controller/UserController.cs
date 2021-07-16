@@ -2,6 +2,7 @@ using OnlineShop.Application.Interfaces;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using OnlineShop.FilterAttributes;
+using System.Linq;
 
 namespace OnlineShop.Areas.Admin.Controllers
 {
@@ -48,6 +49,7 @@ namespace OnlineShop.Areas.Admin.Controllers
         public async Task<IActionResult> ShowUserCartProducts(int id)
         {
             var model = await _adminService.GetUserCartProducts(id);
+            ViewBag.AllPrice = model.Sum(n => n.Price * n.Amount);
             return View(model);
         }
     }

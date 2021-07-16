@@ -33,7 +33,7 @@ namespace OnlineShop.Areas.Admin.Controllers
             if (ModelState.IsValid)
             {
                 await _adminService.AddCategory(addCategoryViewModel);
-                return Redirect("/Admin/AdminCategory/ShowCategories");
+                return Redirect("/Admin/Category/ShowCategories");
             }
             return View();
         }
@@ -41,7 +41,7 @@ namespace OnlineShop.Areas.Admin.Controllers
         public async Task<IActionResult> RemoveCategory(int categoryId)
         {
             await _adminService.RemoveCategory(categoryId);
-            return Redirect("/Admin/AdminCategory/ShowCategories");
+            return Redirect("/Admin/Category/ShowCategories");
         }
 
         [HttpGet]

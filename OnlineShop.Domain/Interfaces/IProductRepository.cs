@@ -12,5 +12,6 @@ namespace OnlineShop.Domain.Interfaces
         void UpdateProduct(Product product);
         void RemoveProduct(Product product);
         Task<bool> SaveChanges();
+        void RemoveRangeProduct(IQueryable<Product> products);
     }
 }
