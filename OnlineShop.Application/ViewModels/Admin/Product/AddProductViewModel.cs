@@ -13,7 +13,7 @@ namespace OnlineShop.Application.ViewModels.Admin.Product
         public string UnitOfProduct { get; set; }
         [Display(Name = "دسته بندی کالا"), MaxLength(200, ErrorMessage = "{0} نباید از {1} کاراکتر بیشتر باشد"), Required(ErrorMessage = "{0} را وارد کنید")]
         public string CategoryName { get; set; }
-        [Display(Name = "تصویر کالا"), Required(ErrorMessage = "{0} را وارد کنید"), FileExtensions(Extensions = "png", ErrorMessage = "فرمت {0} باید {1} باشد")]
+        [Display(Name = "تصویر کالا"), Required(ErrorMessage = "{0} را وارد کنید")]
         public IFormFile ProductThumbnail { get; set; }
     }
 }

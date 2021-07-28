@@ -6,7 +6,7 @@ namespace OnlineShop.Application.Interfaces
     public interface IAccountService
     {
         Task<bool> SignIn(SignInViewModel signInViewModel, string domainName);
-        Task<bool> LogIn(LogInViewModel logInViewModel);
+        Task<bool> LogIn(LogInViewModel logInViewModel, string ipAddress);
         Task<bool> EmailExists(string email);
         Task<bool> IsAdminByEmail(string userEmail);
         Task<UserPanelViewModel> GetPanelModel(string email);

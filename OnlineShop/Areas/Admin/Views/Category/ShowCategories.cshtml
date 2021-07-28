@@ -3,33 +3,36 @@
 <div dir="rtl" class="mtop mx-2">
     @if (Model != null)
     {
-        <table class="table table-bordered table-striped table-light">
+        <div style="overflow-x:auto;">
+        <table class="table table-bordered table-striped table-light table-responsive">
             <thead>
                 <tr>
                     <th>تصویر دسته بندی</th>
                     <th>نام دسته بندی</th>
                     <th>نام انگلیسی</th>
                     <th>تعداد لایک ها</th>
-                    <th>گزینه ها</th>
+                    <th colspan="2">گزینه ها</th>
                 </tr>
             </thead>
             <tbody>
                 @foreach (var item in Model)
                 {
                     <tr>
-                        <th class="text-center"><img class="img-thumbnail img-responsive" style="max-height: 250px;" src="/Resources/Pics/CategoryThumbnail/@item.CategoryThumbnailName"
-                        alt="تصویر دسته بندی"></th>
-                        <th>@item.CategoryName</th>
-                        <th>@item.CategoryEnglishName</th>
-                        <th>@item.CategoryLikedCount</th>
-                        <th>
+                        <td class="text-center"><img class="img-thumbnail img-responsive" style="max-height: 250px;" src="/Resources/Pics/CategoryThumbnail/@item.CategoryThumbnailName"
+                        alt="تصویر دسته بندی"></td>
+                        <td>@item.CategoryName</td>
+                        <td>@item.CategoryEnglishName</td>
+                        <td>@item.CategoryLikedCount</td>
+                        <td>
                             <a class="btn btn-danger" href="/Admin/Category/RemoveCategory/@item.CategoryId">حذف دسته بندی</a>
+                        </td>
+                        <td>
                             <a class="btn btn-warning" href="/Admin/Category/EditCategory/@item.CategoryId">ویرایش دسته بندی</a>
-                        </th>
+                        </td>
                     </tr>
                 }
             </tbody>
-        </table>
+        </table></div>
     }
     else
     {

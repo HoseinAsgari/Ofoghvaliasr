@@ -19,6 +19,7 @@ namespace OnlineShop.Infra.IoC
             services.AddScoped<IUserProductLikesRepository, UserProductLikesRepository>();
             services.AddScoped<IUserProductViewsRepository, UserProductViewsRepository>();
             services.AddScoped<IUserProductSoldsRepository, UserProductSoldsRepository>();
+            services.AddScoped<IUsersIPAddressesRepository, UsersIPAddressesRepository>();
 
             services.AddScoped<IProductService, ProductService>();
             services.AddScoped<IAdminService, AdminService>();

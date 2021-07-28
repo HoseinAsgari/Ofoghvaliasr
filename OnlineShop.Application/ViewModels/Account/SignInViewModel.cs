@@ -4,7 +4,7 @@ namespace OnlineShop.Application.ViewModels.Account
 {
     public class SignInViewModel
     {
-        [Display(Name = "نام"), Required, MaxLength(100)]
+        [Display(Name = "نام و نام خانوادگی"), Required(ErrorMessage = "{0} را پر کنید"), MaxLength(100, ErrorMessage = "{0} حداکثر میتواند {1} کاراکتر داشته باشد")]
         public string Name { get; set; }
 
         [Display(Name = "ایمیل"), Required(ErrorMessage = "{0} را پر کنید"), MaxLength(150, ErrorMessage = "{0} حداکثر میتواند {1} کاراکتر داشته باشد"), EmailAddress(ErrorMessage = "{0}ی معتبر وارد کنید")]

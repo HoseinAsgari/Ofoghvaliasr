@@ -3,33 +3,37 @@
 <div dir="rtl" class="mtop mx-2">
     @if (Model != null)
     {
-        <table class="table table-bordered table-striped table-primary">
-            <thead>
-                <tr>
-                    <th>تصویر کالا</th>
-                    <th>نام کالا</th>
-                    <th>قیمت کالا</th>
-                    <th>واحد شمارش کالا</th>
-                    <th>گزینه ها</th>
-                </tr>
-            </thead>
-            <tbody>
-                @foreach (var item in Model)
-                {
+        <div style="overflow-x:auto;">
+            <table class="table table-bordered table-striped table-primary table-responsive">
+                <thead>
                     <tr>
-                        <th class="text-center"><img class="img-thumbnail img-responsive" style="max-height: 250px;" src="/Resources/Pics/ProductThumbnail/@item.ProductThumbanil"
-                        alt="تصویر کالا"></th>
-                        <th>@item.ProductName</th>
-                        <th>@item.ProductPrice تومان</th>
-                        <th>@item.UnitOfProduct</th>
-                        <th>
-                            <a class="btn btn-danger" href="/Admin/Product/RemoveProduct/@item.ProductId">حذف کالا</a>
-                            <a class="btn btn-warning" href="/Admin/Product/EditProduct/@item.ProductId">ویرایش کالا</a>
-                        </th>
+                        <th>تصویر کالا</th>
+                        <th>نام کالا</th>
+                        <th>قیمت کالا</th>
+                        <th>واحد شمارش کالا</th>
+                        <th colspan="2">گزینه ها</th>
                     </tr>
-                }
-            </tbody>
-        </table>
+                </thead>
+                <tbody>
+                    @foreach (var item in Model)
+                    {
+                        <tr>
+                            <td class="text-center"><img class="img-thumbnail img-responsive" style="max-height: 250px;"
+                            src="/Resources/Pics/ProductThumbnail/@item.ProductThumbanil" alt="تصویر کالا"></td>
+                            <td>@item.ProductName</td>
+                            <td>@item.ProductPrice تومان</td>
+                            <td>@item.UnitOfProduct</td>
+                            <td>
+                                <a class="btn btn-danger" href="/Admin/Product/RemoveProduct/@item.ProductId">حذف کالا</a>
+                            </td>
+                            <td>
+                                <a class="btn btn-warning" href="/Admin/Product/EditProduct/@item.ProductId">ویرایش کالا</a>
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
     }
     else
     {

@@ -22,6 +22,8 @@ namespace OnlineShop.Infra.Data.Contexts
         public DbSet<UserProductViews> UserProductViews { get; set; }
         public DbSet<UserProductLikes> UserProductLikes { get; set; }
         public DbSet<UserProductSold> UserProductSolds { get; set; }
+        public DbSet<UsersIPAddresses> UsersIPAddresses { get; set; }
+        
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             #region SeedCategoryData

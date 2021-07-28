@@ -1,13 +1,14 @@
 @model List<ShowUsersViewModel>
 
 <div dir="rtl" class="mtop">
-    <table class="table table-striped table-primary">
+    <div style="overflow-x:auto;">
+    <table class="table table-striped table-primary table-responsive">
         <thead>
             <tr>
                 <th>نام کاربر</th>
                 <th>فعال بودن اکانت</th>
                 <th>ادمین بودن</th>
-                <th>گزینه ها</th>
+                <th colspan="4">گزینه ها</th>
             </tr>
         </thead>
         <tbody>
@@ -15,21 +16,38 @@
             {
                 <tr>
                     <td>@item.UserName</td>
-                    <td><input class="form-control-check" onclick="return false" type="checkbox"
-                        @(item.IsActive?"checked":"")></td>
-                    <td><input class="form-control-check" onclick="return false" type="checkbox"
-                        @(item.IsActive?"checked":"")></td>
-                    <td class="w-auto row">
-                        <a class="btn btn-primary text-center w-auto m-1"
-                        href="/Admin/User/Details/@item.UserId">اطلاعات</a>
-                        <a class="btn btn-success text-center w-auto m-1 pt-2"
-                        href="/Admin/User/SetUserToAdmin/@item.UserId"><h6 class="text-light">ارتقا به
-                            ادمین</h6></a>
-                        <a class="btn btn-danger text-center w-auto m-1 pt-2" href="/Admin/User/removeUser/@item.UserId"><h6 class="text-light"><span
-                            class="fa fa-times"></span> حذف</h6></a>
+                    <td>
+                        <input class="form-control-check" onclick="return false" type="checkbox"
+                               @(item.IsActive ? "checked" : "")>
                     </td>
+                    <td>
+                        <input class="form-control-check" onclick="return false" type="checkbox"
+                               @(item.IsAdmin ? "checked" : "")>
+                    </td>
+                        @if (!item.Banned)
+                        {
+                            <td>
+                                <a class="btn btn-primary text-center w-auto m-1" href="/Admin/User/Details/@item.UserId">اطلاعات</a>
+                            </td>
+                            @if (!item.IsAdmin)
+                            {
+                                <td><a class="btn btn-success" href="/Admin/User/SetUserToAdmin/@item.UserId">ارتقا به ادمین</a></td>
+                                <td>
+                                    <a class="btn btn-danger" href="/Admin/User/BanUser/@item.UserId">
+                                        <span class="fa fa-times"></span> حذف
+                                    </a>
+                                </td>
+                            }
+                        }
+                        else
+                        {
+                            <td>
+                            <div class="w-100 text-center text-danger">
+                                این کاربر اخراج شده
+                            </div></td>
+                        }
                 </tr>
             }
         </tbody>
-    </table>
+    </table></div>
 </div>

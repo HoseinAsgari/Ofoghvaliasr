@@ -15,3 +15,12 @@ p,h1,h2,h3,h4,h5,h6,a{
     font-family: vazir, Arial, Helvetica, sans-serif;
 }
 
+.footer{
+    margin-top: 40px;
+}
+
+.footer_nav_container li{
+    width: auto;
+    display: inline-block !important;
+    margin: 15px;
+}

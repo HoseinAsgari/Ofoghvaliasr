@@ -10,6 +10,7 @@ using System.Linq;
 using Microsoft.EntityFrameworkCore;
 using System.IO;
 using OnlineShop.Application.Helpers.CalendarHelper;
+using OnlineShop.Domain.Models;
 
 namespace OnlineShop.Application.Services
 {
@@ -52,13 +53,18 @@ namespace OnlineShop.Application.Services
             {
                 await addProductViewModel.ProductThumbnail.CopyToAsync(stream);
             }
+
+            var category = await GetCategoryByName(addProductViewModel.CategoryName);
+
             await _productRepository.AddProduct(new Domain.Models.Product()
             {
                 ProductName = addProductViewModel.ProductPersianName,
                 ProductPrice = addProductViewModel.ProductPrice,
-                UnitOfProduct = addProductViewModel.UnitOfProduct
+                UnitOfProduct = addProductViewModel.UnitOfProduct,
+                Category = category,
+                CategoryId = category.CategoryId
             });
-            await _categoryRepository.SaveChanges();
+            await _productRepository.SaveChanges();
             return true;
         }
 
@@ -161,6 +167,7 @@ namespace OnlineShop.Application.Services
                 CartId = n.CartId,
                 DateOrdered = ShamsiCalendarHelper.ToShamsiWithTime(n.DateOrdered.Value).Result,
                 UserName = n.User.UserName,
+                UserAddress = n.User.UserAddress,
                 UserPhoneNumber = n.User.UserPhoneNumber
             }).ToListAsync();
         }
@@ -213,6 +220,8 @@ namespace OnlineShop.Application.Services
             {
                 UserId = n.UserId,
                 UserName = n.UserName,
+                IsAdmin = n.IsAdmin,
+                Banned = n.Banned,
                 IsActive = n.IsAccountActive
             }).ToListAsync();
         }
@@ -262,6 +271,19 @@ namespace OnlineShop.Application.Services
             cart.Delivered = true;
             _cartRepository.UpdateCart(cart);
             await _cartRepository.SaveChanges();
+        }
+
+        public async Task BanUser(int id)
+        {
+            var user = await _userRepository.GetUser(id);
+            user.Banned = true;
+            _userRepository.UpdateUser(user);
+            await _userRepository.SaveChanges();
+        }
+
+        private async Task<Category> GetCategoryByName(string categoryName)
+        {
+            return await _categoryRepository.GetAllCategories().SingleAsync(n => n.CategoryName == categoryName);
         }
     }
 }

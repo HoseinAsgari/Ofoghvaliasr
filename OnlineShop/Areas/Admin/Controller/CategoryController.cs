@@ -38,9 +38,9 @@ namespace OnlineShop.Areas.Admin.Controllers
             return View();
         }
 
-        public async Task<IActionResult> RemoveCategory(int categoryId)
+        public async Task<IActionResult> RemoveCategory(int id)
         {
-            await _adminService.RemoveCategory(categoryId);
+            await _adminService.RemoveCategory(id);
             return Redirect("/Admin/Category/ShowCategories");
         }
 

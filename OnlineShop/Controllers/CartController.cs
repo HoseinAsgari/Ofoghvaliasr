@@ -23,7 +23,7 @@ namespace OnlineShop.Controllers
             var model = await _cartService.GetCart(User.FindFirstValue(ClaimTypes.Email));
             if (model != null)
             {
-                ViewBag.SumOfPrice = model.Sum(n => n.ProductPrice * n.Amount);
+                ViewBag.SumOfPrice = model.Sum(n => n.ProductPrice * n.Amount).ToString("#,0");
             }
             return View("ShowCart", model);
         }
@@ -36,8 +36,14 @@ namespace OnlineShop.Controllers
 
         public async Task<IActionResult> Finlize()
         {
-            await _cartService.FinlizeCart(User.FindFirstValue(ClaimTypes.Email));
-            return Redirect("/Home/Index");
+            if (await _cartService.FinlizeCart(User.FindFirstValue(ClaimTypes.Email)))
+            {
+                return Redirect("/Home/Index");
+            }
+            else
+            {
+                return Redirect("/Account/Panel?showErrorMessage=true");
+            }
         }
     }
 }

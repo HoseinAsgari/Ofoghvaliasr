@@ -13,16 +13,12 @@ namespace OnlineShop.Application.Services
     public class ProductService : IProductService
     {
         readonly IProductRepository _productRepository;
-        readonly ICartItemRepository _cartItemRepository;
-        readonly ICartRepository _cartRepository;
         readonly IUserRepository _userRepository;
         readonly IUserProductLikesRepository _userProductLikesRepository;
         readonly IUserProductViewsRepository _userProductViewsRepository;
-        public ProductService(IUserProductViewsRepository userProductViewsRepository, IUserProductLikesRepository userProductLikesRepository, IProductRepository productRepository, ICartItemRepository cartItemRepository, ICartRepository cartRepository, IUserRepository userRepository)
+        public ProductService(IUserProductViewsRepository userProductViewsRepository, IUserProductLikesRepository userProductLikesRepository, IProductRepository productRepository, IUserRepository userRepository)
         {
             _productRepository = productRepository;
-            _cartItemRepository = cartItemRepository;
-            _cartRepository = cartRepository;
             _userRepository = userRepository;
             _userProductLikesRepository = userProductLikesRepository;
             _userProductViewsRepository = userProductViewsRepository;
@@ -124,13 +120,26 @@ namespace OnlineShop.Application.Services
 
         public async Task<List<ShowSearchedProduct>> SearchProduct(string searchedPhrase)
         {
-            return await _productRepository.GetAllProducts().Where(n => n.ProductName.Contains(searchedPhrase)).Select(n => new ShowSearchedProduct()
+            if (searchedPhrase != "" && searchedPhrase != null)
             {
-                ProductId = n.ProductId,
-                ProductName = n.ProductName,
-                ThumbnailName = n.ProductName + ".png",
-                ProductPrice = n.ProductPrice
-            }).ToListAsync();
+                return await _productRepository.GetAllProducts().Where(n => n.ProductName.Contains(searchedPhrase)).Select(n => new ShowSearchedProduct()
+                {
+                    ProductId = n.ProductId,
+                    ProductName = n.ProductName,
+                    ThumbnailName = n.ProductName + ".png",
+                    ProductPrice = n.ProductPrice
+                }).ToListAsync();
+            }
+            else
+            {
+                return await _productRepository.GetAllProducts().Select(n => new ShowSearchedProduct()
+                {
+                    ProductId = n.ProductId,
+                    ProductName = n.ProductName,
+                    ThumbnailName = n.ProductName + ".png",
+                    ProductPrice = n.ProductPrice
+                }).ToListAsync();
+            }
         }
     }
 }

@@ -14,7 +14,7 @@
                     <input class="form-control" asp-for="ProductPersianName">
                 </div>
                 <label class="my-1 mr-2" asp-for="CategoryName"></label>
-                <select class="custom-select my-1 mr-sm-2">
+                <select class="custom-select my-1 mr-sm-2" asp-for="CategoryName">
                     @foreach (var item in ViewBag.Categories)
                     {
                         <option>@item</option>

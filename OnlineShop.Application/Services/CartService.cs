@@ -29,25 +29,31 @@ namespace OnlineShop.Application.Services
         public async Task<bool> FinlizeCart(string email)
         {
             var user = await _userRepository.GetAllUsers().SingleAsync(n => n.UserEmail == email);
-            var cart = user.Carts.Single(n => !n.IsOrdered);
-            cart.IsOrdered = true;
-            cart.DateOrdered = DateTime.Now;
-            cart.Price = (uint)cart.CartItems.Sum(n => n.Product.ProductPrice);
-            _cartRepository.UpdateCart(cart);
-            await _userProductSoldsRepository.AddUserProductSolds(cart.CartItems.Select(n => new UserProductSold()
+            if (user.IsAccountActive)
             {
-                User = user,
-                ProductId = n.Product.ProductId,
-                UserId = user.UserId,
-                Product = n.Product
-            }).ToList());
-            await _cartRepository.AddCart(new Cart()
-            {
-                User = user,
-                UserId = user.UserId
-            });
-            await _cartRepository.SaveChanges();
-            return true;
+
+                var cart = user.Carts.Single(n => !n.IsOrdered);
+                cart.IsOrdered = true;
+                cart.DateOrdered = DateTime.Now;
+                cart.Price = (uint)cart.CartItems.Sum(n => n.Product.ProductPrice);
+                _cartRepository.UpdateCart(cart);
+                await _userProductSoldsRepository.AddUserProductSolds(cart.CartItems.Select(n => new UserProductSold()
+                {
+                    User = user,
+                    ProductId = n.Product.ProductId,
+                    UserId = user.UserId,
+                    Product = n.Product
+                }).ToList());
+                await _cartRepository.AddCart(new Cart()
+                {
+                    User = user,
+                    UserId = user.UserId
+                });
+                await _cartRepository.SaveChanges();
+                return true;
+            }
+            else
+                return false;
         }
 
         public async Task<List<ShowCartProductViewModel>> GetCart(string email)

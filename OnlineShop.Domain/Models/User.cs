@@ -35,5 +35,6 @@ namespace OnlineShop.Domain.Models
         public List<UserProductLikes> LikedProducts { get; set; }
         public List<UserProductViews> UserProductViews { get; set; }
         public List<UserProductSold> UserProductSolds { get; set; }
+        public List<UsersIPAddresses> UsersIPAddresses { get; set; }
     }
 }

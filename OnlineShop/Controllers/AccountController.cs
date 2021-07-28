@@ -63,7 +63,7 @@ namespace OnlineShop.Controllers
         [HttpPost]
         public async Task<IActionResult> LogIn(LogInViewModel model, string ReturnUrl)
         {
-            if (ModelState.IsValid && await _accountService.LogIn(model))
+            if (ModelState.IsValid && await _accountService.LogIn(model, HttpContext.Connection.RemoteIpAddress?.ToString()))
             {
                 var userName = await _accountService.GetUserNameByEmail(model.Email);
                 await SetUserAuthenticationCookies(model, userName);
@@ -131,13 +131,10 @@ namespace OnlineShop.Controllers
             return View("AccountPanel", model);
         }
 
-        [Authorize]
-        public async Task<IActionResult> ActiveAccount(AccountActivateViewModel viewModel)
+        public async Task<IActionResult> Active(string email, string activeCode)
         {
-            if (!ModelState.IsValid || !await _accountService.ActiveAccount(User.FindFirstValue(ClaimTypes.Email), viewModel.ActivationCode))
-                ViewBag.Error = "عملیات ناموفق بود!!!";
-            var model = await _accountService.GetPanelModel(User.FindFirstValue(ClaimTypes.Email));
-            return View("Panel", model);
+            await _accountService.ActiveAccount(email, activeCode);
+            return Redirect("/");
         }
 
         [HttpPost]

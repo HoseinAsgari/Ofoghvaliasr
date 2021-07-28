@@ -10,6 +10,7 @@ namespace OnlineShop.Application.Interfaces
     {
         Task<List<ShowUsersViewModel>> GetUsers();
         Task<bool> SetUserToAdmin(int userId);
+        Task BanUser(int id);
         Task<ShowUserDetailsViewModel> GetUserDetails(int userId);
         Task CartDelivered(int cartId);
         Task<List<ShowUserCartProductsViewModel>> GetUserCartProducts(int cartId);

@@ -12,17 +12,29 @@
             <dl>@Model.SignInDate</dl>
             <hr>
             <dd><b>حساب فعال:</b></dd>
-            <dl><input @(Model.ActiveEmail?"checked":"") type="checkbox" class="form-check-input"
-                    onclick="return false;"> @(Model.ActiveEmail?"دارید":"ندارید")</dl>
+            <dl>
+                <input @(Model.ActiveEmail ? "checked" : "") type="checkbox" class="form-check-input"
+                       onclick="return false;"> @(Model.ActiveEmail?"دارید":"ندارید")
+            </dl>
             <hr>
             <dd><b>آدرس شما:</b></dd>
             <div class="text-center" id="changeAddressDiv">
                 <div class="text-start">
                     <dl>@Model.UserAddress</dl>
                 </div>
-                <button class="btn btn-warning" id="changeAddressBtn" onclick="changeAddress('@Model.UserAddress')">تغییر
-                    آدرس</button>
+                <button class="btn btn-warning" id="changeAddressBtn" onclick="changeAddress('@Model.UserAddress')">
+                    تغییر
+                    آدرس
+                </button>
             </div>
         </dl>
     </div>
 </div>
+
+@section Scripts{
+    @if (Context.Request.Query["showErrorMessage"].Count != 0)
+    {
+        <script>
+            alert('شما خساب خود را فعال نکردید. برای این کار به ایمیل های خود رجوع کنید و روی لینکی که برای شما فرستادیم کلیک کنید.')</script>
+    }
+}

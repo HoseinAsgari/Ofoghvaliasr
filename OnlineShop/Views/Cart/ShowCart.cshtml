@@ -35,7 +35,7 @@
                             data-bs-target="#finlizeCartModal">
                                 <h5><b>نهایی کردن خرید</b></h5>
                             </button></th>
-                        <th class="text-center" colspan="3">قیمت کل: @ViewBag.SumOfPrice</th>
+                        <th class="text-center" colspan="3">قیمت کل: @ViewBag.SumOfPrice تومان</th>
                     </tr>
                 </tfoot>
             </table>
@@ -60,7 +60,7 @@
                         <button class="btn btn-danger" data-bs-dismiss="modal">خیر</button>
                     </div>
                     <div class="col py-3">
-                        <a href="/Cart/Finlize" class="btn btn-success">بله</a>
+                        <a href="/Cart/Finlize" onclick="alert('سفارش شما با موفقیت به ثبت رسید')" class="btn btn-success">بله</a>
                     </div>
                 </div>
                 <hr>

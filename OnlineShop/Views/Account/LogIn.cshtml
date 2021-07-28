@@ -29,4 +29,10 @@
 
 @section Scripts{
     @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+
+    @if (Context.Request.Query["ReturnUrl"].Count != 0)
+    {
+        <script>
+            alert('برای ورود به این صفحه ابتدا باید وارد شوید یا ثبت نام کنید.')</script>
+    }
 }

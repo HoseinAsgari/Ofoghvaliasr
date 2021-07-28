@@ -6,12 +6,13 @@
 
         <h1></h1>
         <hr>
-        <table class="table table-striped table-light">
+        <div style="overflow-x:auto;">
+        <table class="table table-striped table-light table-responsive">
             <thead>
                 <th>شماره سفارش</th>
                 <th>نام کاربر</th>
                 <th>زمان سفارش</th>
-                <th>گزینه ها</th>
+                <th colspan="4">گزینه ها</th>
             </thead>
             <tbody>
                 @foreach (var item in Model)
@@ -22,13 +23,20 @@
                         <td>@item.DateOrdered</td>
                         <td>
                             <a href="/Admin/User/ShowUserCartProducts/@item.CartId" class="btn btn-primary">نمایش کالاها</a>
+                        </td>
+                        <td>
                             <button data-bs-target="#callNumber-Modal" onclick="showUserNumber('@item.UserPhoneNumber')" data-bs-toggle="modal" class="btn btn-warning">نمایش شماره کاربر</button>
+                        </td>
+                        <td>
+                            <button data-bs-target="#address-Modal" onclick="showUserAddress('@item.UserAddress')" data-bs-toggle="modal" class="btn btn-info">نمایش آدرس کاربر</button>
+                        </td>
+                        <td>
                             <a href="/Admin/User/Delivered/@item.CartId" class="btn btn-success">تحویل داده شد</a>
                         </td>
                     </tr>
                 }
             </tbody>
-        </table>
+        </table></div>
     }
     else
     {
@@ -44,6 +52,19 @@
             </div>
             <div class="modal-body">
                 <h3 id="callNumber"></h3>
+            </div>
+        </div>
+    </div>
+</div>
+<div dir="rtl" class="modal fade" id="address-Modal" tabindex="-1" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+        <div dir="rtl" class="modal-content">
+            <div class="modal-header">
+                <h3>آدرس کاربر</h3>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <p id="addressParagraph"></p>
             </div>
         </div>
     </div>

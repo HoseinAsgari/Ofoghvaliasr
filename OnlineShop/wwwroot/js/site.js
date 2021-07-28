@@ -1,4 +1,6 @@
-﻿function productLiked(productId) {
+﻿mtop();
+
+function productLiked(productId) {
     var getData = new XMLHttpRequest();
     getData.open("GET", "/Product/ProductLiked/" + productId);
     getData.onload = function () {
@@ -32,13 +34,33 @@ function pictureUploaded(input) {
     }
 }
 
+function changeAddressValidation() {
+    if (document.getElementsByTagName('textarea')[0].value.length == 0) {
+        alert('آدرس نباید خالی باشد!!!');
+        return false;
+    }
+}
+
 function changeAddress(lastAddress) {
     var changeAddressBtn = document.getElementById('changeAddressBtn');
     changeAddressBtn.remove();
     var changeAddressDiv = document.getElementById('changeAddressDiv');
-    changeAddressDiv.innerHTML = '<form class="text-center" method="POST" action="/Account/ChangeAddress"><textarea name="address" class="text-dark form-control">' + lastAddress +'</textarea><br><button type="submit" class="btn btn-success">ذخیره آدرس</button></form>';
+    changeAddressDiv.innerHTML = '<form onsubmit="return changeAddressValidation()" class="text-center" method="POST" action="/Account/ChangeAddress"><textarea name="address" class="text-dark form-control">' + lastAddress + '</textarea><br><button type="submit" class="btn btn-success">ذخیره آدرس</button></form>';
 }
 
 function showUserNumber(phoneNumber) {
     document.getElementById('callNumber').innerHTML = phoneNumber;
+}
+
+function showUserAddress(userAddress) {
+    document.getElementById('addressParagraph').innerHTML = userAddress;
+}
+
+function mtop() {
+    document.getElementsByClassName('mtop')[0].setAttribute('style', 'margin-top: ' + document.getElementsByTagName('header')[0].clientHeight + 'px;');
+    if (document.getElementsByClassName('mtop').length != 0) {
+        document.body.onresize = function () {
+            document.getElementsByClassName('mtop')[0].setAttribute('style', 'margin-top: ' + document.getElementsByTagName('header')[0].clientHeight + 'px;');
+        };
+    }
 }

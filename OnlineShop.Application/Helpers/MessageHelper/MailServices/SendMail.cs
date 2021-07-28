@@ -14,16 +14,9 @@ namespace OnlineShop.Application.SendMessage
             _mailSender = mailSender;
         }
 
-        public async Task<bool> SendActivationCode(string carActivationCode, string userEmail, string domainName)
+        public async Task SendActivationCode(string activationCode, string userEmail, string domainName)
         {
-            try
-            {
-                return await _mailSender.SendEmail(userEmail, MailMessagesString.ActivationCode, MailMessagesString.GetActivationCodeMessage(carActivationCode, domainName));
-            }
-            catch
-            {
-                throw;
-            }
+                await _mailSender.SendEmail(userEmail, MailMessagesString.ActivationCode, MailMessagesString.GetActivationCodeMessage(activationCode, domainName, userEmail));
         }
     }
 }

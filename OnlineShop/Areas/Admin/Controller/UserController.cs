@@ -34,6 +34,12 @@ namespace OnlineShop.Areas.Admin.Controllers
             return Redirect("/Admin/User/ShowUsers");
         }
 
+        public async Task<IActionResult> BanUser(int id)
+        {
+            await _adminService.BanUser(id);
+            return Redirect("/Admin/User/ShowUsers");
+        }
+
         public async Task<IActionResult> Orderes()
         {
             var model = await _adminService.GetOrderes();

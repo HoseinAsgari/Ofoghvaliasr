@@ -82,7 +82,7 @@ namespace OnlineShop
             {
                 options.LoginPath = "/Account/LogIn";
                 options.LogoutPath = "/Account/LogOut";
-                options.ExpireTimeSpan = TimeSpan.FromDays(10);
+                options.ExpireTimeSpan = TimeSpan.FromMinutes(19672);
             });
         }
     }

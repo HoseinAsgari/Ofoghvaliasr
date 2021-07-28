@@ -6,7 +6,6 @@
         public string SignInDate { get; set; }
         public string UserAddress { get; set; }
         public bool ActiveEmail { get; set; }
-        public AccountActivateViewModel AccountActivateViewModel { get; set; }
         public ChangePasswordViewModel ChangePasswordViewModel { get; set; }
     }
 }
