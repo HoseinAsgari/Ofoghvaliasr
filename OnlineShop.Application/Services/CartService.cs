@@ -102,9 +102,6 @@ namespace OnlineShop.Application.Services
             }
             else
             {
-                var cart = await _cartRepository.GetCart(user.Carts.Single(n => !n.IsOrdered).CartId);
-                _cartRepository.UpdateCart(cart);
-
                 var cartItem = new CartItem()
                 {
                     Cart = user.Carts.Single(n => !n.IsOrdered),

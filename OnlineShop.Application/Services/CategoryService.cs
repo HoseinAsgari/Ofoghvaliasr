@@ -17,14 +17,14 @@ namespace OnlineShop.Application.Services
             _categoryRepository = categoryRepository;
         }
 
-        public Task<List<ShowCategoriesViewModel>> GetAllCategories()
+        public async Task<List<ShowCategoriesViewModel>> GetAllCategories()
         {
-            return Task.FromResult(_categoryRepository.GetAllCategories().Select(n => new ShowCategoriesViewModel()
+            return await _categoryRepository.GetAllCategories().Select(n => new ShowCategoriesViewModel()
             {
                 CategoryName = n.CategoryName,
                 CategoryThumbnail = n.CategoryName + ".png",
                 EnglishName = n.CategoryEnglishName
-            }).ToList());
+            }).ToListAsync());
         }
 
         public async Task<List<ShowCategoryProductsViewModel>> GetAllCategoryProducts(string categoryName)

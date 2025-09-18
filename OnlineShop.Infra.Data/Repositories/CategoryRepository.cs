@@ -23,7 +23,7 @@ namespace OnlineShop.Infra.Data.Repositories
 
         public IQueryable<Category> GetAllCategories()
         {
-            return _dbContext.Categories.Include(n => n.Products).ThenInclude(n => n.Category);
+            return _dbContext.Categories.Include(n => n.Products);
         }
 
         public async Task<Category> GetCategory(int id)

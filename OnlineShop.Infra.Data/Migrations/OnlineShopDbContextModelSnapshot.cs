@@ -6,6 +6,8 @@ using Microsoft.EntityFrameworkCore.Metadata;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using OnlineShop.Infra.Data.Contexts;
 
+#nullable disable
+
 namespace OnlineShop.Infra.Data.Migrations
 {
     [DbContext(typeof(OnlineShopDbContext))]
@@ -15,16 +17,18 @@ namespace OnlineShop.Infra.Data.Migrations
         {
 #pragma warning disable 612, 618
             modelBuilder
-                .HasAnnotation("Relational:MaxIdentifierLength", 128)
-                .HasAnnotation("ProductVersion", "5.0.7")
-                .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+                .HasAnnotation("ProductVersion", "9.0.6")
+                .HasAnnotation("Relational:MaxIdentifierLength", 128);
+
+            SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder);
 
             modelBuilder.Entity("OnlineShop.Domain.Models.Cart", b =>
                 {
                     b.Property<int>("CartId")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("CartId"));
 
                     b.Property<DateTime?>("DateOrdered")
                         .HasColumnType("datetime2");
@@ -62,8 +66,9 @@ namespace OnlineShop.Infra.Data.Migrations
                 {
                     b.Property<int>("CartItemId")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("CartItemId"));
 
                     b.Property<int?>("CartId")
                         .HasColumnType("int");
@@ -87,8 +92,9 @@ namespace OnlineShop.Infra.Data.Migrations
                 {
                     b.Property<int>("CategoryId")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("CategoryId"));
 
                     b.Property<string>("CategoryEnglishName")
                         .IsRequired()
@@ -149,8 +155,9 @@ namespace OnlineShop.Infra.Data.Migrations
                 {
                     b.Property<int>("ProductId")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("ProductId"));
 
                     b.Property<int>("CategoryId")
                         .HasColumnType("int");
@@ -357,8 +364,9 @@ namespace OnlineShop.Infra.Data.Migrations
                 {
                     b.Property<int>("UserId")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("UserId"));
 
                     b.Property<bool>("Banned")
                         .HasColumnType("bit");
@@ -410,14 +418,27 @@ namespace OnlineShop.Infra.Data.Migrations
                         {
                             UserId = 1,
                             Banned = false,
-                            DateSignedIn = new DateTime(2021, 7, 27, 19, 49, 11, 612, DateTimeKind.Local).AddTicks(5129),
+                            DateSignedIn = new DateTime(2025, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             IsAccountActive = true,
                             IsAdmin = true,
-                            UserAddress = "کرج، بلوار دانش آموز، کوی ولیعصر ،پشت بانک ملی ،کوچه دوازدهم، ساختمان یاس، پلاک ۱۵،طبقه اول ،واحد 2.",
-                            UserEmail = "hosein.asgari.00@gmail.com",
+                            UserAddress = "تهران، دانشگاه شاهد",
+                            UserEmail = "hosein.asgari@gmail.com",
                             UserName = "حسین عسگری",
-                            UserPassword = "F0-99-2F-88-E6-1F-2D-B7-A7-03-F9-29-6C-A2-FA-69",
-                            UserPhoneNumber = "09199908681"
+                            UserPassword = "84-85-F2-CF-5C-63-F1-72-85-B5-BA-29-03-D9-93-BF-F7-D5-5A-AE-91-09-0E-34-4A-86-26-6A-11-D9-74-55",
+                            UserPhoneNumber = "09123456789"
+                        },
+                        new
+                        {
+                            UserId = 2,
+                            Banned = false,
+                            DateSignedIn = new DateTime(2025, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            IsAccountActive = true,
+                            IsAdmin = true,
+                            UserAddress = "تهران، دانشگاه شاهد",
+                            UserEmail = "mohammad.tahriri@gmail.com",
+                            UserName = "محمد تحریری",
+                            UserPassword = "34-F8-G0-CF-5C-23-G1-72-85-B5-BA-A9-03-D9-93-BF-F7-65-5A-AE-91-09-0E-34-4A-86-26-9B-A1-D2-48-15",
+                            UserPhoneNumber = "09123456789"
                         });
                 });
 
@@ -425,8 +446,9 @@ namespace OnlineShop.Infra.Data.Migrations
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
                     b.Property<int>("ProductId")
                         .HasColumnType("int");
@@ -447,8 +469,9 @@ namespace OnlineShop.Infra.Data.Migrations
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
                     b.Property<int>("ProductId")
                         .HasColumnType("int");
@@ -469,8 +492,9 @@ namespace OnlineShop.Infra.Data.Migrations
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
                     b.Property<int>("ProductId")
                         .HasColumnType("int");
@@ -491,8 +515,9 @@ namespace OnlineShop.Infra.Data.Migrations
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
                     b.Property<DateTime>("DateLogged")
                         .HasColumnType("datetime2");

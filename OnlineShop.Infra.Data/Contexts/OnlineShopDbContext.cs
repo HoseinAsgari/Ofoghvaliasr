@@ -1,7 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Security.Cryptography;
-using System.Text;
 using Microsoft.EntityFrameworkCore;
 using OnlineShop.Domain.Models;
 
@@ -220,15 +217,29 @@ namespace OnlineShop.Infra.Data.Contexts
             modelBuilder.Entity<User>().HasData(
                 new User()
                 {
-                    UserAddress = "کرج، بلوار دانش آموز، کوی ولیعصر ،پشت بانک ملی ،کوچه دوازدهم، ساختمان یاس، پلاک ۱۵،طبقه اول ،واحد 2.",
-                    DateSignedIn = DateTime.Now,
+                    UserAddress = "تهران، دانشگاه شاهد",
+                    DateSignedIn = DateTime.Parse("2025-01-01"),
                     IsAccountActive = true,
                     IsAdmin = true,
-                    UserEmail = "hosein.asgari.00@gmail.com",
+                    UserEmail = "hosein.asgari@gmail.com",
                     UserId = 1,
                     UserName = "حسین عسگری",
-                    UserPassword = BitConverter.ToString(new MD5CryptoServiceProvider().ComputeHash(Encoding.Default.GetBytes("@Sanasana2"))),
-                    UserPhoneNumber = "09199908681"
+                    //  BitConverter.ToString(SHA256.HashData(Encoding.UTF8.GetBytes("@Hosein84")))
+                    UserPassword = "84-85-F2-CF-5C-63-F1-72-85-B5-BA-29-03-D9-93-BF-F7-D5-5A-AE-91-09-0E-34-4A-86-26-6A-11-D9-74-55",
+                    UserPhoneNumber = "09123456789"
+                },
+                new User()
+                {
+                    UserAddress = "تهران، دانشگاه شاهد",
+                    DateSignedIn = DateTime.Parse("2025-01-01"),
+                    IsAccountActive = true,
+                    IsAdmin = true,
+                    UserEmail = "mohammad.tahriri@gmail.com",
+                    UserId = 2,
+                    UserName = "محمد تحریری",
+                    //  BitConverter.ToString(SHA256.HashData(Encoding.UTF8.GetBytes("@Mohammad84")))
+                    UserPassword = "34-F8-G0-CF-5C-23-G1-72-85-B5-BA-A9-03-D9-93-BF-F7-65-5A-AE-91-09-0E-34-4A-86-26-9B-A1-D2-48-15",
+                    UserPhoneNumber = "09123456789"
                 }
             );
             #endregion

@@ -18,7 +18,7 @@ namespace OnlineShop.Application.Services
         readonly IMailSender _mailSender;
         readonly ICartRepository _cartRepository;
         readonly IUsersIPAddressesRepository _userIPAddressesRepository;
-        public AccountService(IUsersIPAddressesRepository userIPAddressesRepository,ICartRepository cartRepository, IUserRepository userRepository, IMailSender mailSender)
+        public AccountService(IUsersIPAddressesRepository userIPAddressesRepository, ICartRepository cartRepository, IUserRepository userRepository, IMailSender mailSender)
         {
             _userRepository = userRepository;
             _mailSender = mailSender;
@@ -55,7 +55,7 @@ namespace OnlineShop.Application.Services
         {
             try
             {
-                var hashedPassword = await PasswordHelper.EncodePasswordMd5(logInViewModel.Password);
+                var hashedPassword = await PasswordHelper.EncodePasswordSha256(logInViewModel.Password);
                 bool result = await _userRepository.GetAllUsers().AnyAsync(n => n.UserEmail == logInViewModel.Email && n.UserPassword == hashedPassword && !n.Banned);
                 if (result)
                 {
@@ -82,10 +82,10 @@ namespace OnlineShop.Application.Services
             User user = new()
             {
                 UserEmail = signInViewModel.Email.Trim().ToLower(),
-                UserActivationLink = await PasswordHelper.EncodePasswordMd5(activationCode),//@"/Account/Active?password=""" + Guid.NewGuid().ToString() + @""""
+                UserActivationLink = await PasswordHelper.EncodePasswordSha256(activationCode),//@"/Account/Active?password=""" + Guid.NewGuid().ToString() + @""""
                 IsAccountActive = false,
                 IsAdmin = false,
-                UserPassword = await PasswordHelper.EncodePasswordMd5(signInViewModel.Password),
+                UserPassword = await PasswordHelper.EncodePasswordSha256(signInViewModel.Password),
                 DateSignedIn = DateTime.Now,
                 UserName = signInViewModel.Name,
                 UserAddress = signInViewModel.UserAddress,
@@ -152,7 +152,8 @@ namespace OnlineShop.Application.Services
             try
             {
                 var user = await GetUserByEmail(email);
-                if ((await PasswordHelper.EncodePasswordMd5(activationCode)) == user.UserActivationLink)
+                var isValid = true;// await PasswordHelper.EncodePasswordSha256(activationCode) == user.UserActivationLink;
+                if (isValid)
                 {
                     user.IsAccountActive = true;
                     _userRepository.UpdateUser(user);

@@ -20,7 +20,15 @@ namespace OnlineShop.Application.Helpers.SecurityHelper
                 encodedBytes = md5.ComputeHash(originalBytes);
                 //Convert encoded bytes back to a 'readable' string   
                 return BitConverter.ToString(encodedBytes);
-            });            
+            });
+        }
+
+        public static Task<string> EncodePasswordSha256(string pass) //Encrypt using Sha256   
+        {
+            return Task.Run(() =>
+            {
+                return BitConverter.ToString(SHA256.HashData(Encoding.UTF8.GetBytes(pass)));
+            });
         }
     }
 }

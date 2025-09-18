@@ -18,16 +18,18 @@
             </dl>
             <hr>
             <dd><b>آدرس شما:</b></dd>
-            <div class="text-center" id="changeAddressDiv">
-                <div class="text-start">
-                    <dl>@Model.UserAddress</dl>
-                </div>
-                <button class="btn btn-warning" id="changeAddressBtn" onclick="changeAddress('@Model.UserAddress')">
-                    تغییر
-                    آدرس
-                </button>
-            </div>
         </dl>
+        <div class="text-center" id="changeAddressDiv">
+            <div class="text-start">
+                <dl>@Model.UserAddress</dl>
+            </div>
+            <button class="btn btn-warning mx-2" id="changeAddressBtn" onclick="changeAddress('@Model.UserAddress')">
+                تغییر
+                آدرس
+            </button>
+            <a class="btn btn-danger mx-2" href="/Account/LogOut">خروج</a>
+            <a class="btn btn-success mx-2" href="/Account/Active?email=@User.FindFirstValue(ClaimTypes.Email)">فعال کردن حساب(حالت تستی)</a>
+        </div>
     </div>
 </div>
 
